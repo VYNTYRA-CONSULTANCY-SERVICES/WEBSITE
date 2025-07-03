@@ -281,50 +281,6 @@
       background: linear-gradient(90deg, #007bff, #29A9E1);
       transform: translateY(-2px) scale(1.04);
     }
-    /* Contact Buttons */
-    .cta-buttons {
-      position: relative;
-    }
-    .cta-buttons .btn-primary {
-      padding: 0.7rem 1.5rem;
-      background: linear-gradient(90deg, #29A9E1, #007bff);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: background 0.2s, transform 0.2s;
-      box-shadow: 0 2px 8px #007bff22;
-      position: relative;
-      z-index: 2;
-    }
-    .cta-buttons .btn-primary:hover {
-      background: linear-gradient(90deg, #007bff, #29A9E1);
-      transform: scale(1.05);
-    }
-    #subContactBtns {
-      display: none;
-      flex-direction: column;
-      gap: 0.5rem;
-      position: absolute;
-      top: 110%;
-      right: 0;
-      z-index: 3;
-    }
-    #subContactBtns a {
-      font-size: 0.98rem;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      padding: 0.7rem 1.2rem;
-      text-decoration: none;
-      color: #fff;
-      transition: transform 0.2s;
-    }
-    #subContactBtns a:hover {
-      transform: translateY(-2px);
-    }
     /* Responsive */
     @media (max-width: 900px) {
       .hero h1 { font-size: 2.2rem; }
@@ -373,33 +329,17 @@
         <li><a href="portfolio.html">Portfolio</a></li>
       </ul>
     </nav>
-    <div class="cta-buttons" style="position:relative;">
-      <a href="contactus" class="btn-primary" id="mainContactBtn" style="position:relative;z-index:2;">
-        Contact Us
-      </a>
-      <div id="subContactBtns" style="display:none;flex-direction:column;gap:0.5rem;position:absolute;top:110%;right:0;z-index:3;">
-        <a href="tel:+919390515106" class="btn-primary" style="background:linear-gradient(90deg,#007bff,#29A9E1);font-size:0.98rem;">
-          <i class="fa fa-phone" style="margin-right:7px;"></i> +91 9390515106 (Mobile)
-        </a>
-        <a href="https://wa.me/919390515106" target="_blank" class="btn-primary" style="background:linear-gradient(90deg,#25d366,#128c7e);font-size:0.98rem;">
-          <i class="fa fa-whatsapp" style="margin-right:7px;"></i> +91 9390515106 (WhatsApp)
-        </a>
-        <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="background:linear-gradient(90deg,#ffb300,#ff9800);font-size:0.98rem;">
-          <i class="fa fa-envelope" style="margin-right:7px;"></i> vyntyraindia@aol.com (Email)
-        </a>
-      </div>
+    <div class="cta-buttons">
+      <a href="#contactus" class="btn-primary">Contact Us</a>
     </div>
     <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
   </header>
-   <!-- Hero Section -->
+  <!-- Hero Section -->
   <div class="hero">
     <div class="search-bar-container">
       <form class="search-bar" autocomplete="off">
         <i class="fa fa-search"></i>
-        <div class="scrolling-text">
-          <div id="search-marquee">Search careers, News, Updates, services, or topics...</div>
-          <input type="text" placeholder="" name="search" />
-        </div>
+        <input type="text" placeholder="Search careers, News, Updates, services, or topics..." name="search" />
         <button type="submit">Search</button>
       </form>
     </div>
@@ -460,39 +400,6 @@
         window.location.href = 'careers.html';
       });
     });
-  });
-
-  // Contact buttons script
-  document.addEventListener('DOMContentLoaded', function() {
-    const mainBtn = document.getElementById('mainContactBtn');
-    const subBtns = document.getElementById('subContactBtns');
-    let hideTimeout;
-
-    function showSubBtns() {
-      clearTimeout(hideTimeout);
-      subBtns.style.display = 'flex';
-    }
-    function hideSubBtns() {
-      hideTimeout = setTimeout(() => {
-        subBtns.style.display = 'none';
-      }, 300);
-    }
-
-    if (mainBtn && subBtns) {
-      mainBtn.addEventListener('mouseenter', showSubBtns);
-      mainBtn.addEventListener('focus', showSubBtns);
-      mainBtn.addEventListener('mouseleave', hideSubBtns);
-      subBtns.addEventListener('mouseenter', showSubBtns);
-      subBtns.addEventListener('mouseleave', hideSubBtns);
-
-      // For mobile: toggle on click
-      mainBtn.addEventListener('click', function(e) {
-        if (window.innerWidth < 900) {
-          e.preventDefault();
-          subBtns.style.display = subBtns.style.display === 'flex' ? 'none' : 'flex';
-        }
-      });
-    }
   });
   </script>
   <div>
@@ -606,10 +513,8 @@
 </footer>
 </body>
 </html>
-<!-- Footer (Optional) -->
-  <footer style="background:#cde4ff;color:#fff;padding:2rem 0;text-align:center;">
+ <footer style="background:#959aa0;color:#fff;padding:2rem 0;text-align:center;">
     <p style="margin:0;font-size:0.9rem;">
-      &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
-      <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
     </p>
   </footer>
