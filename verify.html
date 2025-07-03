@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificate Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            background: linear-gradient(120deg,#f7faff 60%,#e3f0ff 100%);
+        }
+        .background-video-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .hero-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        .animated-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(120deg,#f7faff 60%,#e3f0ff 100%);
+            opacity: 0.7;
+            z-index: 1;
+            pointer-events: none;
+        }
+        header {
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 12px #007bff11;
+            position: relative;
+            z-index: 10;
+        }
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.1rem 1.5rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            letter-spacing: 2px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #222;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        nav ul li a.active, nav ul li a:hover {
+            color: #007bff;
+        }
+        .container {
+            max-width: 420px;
+            margin: 90px auto 60px auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #007bff22;
+            position: relative;
+            z-index: 2;
+        }
+        input, button {
+            width: 100%;
+            padding: 0.7rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+        }
+        .result { margin-top: 1.5rem; }
+        .valid { color: #28a745; }
+        .invalid { color: #e53935; }
+        .download-link {
+            display:inline-block;
+            margin-top:1rem;
+            background:#28a745;
+            color:#fff;
+            padding:0.5rem 1.2rem;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:600;
+        }
+        .search-tip {
+            font-size: 0.97rem;
+            color: #555;
+            margin-bottom: 0.7rem;
+            text-align: center;
+        }
+        footer {
+            background: #cde4ff;
+            color: #222;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+            font-size: 1rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 2rem;
+        }
+        .footer-slogan {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .footer-brand-banner-section img {
+            max-width: 220px;
+            width: 100%;
+            margin-top: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #007bff11;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video-container">
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="images/herosectionbackground.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="animated-bg"></div>
+    <header>
+        <div class="main-header">
+            <div class="logo"></div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="updates.html">Updates</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="verify.html" class="active">Certificate Verification</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h2 style="text-align:center;color:#007bff;margin-bottom:0.5rem;">Certificate Verification</h2>
+        <div class="search-tip">
+            Enter your <b>Certificate ID</b> to verify and download your certificate.
+        </div>
+        <form id="verifyForm" autocomplete="off">
+            <input type="text" id="cert_id" placeholder="Certificate ID" required>
+            <button type="submit">Verify Certificate</button>
+        </form>
+        <div id="result" class="result"></div>
+        <div style="margin-top:2.5rem;font-size:0.97rem;color:#888;text-align:center;">
+            <b>Note:</b> Only INTERNSHIP Completion certificates issued by Vyntyra Consultancy Services can be verified here. If you are unable to find your certificate, please ensure you have entered the correct Certificate ID. If you still face issues, contact us at <a href="mailto:vyntyraindia@aol.com">vyntyraindia@aol.com</a>
+        </div>
+    </div>
+    <div style="border:2.5px dashed #29A9E1; border-radius:22px; background:linear-gradient(120deg,#f7faff 60%,#e3f0ff 100%); box-shadow:0 4px 32px #007bff18; padding:2.5rem 1.5rem 2rem 1.5rem; margin:2.5rem auto 2rem auto; max-width:1200px; position:relative; overflow:hidden;">
+      <!-- Decorative floating shapes -->
+      <div style="position:absolute;top:-30px;left:-30px;width:70px;height:70px;background:radial-gradient(circle,#29A9E1 60%,transparent 100%);opacity:0.18;z-index:0;border-radius:50%;"></div>
+      <div style="position:absolute;bottom:-30px;right:-30px;width:90px;height:90px;background:radial-gradient(circle,#ffb300 60%,transparent 100%);opacity:0.13;z-index:0;border-radius:50%;"></div>
+      <div class="site-map-section" style="position:relative;z-index:1;">
+        <div class="site-map-left-side" style="min-width:230px;">
+          <p class="site-map-para" style="font-weight:700;color:#242525;font-size:1.1rem;letter-spacing:1px;">SITE MAP</p>
+          <h6 class="site-map-heading" style="font-size:1.1rem;color:#222;margin-bottom:0.7rem;">Find all our links here</h6>
+          <p class="site-coffee-para" style="color:#d49709;font-weight:600;">MEET FOR A COLLABORATION</p>
+          <p class="footer-adress" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+        </div>
+        <div class="site-map-right-side" style="display:flex;flex-wrap:wrap;gap:2.5rem;">
+          <ul>
+            <li class="link-heading" style="color:#000000;font-weight:700;">EXPLORE</li>
+            <li><a href="home.html" class="nav-foot-link">Home</a></li>
+            <li><a href="about.html" class="nav-foot-link">About Us</a></li>
+            <li><a href="updates.html" class="nav-foot-link">Updates</a></li>
+            <li><a href="news.html" class="nav-foot-link">News</a></li>
+            <li><a href="careers.html" class="nav-foot-link">Careers</a></li>
+            <li><a href="portfolio.html" class="nav-foot-link">Portfolio</a></li>
+            <li><a href="verify.html" class="nav-foot-link">Certificate Verification</a></li>
+            <li><a href="contactus" class="nav-foot-link">Contact Us</a></li>
+          </ul>
+          <ul>
+            <li class="link-heading" style="color:#000000;font-weight:700;">COMPANY</li>
+            <li><a class="nav-foot-link" href="about.html">About Us</a></li>
+            <li><a href="#" class="nav-foot-link">Blogs</a></li>
+            <li><a href="careers.html" class="nav-foot-link">Career  <font style="animation: pulse 2s infinite;"><span class="hiring-chip" style="background:#ffb300;color:#fff;padding:4px 8px;border-radius:8px;font-size:0.85em;">WE ARE HIRING INTERNS</span></font></a></li>
+          </ul>
+          <ul>
+            <li class="link-heading" style="color:#101011;font-weight:700;">USER</li>
+            <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a></li>
+            <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
+          </ul>
+          <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
+          <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+        </div>
+      </div>
+      <!-- Decorative line -->
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#29A9E1,#ffb300);opacity:0.08;z-index:0;transform:translateX(-50%);"></div>
+    </div>
+    <div class="social-media-section" style="text-align:center;padding-bottom:1.2rem;">
+      <h5 class="social-media-heading" style="font-size:1.1rem;color:#5c5050;font-weight:700;letter-spacing:1px;margin-bottom:1.2rem;">
+        Find us on ❤️ social media
+      </h5>
+      <div style="display:flex;justify-content:center;">
+        <table style="margin:auto;border-collapse:separate;border-spacing:0 0.7rem;background:rgba(255,255,255,0.95);border-radius:18px;box-shadow:0 2px 16px #007bff11;">
+          <tr>
+            <td style="padding:0.7rem 1.5rem;">
+              <a href="https://www.linkedin.com/company/vyntyra-consultancy-services/" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+               LinkedIn
+              </a>
+            </td>
+            <td style="padding:0.7rem 1.5rem;">
+              <a href="mailto:vyntyraindia@aol.com" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#141010;font-size:1.08rem;">
+                Mail
+              </a>
+            </td>
+            <td style="padding:0.7rem 1.5rem;">
+              <a href="https://twitter.com/vyntyraindia" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#2e2d2d;font-size:1.08rem;">
+                Twitter
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0.7rem 1.5rem;">
+              <a href="https://www.instagram.com/vyntyraindia/?hl=en" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+                 Instagram
+              </a>
+            </td>
+            <td style="padding:0.7rem 1.5rem;">
+              <a href="https://www.facebook.com/vyntyra-consultancy-services/?_rdr" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+                 Facebook
+              </a>
+            </td>
+            <td style="padding:0.7rem 1.5rem;">
+              <span style="display:flex;align-items:center;gap:0.5em;color:#888;font-size:1.08rem;opacity:0.6;cursor:not-allowed;">
+                <p></p>With ❤️ from Vyntyra
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="copyright-section" style="text-align:center;padding:0.7rem 0 0.2rem 0;">
+      <p class="copyright-para" style="color:#888;font-size:0.98rem;">©Vyntyra Consultancy Services 2025 · 2026</p>
+      <div class="copyright-nav-container" style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+        <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">User Agreement</a>
+        <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">Terms and Condition</a>
+        <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/">Privacy policy</a>
+      </div>
+    </div>
+    <div class="footer-brand-banner-section" style="text-align:center;padding:1.2rem 0 0.5rem 0;">
+      <p class="footer-slogan" style="font-size:1.1rem;color:#000000;font-weight:700;letter-spacing:2px;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</p>
+      <img src="images/logo.png" alt="Vyntyra Logo" style="max-width:120px;width:100px;margin:0.5rem auto 0.5rem auto;display:block;">
+      <img src="images/rinex_footer_banner.png" alt="" style="max-width:220px;width:100%;margin-top:0.5rem;border-radius:12px;box-shadow:0 2px 12px #007bff11;">
+    </div>
+    <marquee style="background:#fffbe7;color:#e53935;font-weight:700;font-size:1.05rem;padding:0.6rem 0;letter-spacing:1px;border-bottom:2px solid #ffb300;">
+        This portal is only for certificate verification purposes. Do not attempt to mislead or misuse this service.
+    </marquee>
+    <script>
+    // Example certificate data (add more as needed)
+    const certificates = [
+        {
+            id: "VCS25INTMA001",
+            name: "SIDDHI AGGARWAL",
+            course: "3-Month Internship Program as Chief Marketing Officer(CFO)",
+            issue_date_and_time: "26/07/2025,10:22:34 AM",
+            file: "certificates/VCS25INTMA001.pdf"
+        },
+        {
+            id: "VCS2024-002",
+            name: "Harshitha Patnana",
+            course: "UI/UX Design",
+            issue_date: "2024-06-20",
+            file: "certificates/VCS2024-002.pdf"
+        }
+        // Add more certificate objects here
+    ];
+
+    document.getElementById('verifyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const certId = document.getElementById('cert_id').value.trim();
+        const cert = certificates.find(c => c.id.toLowerCase() === certId.toLowerCase());
+        const resultDiv = document.getElementById('result');
+        if (cert) {
+            // Get file extension for download attribute
+            const fileExt = cert.file.split('.').pop();
+            const driveUrl = "https://drive.google.com/file/d/1KiXWKkO8RL9tbUX_HE6D8Bb0uSFiVA7K/view?usp=drivesdk";
+            resultDiv.innerHTML = `
+                <div class="valid">
+                    <b>Certificate is VERIFIED by Organisation</b><br>
+                    Name: ${cert.name}<br>
+                    Certificate ID: ${cert.id}<br>
+                    Course: ${cert.course || cert["Internship Details"] || ""}<br>
+                    Issue Date: ${cert.issue_date || cert.issue_date_and_time || ""}<br>
+                    <a class="download-link" href="${driveUrl}" target="_blank" rel="noopener">
+                        Download Certificate (.${fileExt})
+                    </a>
+                </div>
+            `;
+            // Auto-forward to Google Drive on download click
+            document.querySelector('.download-link').addEventListener('click', function(e) {
+                window.open(driveUrl, '_blank');
+            });
+        } else {
+            resultDiv.innerHTML = `
+                <div class="invalid">
+                    No certificate data found for the entered ID.
+                </div>
+            `;
+        }
+    });
+    </script>
+</body>
+</html>
+<!-- Footer (Optional) -->
+  <footer style="background:#cde4ff;color:#fff;padding:2rem 0;text-align:center;">
+    <p style="margin:0;font-size:0.9rem;">
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
+      <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>
+    </p>
+  </footer>
