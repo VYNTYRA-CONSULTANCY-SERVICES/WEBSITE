@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Updates | Vyntyra Consultancy Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --primary-blue: #0084ff;
+    --yellow-accent: #ffb300;
+    --soft-bg: #f7faff;
+    --soft-card: #fff;
+    --border-color: #e0e0e0;
+    --shadow: 0 8px 32px #0001;
+  }
+  body {
+    font-family: 'Poppins', 'Manrope', 'Inter', Arial, sans-serif;
+    background: linear-gradient(120deg, #f7faff 0%, #e3f0ff 100%);
+    color: #1a1a1a; /* Match about.html */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+  }
+    .background-video-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.18;
+    }
+    .background-video-container video.hero-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+      pointer-events: none;
+    }
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 20% 30%, #2a5298 0%, transparent 60%),
+                  radial-gradient(circle at 80% 70%, #6dd5ed 0%, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #ffb30044 0%, transparent 70%);
+      animation: moveBg 10s linear infinite alternate;
+      opacity: 0.25;
+    }
+    @keyframes moveBg {
+      0% { background-position: 20% 30%, 80% 70%, 50% 50%; }
+      100% { background-position: 30% 40%, 70% 60%, 55% 55%; }
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: var(--soft-card);
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .logo .logo\.png {
+      width: 48px;
+      height: 48px;
+      background: url('logo.png') no-repeat center center/contain;
+      border-radius: 8px;
+    }
+    .subnav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .subnav a {
+      color: #050404;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: color 0.2s;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+    .subnav a.active,
+    .subnav a:hover {
+      color: var(--primary-blue);
+    }
+    .cta-buttons .btn-primary {
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(90deg, #29A9E1, #007bff);
+      color: #c9c9c9;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px #1b1b1b22;
+    }
+    .cta-buttons .btn-primary:hover {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      transform: scale(1.05);
+    }
+    @media (max-width: 900px) {
+      header { padding: 0.7rem 1rem; }
+      .subnav ul { gap: 1rem; }
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .subnav ul { flex-direction: column; gap: 0.7rem; }
+    }
+    .about-section {
+      margin: 3rem auto 2.5rem auto;
+      max-width: 900px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1.5s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .about-section h1, .about-section h2,
+    .internship-section h2, .internship-section h3 {
+      color: #2a5298;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #6dd5ed22;
+    }
+    .about-section h1, .internship-section h2 {
+      color: #007bff;
+      background: linear-gradient(90deg, #007bff 60%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 2.2rem;
+      font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .about-section h2, .internship-section h3 {
+      color: #29A9E1;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      margin-bottom: 0.7rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-weight: 600;
+      text-shadow: none;
+      background: none;
+      -webkit-text-fill-color: initial;
+    }
+    .about-section p, .about-section ul,
+    .internship-section p, .internship-section ul {
+      color: #374151;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    .about-section ul li,
+    .internship-section ul li {
+      color: #444;
+      font-size: 1.05rem;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .about-highlight,
+    .internship-section .highlight {
+      color: #ffb300;
+      font-weight: bold;
+      font-size: 1.15rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: block;
+      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .role-title {
+      color: #007bff;
+      font-weight: 700;
+      background: linear-gradient(90deg, #007bff 0%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 8px #6dd5ed22;
+      font-size: 1.25rem;
+      font-family: 'Pacifico', cursive;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .role-desc {
+      color: #374151;
+      font-size: 1rem;
+      font-family: 'Roboto', Arial, sans-serif;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    .role-icon {
+      color: #ffb300;
+      filter: drop-shadow(0 2px 8px #0002);
+      font-size: 1.5rem;
+    }
+    .navbar .brand {
+      color: #ffb300;
+      text-shadow: 0 2px 8px #0002;
+    }
+    .navbar .nav-links a {
+      color: #007bff !important;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .navbar .nav-links a.active,
+    .navbar .nav-links a:hover {
+      color: #ffb300 !important;
+    }
+    .navbar .social-links a,
+    .navbar .social-links .dropdown > a {
+      color: #fff;
+      background: linear-gradient(90deg, #6dd5ed 0%, #2a5298 100%);
+    }
+    .navbar .social-links a:hover,
+    .navbar .social-links .dropdown > a:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
+      color: #ffb300;
+    }
+    .know-more-btn {
+      background: linear-gradient(90deg, #007bff 0%, #ffb300 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #007bff22;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .know-more-btn:hover {
+      background: linear-gradient(90deg, #29A9E1 0%, #ffb300 100%);
+      transform: scale(1.05);
+    }
+    /* Marquee styling for hiring notice */
+    .marquee-content {
+      background: linear-gradient(90deg, #ffb300 0%, #e53935 50%, #6dd5ed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-weight: bold;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #fff2;
+      animation: glow 2.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 2px 8px #fff2, 0 0 10px #ffb30044; }
+      to { text-shadow: 0 4px 16px #6dd5ed44, 0 0 20px #e5393544; }
+    }
+    /* Card animation for service boxes */
+    .about-section > div > div {
+      animation: fadeInUp 1.2s;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .about-section > div > div:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 24px #6dd5ed44;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .about-section h1, .about-section h2 {
+        font-size: 1.3rem;
+      }
+    }
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(30,60,114,0.7);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      box-shadow: 0 2px 12px rgba(30,60,114,0.15);
+      animation: fadeInDown 1s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .navbar .brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+      text-shadow: 0 2px 8px #0002;
+      display: flex;
+      align-items: center;
+    }
+    .navbar .nav-center {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 22px;
+    }
+    .navbar .nav-links a {
+      color: #000000 !important;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: color 0.2s;
+    }
+    .navbar .nav-links a:hover {
+      color: #6dd5ed !important;
+    }
+    .navbar .social-links {
+      display: flex;
+      gap: 24px;
+      margin-right: 36px;
+    }
+    .navbar .social-links a,
+    .navbar .social-links .dropdown > a {
+      color: #fff;
+      background: linear-gradient(90deg, #6dd5ed 0%, #2a5298 100%);
+    }
+    .navbar .social-links a:hover,
+    .navbar .social-links .dropdown > a:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
+      color: #ffb300;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 #6dd5ed44; }
+      50% { box-shadow: 0 0 16px 8px #6dd5ed44; }
+    }
+    .about-section {
+      max-width: 900px;
+      margin: 130px auto 2.5rem auto;
+      background: rgba(255,255,255,0.10);
+      border-radius: 22px;
+      box-shadow: 0 4px 24px #0003;
+      padding: 2.5rem 2rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.2s;
+    }
+    .about-section h1 {
+      color: #ffb300;
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #0002;
+    }
+    .about-section h2 {
+      color: #6dd5ed;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      margin-bottom: 0.7rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+    .about-section p, .about-section ul {
+      color: #374151;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    .about-section ul {
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-section ul li {
+      margin-bottom: 0.4rem;
+      line-height: 1.6;
+    }
+    .about-highlight {
+      color: #ffb300;
+      font-weight: bold;
+      font-size: 1.15rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: block;
+      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @media (max-width: 600px) {
+      .about-section {
+        padding: 1.2rem 0.5rem;
+      }
+    }
+    .know-more-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 24px;
+      background: linear-gradient(90deg, #ffb300 0%, #e53935 50%, #6dd5ed 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0002;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .know-more-btn:hover {
+      background: linear-gradient(90deg, #76a0aaa4 0%, #e5383525 50%, #8b6e2a8c 100%);
+      transform: scale(1.05);
+    }
+    .auth-action-btn, .auth-role-btn {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.7rem 0;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #4ea0b3a2 0%, #385b969d 100%);
+      color: #000000;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .auth-action-btn:hover, .auth-role-btn:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
+      transform: scale(1.04);
+    }
+    .auth-provider-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .auth-provider-btn {
+      flex: 1 1 45%;
+      min-width: 120px;
+      margin-bottom: 0.5rem;
+      padding: 0.6rem 0.5rem;
+      border: none;
+      border-radius: 8px;
+      background: #080808;
+      color: #222;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    /* Remove gradient fill and use multicolor effect with span tags */
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
+      background-clip: initial;
+      color: #ffb300; /* fallback color */
+    }
+    .marquee-content i {
+      margin-right: 12px;
+      color: #e53935; /* bright red */
+      font-size: 1.3em;
+      vertical-align: middle;
+      animation: shake 1.5s infinite;
+      filter: none;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(100vw);}
+      100% { transform: translateX(-100%);}
+    }
+    @keyframes shake {
+      0%, 100% { transform: rotate(-10deg);}
+      50% { transform: rotate(10deg);}
+    }
+    .internship-section {
+      max-width: 900px;
+      margin: 2.5rem auto 1.5rem auto;
+      background: rgba(255,255,255,0.10);
+      border-radius: 22px;
+      box-shadow: 0 4px 24px #0003;
+      padding: 2.5rem 2rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .internship-section h2 {
+      color: #ffb300;
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #0002;
+    }
+    .internship-section h3 {
+      color: #6dd5ed;
+      margin-bottom: 0.5rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+    }
+    .internship-section p,
+    .internship-section ul,
+    .internship-section ul li {
+      color: #374151;
+      font-size: 1.08rem;
+      font-family: 'Roboto', Arial, sans-serif;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    .internship-section .highlight {
+      color: #ffb300;
+      font-weight: bold;
+      font-size: 1.15rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @media (max-width: 600px) {
+      .internship-section {
+        padding: 1.2rem 0.5rem;
+      }
+      .roles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @keyframes blinkLight {
+      0% { filter: brightness(1.2); text-shadow: 0 0 8px #fff700, 0 0 16px #fff700; }
+      100% { filter: brightness(2); text-shadow: 0 0 16px #fff700, 0 0 32px #fff700; }
+    }
+
+    /* New styles for marquee text */
+    
+    marquee {
+      color: transparent;
+      font-weight: bold;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .marquee-gradient-text {
+      background: linear-gradient(90deg, #ffb300 0%, #e53935 50%, #6dd5ed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+    .background-video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .hero-video {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      animation: fadeInDown 0.8s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .logo {
+      font-family: 'Tex Gyre Bonum', 'Poppins', Arial, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffb300;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 2px 8px #0002;
+    }
+    .logo .logo.png {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: url('logo.png') no-repeat center center;
+      background-size: contain;
+      margin-right: 0.8rem;
+    }
+    .subnav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .subnav ul {
+      display: flex;
+      gap: 1.2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .subnav ul li {
+      position: relative;
+    }
+    .subnav ul li a {
+      color: #525050;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .subnav ul li a.active {
+      color: #6dd5ed;
+      font-weight: 600;
+    }
+    .subnav ul li a:hover {
+      color: #6dd5ed;
+    }
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #6dd5ed 0%, #2a5298 100%);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
+      transform: translateY(-2px);
+    }
+    .bars {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .subnav {
+        display: none;
+      }
+      .bars {
+        display: block;
+        color: #000000;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-video-container">
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="images/herosectionbackground.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="animated-bg"></div>
+  <header>
+    <div class="logo">
+      <a href="home.html" style="display:inline-block;"><div class="logo.png"></div></a>
+    </div>
+    <nav class="subnav">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="updates.html" class="active">Updates</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </nav>
+    <div class="cta-buttons" style="position:relative;">
+      <button id="contactUsBtn" class="btn-primary" type="button" style="position:relative;z-index:11;">
+        Contact Us <i class="fa fa-caret-down"></i>
+      </button>
+      <div id="contactSubButtons" style="display:none; position:absolute; right:0; top:110%; background:#000000; border-radius:12px; box-shadow:0 4px 24px #007bff22; min-width:220px; padding:0.7rem 0; z-index:12;">
+        <a href="tel:+919390515106" class="btn-primary" style="display:block; margin:0.3rem 1rem; background:#000000; color:#007bff; border-radius:8px; text-align:left; font-weight:600;"><i class="fa fa-phone"></i> +91 9390515106</a>
+        <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#007bff; border-radius:8px; text-align:left; font-weight:600;"><i class="fa fa-envelope"></i> vyntyraindia@aol.com</a>
+        <a href="https://api.whatsapp.com/send/?phone=919390515106&text&type=phone_number&app_absent=0" class="btn-primary" target="_blank" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#25d366; border-radius:8px; text-align:left; font-weight:600;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+    <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
+  </header>
+
+  <!-- Marquee for Hiring Interns -->
+  <marquee behavior="scroll" direction="left" scrollamount="7" style="margin-top:80px;z-index:3;position:relative;">
+    <span class="marquee-gradient-text" style="font-weight:bold;font-size:1.13rem;">
+      🚀 We are hiring interns! <a href="#internship-application" style="color:#ffb300;text-decoration:underline;font-weight:700;">Apply and join our team</a> and be a part of our success!
+    </span>
+  </marquee>
+
+  <!-- Add this search bar just after the header -->
+  <div class="search-bar-container" style="margin-top:110px; display:flex; justify-content:center; z-index:2; position:relative;">
+  <section class="internship-section">
+    <h2>Open Internship Roles</h2>
+
+    <div class="marquee-update" style="margin-top:0;">
+      <a href="website.zip" download style="text-decoration:none;">
+        <div class="marquee-content" style="cursor:pointer;">
+
+        </div>
+      </a>
+    </div>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-code role-icon"></i>Web Development Intern</span>
+        <div class="role-desc">
+          Build and maintain modern, responsive websites and web apps. Work with HTML, CSS, JavaScript, and frameworks like React or Angular. Collaborate with designers and backend teams to deliver seamless digital experiences.
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-paint-brush role-icon"></i>UI &amp; UX Designer Intern</span>
+        <div class="role-desc">
+          Design intuitive user interfaces and craft engaging user experiences. Use Figma, Adobe XD, or Sketch to create wireframes and prototypes. Conduct user research and usability testing to refine designs.
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-scale-balanced role-icon"></i>Legal Advisor Intern</span>
+        <div class="role-desc">
+          Assist in legal research, contract drafting, and compliance checks. Support the team in understanding IT laws, data privacy, and intellectual property rights relevant to consultancy projects.
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-bullhorn role-icon"></i>Marketing &amp; Branding Intern</span>
+        <div class="role-desc">
+          Develop creative marketing campaigns, manage social media, and help build the Vyntyra brand. Analyze trends, create content, and engage with our audience across platforms.
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-flask-vial role-icon"></i>Research &amp; Development Intern</span>
+        <div class="role-desc">
+          Conduct market research, analyze industry trends, and contribute to innovative consultancy solutions. Work closely with senior consultants on R&amp;D projects.
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-users role-icon"></i>HR &amp; Recruitment Intern</span>
+        <div class="role-desc">
+          Support hiring and onboarding processes, screen candidates, and help organize team-building activities. Gain hands-on experience in HR operations and talent management.
+        </div>
+      </div>
+      <div class="role-card">
+        <span class="role-title"><i class="fa-solid fa-pen-nib role-icon"></i>Content Writer Intern</span>
+        <div class="role-desc">
+          Create engaging articles, blogs, and social media posts. Edit and proofread content, and collaborate with marketing and design teams to deliver impactful messaging.
+        </div>
+      </div>
+    </div>
+    <h3>Role Description</h3>
+    <p style="color:#374151; background:#fff; border-radius:12px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; font-size:1.08rem; font-family:'Roboto', Arial, sans-serif; line-height:1.7; margin-bottom:1.5rem;">
+      This is a full-time remote internship role for a Student Intern. Interns will assist in developing and executing IT consultancy projects, supporting hiring and recruitment initiatives, engaging in branding and marketing activities, and contributing to research &amp; development efforts. Daily tasks will include conducting market research, creating content, assisting in project management, and collaborating with various departments to ensure the success of consultancy solutions.
+    </p>
+    <h3>Qualifications</h3>
+    <ul>
+      <li>Research and Analytical skills</li>
+      <li>Content Creation, Writing, and Editing skills</li>
+      <li>Project Management and Organizational skills</li>
+      <li>Marketing and Branding knowledge</li>
+      <li>Strong collaboration and communication skills</li>
+      <li>Ability to work independently and remotely</li>
+      <li>Knowledge of IT and consultancy industry trends is a plus</li>
+      <li>Currently pursuing a Bachelor’s degree in a relevant field</li>
+    </ul>
+    <h3>Why choose us?</h3>
+    <ul>
+      <li>✅ Gain invaluable real-world experience</li>
+      <li>✅ Develop essential skills</li>
+      <li>✅ Benefit from expert training &amp; mentorship</li>
+      <li>✅ Work with a team of professionals from top institutions (IITs, NITs &amp; more!)</li>
+    </ul>
+    <h3>What you get when you intern with us:</h3>
+    <ul>
+      <li>✅ Hands-on Experience</li>
+      <li>✅ Tackle Real-world Challenges</li>
+      <li>✅ Benefit from Full-Time Mentorship</li>
+      <li>✅ Receive a Letter of Recommendation (LOR)</li>
+      <li>✅ Earn a Certificate under MSME &amp; Skill India (great for your resume!)</li>
+    </ul>
+    <h3>Who Can Apply?</h3>
+    <ul>
+      <li>Any Undergraduate from Both Engineering &amp; Management</li>
+      <li>Currently In 1st, 2nd, 3rd Year in any Stream</li>
+      <li>Who have Good Time Management</li>
+      <li>Self Motivated Looking for Opportunities to Prove themselves</li>
+      <li>Good at Communication</li>
+      <li>Minimum Skills Related to their Stream / Curriculum</li>
+    </ul>
+    <div class="highlight">
+      Take the first step towards a brighter future! ✨
+    </div>
+
+    <!-- Internship Application Form Start -->
+    <section id="internship-application" style="margin-top:2.5rem;">
+      <h2 style="color:#007bff;text-align:center;font-family:'Pacifico',cursive;font-size:2rem;margin-bottom:1.2rem;">
+        Internship Application Form
+      </h2>
+      <form id="internshipAppForm" style="max-width:480px;margin:0 auto 2rem auto;background:#fff;border-radius:18px;box-shadow:0 4px 24px #007bff22;padding:2rem 1.5rem;">
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantName" style="font-weight:600;display:block;margin-bottom:0.3rem;">Full Name</label>
+          <input type="text" id="applicantName" name="name" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantEmail" style="font-weight:600;display:block;margin-bottom:0.3rem;">Email</label>
+          <input type="email" id="applicantEmail" name="email" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantPhone" style="font-weight:600;display:block;margin-bottom:0.3rem;">Phone Number</label>
+          <input type="tel" id="applicantPhone" name="phone" pattern="[0-9+\-\s]{7,}" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantDegree" style="font-weight:600;display:block;margin-bottom:0.3rem;">Degree/Branch</label>
+          <input type="text" id="applicantDegree" name="degree" required placeholder="e.g. B.Tech CSE, BBA, etc." style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantYear" style="font-weight:600;display:block;margin-bottom:0.3rem;">Year of Study</label>
+          <select id="applicantYear" name="year" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+            <option value="">Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>Final Year</option>
+          </select>
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantRole" style="font-weight:600;display:block;margin-bottom:0.3rem;">Preferred Internship Role</label>
+          <select id="applicantRole" name="role" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+            <option value="">Select Role</option>
+            <option>Web Development Intern</option>
+            <option>UI & UX Designer Intern</option>
+            <option>Legal Advisor Intern</option>
+            <option>Marketing & Branding Intern</option>
+            <option>Research & Development Intern</option>
+            <option>HR & Recruitment Intern</option>
+            <option>Content Writer Intern</option>
+          </select>
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantSkills" style="font-weight:600;display:block;margin-bottom:0.3rem;">Key Skills (comma separated)</label>
+          <input type="text" id="applicantSkills" name="skills" required placeholder="e.g. HTML, Python, Communication" style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+        </div>
+        <div style="margin-bottom:1.1rem;">
+          <label for="applicantWhy" style="font-weight:600;display:block;margin-bottom:0.3rem;">Why do you want to intern with us?</label>
+          <textarea id="applicantWhy" name="why" rows="3" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;resize:vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;padding:0.7rem 0;font-size:1.08rem;font-weight:700;border-radius:24px;margin-top:0.7rem;">
+          Submit Application
+        </button>
+        <div id="internshipAppSuccess" style="display:none;margin-top:1.2rem;text-align:center;color:#2a5298;font-weight:600;"></div>
+      </form>
+    </section>
+    <!-- Internship Application Form End -->
+
+<!-- ...existing code continues... -->
+
+<script>
+    // Hide Instagram dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      var instaDropdown = document.getElementById('instaDropdown');
+      if (instaDropdown && !instaDropdown.contains(event.target) && !event.target.closest('.fab.fa-instagram')) {
+        instaDropdown.style.display = 'none';
+      }
+    });
+    // Login modal functions (if needed)
+    function showLoginOptions(e) {
+      e.preventDefault();
+      // Implement your login modal logic here
+      alert('Show login options modal here.');
+    }
+    function closeLoginOptions() {
+      // Implement your close modal logic here
+    }
+    document.querySelector('.search-bar').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
+      if (val.match(/^(about|about us|abou)$/)) {
+        window.location.href = 'about.html';
+      } else if (val.match(/^(updates?|update)$/)) {
+        window.location.href = 'updates.html';
+      } else if (val.match(/^(news)$/)) {
+        window.location.href = 'news.html';
+      } else if (val.match(/^(careers?|career)$/)) {
+        window.location.href = 'careers.html';
+      }
+    });
+    // Toggle contact sub-buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('contactUsBtn');
+      const subBtns = document.getElementById('contactSubButtons');
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        subBtns.style.display = (subBtns.style.display === 'block') ? 'none' : 'block';
+      });
+      // Hide on click outside
+      document.addEventListener('click', function(e) {
+        if (subBtns.style.display === 'block' && !btn.contains(e.target) && !subBtns.contains(e.target)) {
+          subBtns.style.display = 'none';
+        }
+      });
+    });
+    // Internship Application Form Submission
+  document.getElementById('internshipAppForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // You can integrate with your backend/email API here.
+    document.getElementById('internshipAppSuccess').textContent = "Thank you! Your application has been submitted. We'll contact you if shortlisted.";
+    document.getElementById('internshipAppSuccess').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('internshipAppForm').reset();
+      document.getElementById('internshipAppSuccess').style.display = 'none';
+    }, 3000);
+  });
+  </script>
+</body>
+</html>
+ <footer style="background:#959aa0;color:#fff;padding:2rem 0;text-align:center;">
+    <p style="margin:0;font-size:0.9rem;">
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
+    </p>
+  </footer>

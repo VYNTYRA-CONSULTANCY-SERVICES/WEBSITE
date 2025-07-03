@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us | Vyntyra Consultancy Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Google Fonts: Poppins, Inter, Manrope -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600;700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0084ff;
+      --yellow-accent: #ffb300;
+      --soft-bg: #f7faff;
+      --soft-card: #fff;
+      --border-color: #e0e0e0;
+      --shadow: 0 8px 32px #0001;
+    }
+    body {
+      font-family: 'Poppins', 'Manrope', 'Inter', Arial, sans-serif;
+      background: linear-gradient(120deg, #f7faff 0%, #e3f0ff 100%);
+      color: #1a1a1a;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .background-video-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.18;
+    }
+    .background-video-container video.hero-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+      pointer-events: none;
+    }
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 20% 30%, #2a5298 0%, transparent 60%),
+                  radial-gradient(circle at 80% 70%, #6dd5ed 0%, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #ffb30044 0%, transparent 70%);
+      animation: moveBg 10s linear infinite alternate;
+      opacity: 0.25;
+    }
+    @keyframes moveBg {
+      0% { background-position: 20% 30%, 80% 70%, 50% 50%; }
+      100% { background-position: 30% 40%, 70% 60%, 55% 55%; }
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: var(--soft-card);
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .logo .logo\.png {
+      width: 48px;
+      height: 48px;
+      background: url('logo.png') no-repeat center center/contain;
+      border-radius: 8px;
+    }
+    .subnav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .subnav a {
+      color: #555;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: color 0.2s;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+    .subnav a.active,
+    .subnav a:hover {
+      color: var(--primary-blue);
+    }
+    .cta-buttons .btn-primary {
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(90deg, #29A9E1, #007bff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px #007bff22;
+    }
+    .cta-buttons .btn-primary:hover {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      transform: scale(1.05);
+    }
+    @media (max-width: 900px) {
+      header { padding: 0.7rem 1rem; }
+      .subnav ul { gap: 1rem; }
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .subnav ul { flex-direction: column; gap: 0.7rem; }
+    }
+    .about-section {
+      margin: 3rem auto 2.5rem auto;
+      max-width: 900px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1.5s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .about-section h1, .about-section h2 {
+      color: #2a5298;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+      animation: glow 2.5s infinite alternate;
+      text-shadow: 0 2px 8px #6dd5ed22;
+    }
+    .about-section h1 {
+      font-size: 2.2rem;
+      color: #007bff;
+      font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #007bff 60%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-section h2 {
+      color: #29A9E1;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      margin-bottom: 0.7rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: 1px;
+      font-weight: 600;
+      text-shadow: none;
+      background: none;
+      -webkit-text-fill-color: initial;
+    }
+    .about-section p, .about-section ul {
+      color: #222;
+      font-size: 1.12rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-family: 'Manrope', 'Roboto', Arial, sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .about-section ul {
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-section ul li {
+      margin-bottom: 0.4rem;
+      line-height: 1.6;
+      color: #444;
+      font-size: 1.05rem;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .about-highlight {
+      color: #007bff;
+      font-weight: bold;
+      font-size: 1.15rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: block;
+      background: linear-gradient(90deg, #007bff 0%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-section > div > div {
+      background: #fff;
+      color: #222;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #007bff11;
+      padding: 1.3rem 1.1rem;
+      min-height: 180px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .about-section > div > div:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 24px #29A9E144;
+    }
+    .about-section > div > div span:first-child {
+      color: #007bff;
+      font-weight: 700;
+      font-size: 1.18rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+    .about-section > div > div span {
+      color: #222;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .about-section > div > div ul li {
+      color: #555;
+      font-size: 0.97rem;
+      font-weight: 400;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .know-more-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 24px;
+      background: linear-gradient(90deg, #007bff 0%, #ffb300 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #007bff22;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .know-more-btn:hover {
+      background: linear-gradient(90deg, #29A9E1 0%, #ffb300 100%);
+      transform: scale(1.05);
+    }
+    /* Card animation for service boxes */
+    .about-section > div > div {
+      animation: fadeInUp 1.2s;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .about-section > div > div:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 24px #6dd5ed44;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .about-section h1, .about-section h2 {
+        font-size: 1.3rem;
+      }
+    }
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(30,60,114,0.7);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      box-shadow: 0 2px 12px rgba(30,60,114,0.15);
+      animation: fadeInDown 1s;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .navbar .brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+      text-shadow: 0 2px 8px #0002;
+      display: flex;
+      align-items: center;
+    }
+    .navbar .nav-center {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+    }
+    .navbar .nav-links {
+      display: flex;
+      gap: 22px;
+    }
+    .navbar .nav-links a {
+      color: #fff !important;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: color 0.2s;
+    }
+    .navbar .nav-links a:hover {
+      color: #6dd5ed !important;
+    }
+    .navbar .social-links {
+      display: flex;
+      gap: 24px;
+      margin-right: 36px;
+    }
+    .navbar .social-links a,
+    .navbar .social-links .dropdown > a {
+      color: #fff;
+      font-size: 1.4rem;
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      background: linear-gradient(90deg, #6dd5ed 0%, #2a5298 100%);
+      border-radius: 50%;
+      padding: 0.5rem;
+      margin: 0 2px;
+      box-shadow: 0 2px 8px #0002;
+      animation: pulse 2s infinite;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .navbar .social-links a:hover,
+    .navbar .social-links .dropdown > a:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
+      color: #fff;
+      transform: scale(1.08);
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 #6dd5ed44; }
+      50% { box-shadow: 0 0 16px 8px #6dd5ed44; }
+    }
+    .about-section {
+      max-width: 900px;
+      margin: 130px auto 2.5rem auto;
+      background: rgba(255,255,255,0.10);
+      border-radius: 22px;
+      box-shadow: 0 4px 24px #0003;
+      padding: 2.5rem 2rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.2s;
+    }
+    .about-section h1 {
+      color: #ffb300;
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #0002;
+    }
+    .about-section h2 {
+      color: #6dd5ed;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      margin-bottom: 0.7rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+    .about-section p, .about-section ul {
+      color: #374151;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    .about-section ul {
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-section ul li {
+      margin-bottom: 0.4rem;
+      line-height: 1.6;
+    }
+    .about-highlight {
+      color: #ffb300;
+      font-weight: bold;
+      font-size: 1.15rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: block;
+      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @media (max-width: 600px) {
+      .about-section {
+        padding: 1.2rem 0.5rem;
+      }
+    }
+    .know-more-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 24px;
+      background: linear-gradient(90deg, #ffb300 0%, #e53935 50%, #6dd5ed 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0002;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .know-more-btn:hover {
+      background: linear-gradient(90deg, #76a0aaa4 0%, #e5383525 50%, #8b6e2a8c 100%);
+      transform: scale(1.05);
+    }
+    .auth-action-btn, .auth-role-btn {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.7rem 0;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #4ea0b3a2 0%, #385b969d 100%);
+      color: #fff;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .auth-action-btn:hover, .auth-role-btn:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
+      transform: scale(1.04);
+    }
+    .auth-provider-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .auth-provider-btn {
+      flex: 1 1 45%;
+      min-width: 120px;
+      margin-bottom: 0.5rem;
+      padding: 0.6rem 0.5rem;
+      border: none;
+      border-radius: 8px;
+      background: #f5f5f5;
+      color: #222;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .auth-provider-btn.google { color: #333; }
+    .auth-provider-btn.microsoft { color: #333; }
+    .auth-provider-btn.twitter { color: #333; }
+    .auth-provider-btn.github { color: #333; }
+    .auth-provider-btn.email { color: #333; }
+    .auth-provider-btn.phone { color: #333; }
+    .auth-provider-btn:hover {
+      background: #e3f2fd;
+      transform: scale(1.05);
+    }
+    @media (max-width: 500px) {
+      .auth-provider-btn { min-width: 90px; font-size: 0.95rem; }
+      .auth-provider-list { gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-video-container">
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="images/herosectionbackground.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="animated-bg"></div>
+  <header>
+    <div class="logo">
+      <a href="home.html" style="display:inline-block;"><div class="logo.png"></div></a>
+    </div>
+    <nav class="subnav">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </nav>
+    <div class="cta-buttons" style="position:relative;">
+      <button id="contactUsBtn" class="btn-primary" type="button" style="position:relative;z-index:11;">
+        Contact Us <i class="fa fa-caret-down"></i>
+      </button>
+      <div id="contactSubButtons" style="display:none; position:absolute; right:0; top:110%; background:#fff; border-radius:12px; box-shadow:0 4px 24px #007bff22; min-width:220px; padding:0.7rem 0; z-index:12;">
+        <a href="tel:+919390515106" class="btn-primary" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#007bff; border-radius:8px; text-align:left; font-weight:600;"><i class="fa fa-phone"></i> +91 9390515106</a>
+        <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#007bff; border-radius:8px; text-align:left; font-weight:600;"><i class="fa fa-envelope"></i> vyntyraindia@aol.com</a>
+        <a href="https://api.whatsapp.com/send/?phone=919390515106&text&type=phone_number&app_absent=0" class="btn-primary" target="_blank" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#25d366; border-radius:8px; text-align:left; font-weight:600;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+    <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
+  </header>
+
+  <!-- Add this search bar just after the header -->
+  <div class="search-bar-container" style="margin-top:110px; display:flex; justify-content:center; z-index:2; position:relative;">
+    <form class="search-bar" autocomplete="off" style="display:flex;align-items:center;background:#fff;border-radius:32px;box-shadow:0 4px 24px #007bff12;padding:0.25rem 0.5rem 0.25rem 1.2rem;width:100%;max-width:480px;border:1.5px solid #e0e0e0;transition:box-shadow 0.2s,border 0.2s;">
+      <i class="fa fa-search" style="color:#007bff;font-size:1.2rem;margin-right:0.7rem;"></i>
+      <input type="text" placeholder="Search courses, services, or topics..." name="search" style="border:none;outline:none;font-size:1.08rem;font-family:'Manrope','Poppins',Arial,sans-serif;flex:1;background:transparent;color:#222;padding:0.7rem 0;">
+      <button type="submit" style="background:linear-gradient(90deg,#29A9E1,#007bff);color:#fff;border:none;border-radius:24px;font-weight:600;font-size:1rem;padding:0.6rem 1.5rem;margin-left:0.8rem;cursor:pointer;transition:background 0.2s,transform 0.2s;box-shadow:0 2px 8px #007bff22;">Search</button>
+    </form>
+  </div>
+
+  <section class="about-section">
+    <h1>About Vyntyra Consultancy Services</h1>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">IT Consultancy</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Tailored IT solutions</b> for businesses, including digital transformation, technology integration, and process optimization.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Technology assessment &amp; strategy</li>
+            <li>Process automation</li>
+            <li>Cloud &amp; infrastructure consulting</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">Software Solutions</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Custom software development</b> to streamline your business operations and drive innovation.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Enterprise applications</li>
+            <li>Automation tools</li>
+            <li>Maintenance &amp; support</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">Web Development</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Modern, responsive websites</b> and web applications to enhance your digital presence.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Corporate websites &amp; portfolios</li>
+            <li>E-commerce solutions</li>
+            <li>UI/UX design</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">Hiring &amp; Recruitment</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Connecting talent with opportunity</b> through strategic hiring and recruitment services.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Campus &amp; lateral hiring</li>
+            <li>Talent assessment</li>
+            <li>HR consulting</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">Branding &amp; Marketing</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Elevate your brand</b> with strategic creativity and smart marketing solutions.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Brand identity &amp; design</li>
+            <li>Digital &amp; social media marketing</li>
+            <li>Content creation</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">E-Learning &amp; Training</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Transformative digital education</b> and professional training programs for upskilling.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Online courses &amp; workshops</li>
+            <li>Corporate training</li>
+            <li>Skill development</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">Resume Building</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Professional resume services</b> to help you stand out in the job market.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Resume writing &amp; design</li>
+            <li>LinkedIn profile optimization</li>
+            <li>Interview preparation</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.3rem 1.1rem; min-height:180px;">
+        <span style="font-family:'Montserrat',Arial,sans-serif; font-size:1.18rem; color:#6dd5ed; font-weight:700; display:block; margin-bottom:0.5rem;">Research &amp; Development</span>
+        <span style="font-family:'Roboto',Arial,sans-serif; color:#374151; font-size:1rem; font-weight:500;">
+          <b>Innovative research</b> to ensure our solutions make a meaningful impact.
+          <ul style="margin:0.7rem 0 0 1.1rem; color:#374151; font-size:0.97rem; font-weight:400;">
+            <li>Market &amp; industry research</li>
+            <li>Product &amp; process innovation</li>
+            <li>Data analytics</li>
+          </ul>
+        </span>
+        <button class="know-more-btn">Know More</button>
+      </div>
+    </div>
+    <hr style="border:0; border-top:2px solid #ffb300; margin:2.5rem 0 1.5rem 0; opacity:0.7;">
+    <span class="about-highlight" style="
+      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-weight: bold;
+      display: block;
+    ">
+      Where Innovation, Implementation, Growth, Success meets
+    </span>
+
+    <!-- Founder Message: Place this before "My Team Behind Success" section -->
+    <div class="founder-message-section" style="max-width:700px;margin:2.5rem auto 2rem auto;padding:1.7rem 1.3rem;background:#fffbe7;border-radius:18px;box-shadow:0 4px 24px #ffb30022;text-align:center;">
+      <img src="founder.jpg" alt="Founder" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid #ffb300;margin-bottom:0.7rem;">
+      <h2 style="color:#5aa7a0;font-size:1.18rem;margin-bottom:0.5rem;font-family:'Montserrat',Arial,sans-serif;">Message from Our Founder</h2>
+      <p style="color:#616872;font-size:1.18rem;line-height:1.7;margin:0 auto 0.7rem auto;max-width:650px;">JAMI ESWAR ANIL KUMAR</p>
+      <div style="text-align:justify;max-width:650px;margin:0 auto;">
+        <span style="font-weight:600;color:#ffb300;"> “At Vyntyra, we believe that true progress is achieved when innovation meets execution. Our mission is to empower businesses and individuals to reach their highest potential through technology, creativity, and collaboration. Thank you for being a part of our journey.”
+</span>
+      </div>
+    </div>
+
+    <!-- My Team Behind Success Section -->
+    <h2 style="color:#ffb300; text-align:center; margin-top:2.5rem; margin-bottom:1.2rem; font-family:'Montserrat',Arial,sans-serif; letter-spacing:1px;">
+      My Team Behind Success
+    </h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-bottom:2.5rem;">
+      <!-- Team Member 1 -->
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
+        <img src="Team Member 1.jpg" alt="Team Member 1" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
+        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Anu Sri Metta</div>
+        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Research and Development Manager</div>
+        <div style="color:#801148; font-size:0.93rem;">Full Stack & Cloud Solutions</div>
+      </div>
+      <!-- Team Member 2 -->
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
+        <img src="Team Member 2.jpg" alt="Team Member 2" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
+        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Harshitha Patnana</div>
+        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">IT- Consultant</div>
+        <div style="color:#801148; font-size:0.93rem;">User Experience & Branding</div>
+      </div>
+      <!-- Team Member 3 -->
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
+        <img src="Team Member 3.jpg" alt="Team Member 3" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
+        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Seera Sowjanya</div>
+        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">HR Manager</div>
+        <div style="color:#801148; font-size:0.93rem;">Agile & Delivery Excellence</div>
+      </div>
+      <!-- Team Member 4 -->
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
+        <img src="Team Member 4.jpg" alt="Team Member 4" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
+        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Monika Lade</div>
+        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Marketing Head</div>
+        <div style="color:#801148; font-size:0.93rem;">Digital & Content Strategy</div>
+      </div>
+      <!-- Team Member 5 -->
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
+        <img src="Team Member 5.jpg" alt="Team Member 5" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
+        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Jeevanasri Maddi</div>
+        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Client Services</div>
+        <div style="color:#801148; font-size:0.93rem;">Talent Acquisition & Culture</div>
+      </div>
+      <!-- Team Member 6 -->
+      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
+        <img src="Team Member 6.jpg" alt="Team Member 6" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
+        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Lohitha Vana</div>
+        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Customer Support</div>
+        <div style="color:#801148; font-size:0.93rem;">Customer Relations</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Slide Section Start -->
+  <section id="services-slide" style="max-width:950px;margin:0 auto 3rem auto;position:relative;z-index:1;">
+    <h2 style="text-align:center;color:#2a5298;font-family:'Montserrat',Arial,sans-serif;font-size:1.5rem;margin-bottom:1.2rem;letter-spacing:1px;">
+      Our Key Services
+    </h2>
+    <div id="servicesSlider" style="overflow:hidden;position:relative;">
+      <div id="servicesSlides" style="display:flex;transition:transform 0.5s;gap:1.5rem;">
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-laptop-code" style="font-size:2.2rem;color:#007bff;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#2a5298;font-size:1.13rem;margin-bottom:0.4rem;">IT Consultancy</div>
+          <div style="color:#374151;font-size:0.98rem;">Tailored IT solutions, digital transformation, and process optimization.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-code" style="font-size:2.2rem;color:#ffb300;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#ffb300;font-size:1.13rem;margin-bottom:0.4rem;">Software Solutions</div>
+          <div style="color:#374151;font-size:0.98rem;">Custom software, automation tools, and enterprise applications.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-globe" style="font-size:2.2rem;color:#29A9E1;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#29A9E1;font-size:1.13rem;margin-bottom:0.4rem;">Web Development</div>
+          <div style="color:#374151;font-size:0.98rem;">Modern websites, e-commerce, and UI/UX design.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-user-tie" style="font-size:2.2rem;color:#6dd5ed;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#6dd5ed;font-size:1.13rem;margin-bottom:0.4rem;">Hiring & Recruitment</div>
+          <div style="color:#374151;font-size:0.98rem;">Talent acquisition, campus & lateral hiring, HR consulting.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-bullhorn" style="font-size:2.2rem;color:#e53935;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#e53935;font-size:1.13rem;margin-bottom:0.4rem;">Branding & Marketing</div>
+          <div style="color:#374151;font-size:0.98rem;">Brand identity, digital marketing, and content creation.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-chalkboard-teacher" style="font-size:2.2rem;color:#ffb300;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#ffb300;font-size:1.13rem;margin-bottom:0.4rem;">E-Learning & Training</div>
+          <div style="color:#374151;font-size:0.98rem;">Online courses, workshops, and corporate training.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-file-alt" style="font-size:2.2rem;color:#2a5298;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#2a5298;font-size:1.13rem;margin-bottom:0.4rem;">Resume Building</div>
+          <div style="color:#374151;font-size:0.98rem;">Resume writing, LinkedIn optimization, interview prep.</div>
+        </div>
+        <div class="service-slide-card" style="min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;">
+          <i class="fa-solid fa-flask" style="font-size:2.2rem;color:#6dd5ed;margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:#6dd5ed;font-size:1.13rem;margin-bottom:0.4rem;">Research & Development</div>
+          <div style="color:#374151;font-size:0.98rem;">Market research, innovation, and data analytics.</div>
+        </div>
+      </div>
+      <!-- Slide Controls -->
+      <button id="slidePrev" aria-label="Previous" style="position:absolute;left:0;top:50%;transform:translateY(-50%);background:#fff;border:none;border-radius:50%;box-shadow:0 2px 8px #007bff22;width:38px;height:38px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;">
+        <i class="fa fa-chevron-left" style="color:#007bff;font-size:1.3rem;"></i>
+      </button>
+      <button id="slideNext" aria-label="Next" style="position:absolute;right:0;top:50%;transform:translateY(-50%);background:#fff;border:none;border-radius:50%;box-shadow:0 2px 8px #007bff22;width:38px;height:38px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;">
+        <i class="fa fa-chevron-right" style="color:#007bff;font-size:1.3rem;"></i>
+      </button>
+    </div>
+    <!-- Get a Quote Button -->
+    <div style="text-align:center;margin-top:2.2rem;">
+      <button id="getQuoteBtn" style="padding:0.8rem 2.2rem;font-size:1.13rem;font-weight:700;color:#fff;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);border:none;border-radius:28px;box-shadow:0 2px 12px #007bff22;cursor:pointer;transition:background 0.2s,transform 0.2s;">
+        Get a Quote for Service
+      </button>
+    </div>
+  </section>
+  <!-- Services Slide Section End -->
+
+  <!-- Login/Register Modal -->
+  <div id="authModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(78, 114, 182, 0.192); align-items:center; justify-content:center;">
+    <div style="background:#fff; color:#222; border-radius:16px; max-width:95vw; width:350px; padding:2rem 1.5rem; box-shadow:0 8px 32px #0006; position:relative;">
+      <button onclick="closeAuthModal()" style="position:absolute; top:10px; right:14px; background:none; border:none; font-size:1.3rem; color:#e53935; cursor:pointer;">&times;</button>
+      <div id="authStep1">
+        <h2 style="text-align:center; color:#2a5298; margin-bottom:1.2rem;">Choose Action</h2>
+        <button class="auth-action-btn" onclick="showLoginOptions()">Login</button>
+        <button class="auth-action-btn" onclick="showRegisterRole()">Register</button>
+      </div>
+      <div id="authStep2" style="display:none;">
+        <h2 style="text-align:center; color:#2a5298; margin-bottom:1.2rem;">Login As</h2>
+        <button class="auth-role-btn" onclick="showLoginProviders('user')">User</button>
+        <button class="auth-role-btn" onclick="showLoginProviders('employee')">Employee</button>
+      </div>
+      <div id="authStep3" style="display:none;">
+        <h2 style="text-align:center; color:#2a5298; margin-bottom:1.2rem;">Login with</h2>
+        <div class="auth-provider-list">
+          <button class="auth-provider-btn google"><i class="fab fa-google"></i> Google</button>
+          <button class="auth-provider-btn microsoft"><i class="fab fa-microsoft"></i> Microsoft</button>
+          <button class="auth-provider-btn twitter"><i class="fab fa-twitter"></i> Twitter</button>
+          <button class="auth-provider-btn github"><i class="fab fa-github"></i> GitHub</button>
+          <button class="auth-provider-btn email"><i class="fa fa-envelope"></i> Email</button>
+          <button class="auth-provider-btn phone"><i class="fa fa-phone"></i> Phone</button>
+        </div>
+      </div>
+      <div id="authStep4" style="display:none;">
+        <h2 style="text-align:center; color:#2a5298; margin-bottom:1.2rem;">Register As</h2>
+        <button class="auth-role-btn" onclick="showRegisterProviders('user')">User</button>
+        <button class="auth-role-btn" onclick="showRegisterProviders('employee')">Employee</button>
+      </div>
+      <div id="authStep5" style="display:none;">
+        <h2 style="text-align:center; color:#2a5298; margin-bottom:1.2rem;">Register with</h2>
+        <div class="auth-provider-list">
+          <button class="auth-provider-btn google"><i class="fab fa-google"></i> Google</button>
+          <button class="auth-provider-btn microsoft"><i class="fab fa-microsoft"></i> Microsoft</button>
+          <button class="auth-provider-btn twitter"><i class="fab fa-twitter"></i> Twitter</button>
+          <button class="auth-provider-btn github"><i class="fab fa-github"></i> GitHub</button>
+          <button class="auth-provider-btn email"><i class="fa fa-envelope"></i> Email</button>
+          <button class="auth-provider-btn phone"><i class="fa fa-phone"></i> Phone</button>
+        </div>
+        <!-- Example registration form (show only for email/phone if needed) -->
+        <!-- You can expand this as needed -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Quote Modal -->
+  <div id="serviceQuoteModal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(30,60,114,0.13);align-items:center;justify-content:center;">
+    <form id="serviceQuoteForm" style="background:#fff;color:#222;border-radius:18px;max-width:95vw;width:370px;padding:2.2rem 1.5rem 1.5rem 1.5rem;box-shadow:0 8px 32px #0006;position:relative;">
+      <button type="button" onclick="closeServiceQuoteModal()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.3rem;color:#e53935;cursor:pointer;">&times;</button>
+      <h2 style="text-align:center;color:#2a5298;margin-bottom:1.2rem;font-size:1.35rem;">Request a Service Quote</h2>
+      <div style="margin-bottom:1rem;">
+        <label for="quoteName" style="font-weight:600;display:block;margin-bottom:0.3rem;">Your Name</label>
+        <input id="quoteName" name="name" type="text" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      </div>
+      <div style="margin-bottom:1rem;">
+        <label for="quoteEmail" style="font-weight:600;display:block;margin-bottom:0.3rem;">Email</label>
+        <input id="quoteEmail" name="email" type="email" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      </div>
+      <div style="margin-bottom:1rem;">
+        <label for="quotePhone" style="font-weight:600;display:block;margin-bottom:0.3rem;">Phone</label>
+        <input id="quotePhone" name="phone" type="tel" pattern="[0-9+\-\s]{7,}" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      </div>
+      <div style="margin-bottom:1rem;">
+        <label for="quoteService" style="font-weight:600;display:block;margin-bottom:0.3rem;">Service Interested In</label>
+        <select id="quoteService" name="service" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+          <option value="">Select a Service</option>
+          <option>IT Consultancy</option>
+          <option>Software Solutions</option>
+          <option>Web Development</option>
+          <option>Hiring & Recruitment</option>
+          <option>Branding & Marketing</option>
+          <option>E-Learning & Training</option>
+          <option>Resume Building</option>
+          <option>Research & Development</option>
+          <option>Cybersecurity</option>
+          <option>Business Analytics</option>
+        </select>
+      </div>
+      <div style="margin-bottom:1.2rem;">
+        <label for="quoteDetails" style="font-weight:600;display:block;margin-bottom:0.3rem;">Project Details / Requirements</label>
+        <textarea id="quoteDetails" name="details" rows="3" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;resize:vertical;"></textarea>
+      </div>
+      <button type="submit" style="width:100%;padding:0.7rem 0;font-size:1.08rem;font-weight:700;color:#fff;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);border:none;border-radius:24px;box-shadow:0 2px 8px #007bff22;cursor:pointer;transition:background 0.2s,transform 0.2s;">
+        Submit Request
+      </button>
+      <div id="quoteSuccessMsg" style="display:none;margin-top:1.2rem;text-align:center;color:#2a5298;font-weight:600;"></div>
+    </form>
+  </div>
+
+  <script>
+    // Hide Instagram dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      var instaDropdown = document.getElementById('instaDropdown');
+      if (instaDropdown && !instaDropdown.contains(event.target) && !event.target.closest('.fab.fa-instagram')) {
+        instaDropdown.style.display = 'none';
+      }
+    });
+    // Login modal functions (if needed)
+    function openAuthModal() {
+      document.getElementById('authModal').style.display = 'flex';
+      showAuthStep(1);
+    }
+    function closeAuthModal() {
+      document.getElementById('authModal').style.display = 'none';
+    }
+    function showAuthStep(step) {
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById('authStep' + i).style.display = (i === step) ? '' : 'none';
+      }
+    }
+    function showLoginOptions() {
+      showAuthStep(2);
+    }
+    function showLoginProviders(role) {
+      showAuthStep(3);
+    }
+    function showRegisterRole() {
+      showAuthStep(4);
+    }
+    function showRegisterProviders(role) {
+      showAuthStep(5);
+    }
+    // Optional: Close modal on ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAuthModal();
+    });
+
+    document.querySelector('.search-bar').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
+      if (val.match(/^(about|about us|abou)$/)) {
+        window.location.href = 'about.html';
+      } else if (val.match(/^(updates?|update)$/)) {
+        window.location.href = 'updates.html';
+      } else if (val.match(/^(news)$/)) {
+        window.location.href = 'news.html';
+      } else if (val.match(/^(careers?|career)$/)) {
+        window.location.href = 'careers.html';
+      }
+    });
+
+    // Toggle contact sub-buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('contactUsBtn');
+      const subBtns = document.getElementById('contactSubButtons');
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        subBtns.style.display = (subBtns.style.display === 'block') ? 'none' : 'block';
+      });
+      // Hide on click outside
+      document.addEventListener('click', function(e) {
+        if (subBtns.style.display === 'block' && !btn.contains(e.target) && !subBtns.contains(e.target)) {
+          subBtns.style.display = 'none';
+        }
+      });
+    });
+
+    // Services Slide Logic
+    (function() {
+      const slides = document.getElementById('servicesSlides');
+      const slideCards = slides ? slides.querySelectorAll('.service-slide-card') : [];
+      const prevBtn = document.getElementById('slidePrev');
+      const nextBtn = document.getElementById('slideNext');
+      let current = 0;
+      let visible = 3;
+
+      function updateVisible() {
+        if (window.innerWidth < 600) visible = 1;
+        else if (window.innerWidth < 900) visible = 2;
+        else visible = 3;
+      }
+
+      function updateSlide() {
+        updateVisible();
+        const cardWidth = slideCards[0]?.offsetWidth || 270;
+        slides.style.transform = `translateX(-${current * (cardWidth + 24)}px)`;
+        prevBtn.style.display = current === 0 ? 'none' : '';
+        nextBtn.style.display = (current >= slideCards.length - visible) ? 'none' : '';
+      }
+
+      if (slides && prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (current > 0) current--;
+          updateSlide();
+        });
+        nextBtn.addEventListener('click', () => {
+          if (current < slideCards.length - visible) current++;
+          updateSlide();
+        });
+        window.addEventListener('resize', updateSlide);
+        updateSlide();
+      }
+    })();
+
+    // Add more services dynamically (example)
+    (function() {
+      const slides = document.getElementById('servicesSlides');
+      if (!slides) return;
+      // Example: Add two more services
+      const extraServices = [
+        {
+          icon: 'fa-solid fa-shield-halved',
+          color: '#007bff',
+          title: 'Cybersecurity',
+          desc: 'Protect your business with advanced security solutions and audits.'
+        },
+        {
+          icon: 'fa-solid fa-chart-line',
+          color: '#ffb300',
+          title: 'Business Analytics',
+          desc: 'Data-driven insights and analytics for smarter decisions.'
+        }
+      ];
+      extraServices.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'service-slide-card';
+        div.style = 'min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;';
+        div.innerHTML = `
+          <i class="${s.icon}" style="font-size:2.2rem;color:${s.color};margin-bottom:0.7rem;"></i>
+          <div style="font-weight:700;color:${s.color};font-size:1.13rem;margin-bottom:0.4rem;">${s.title}</div>
+          <div style="color:#374151;font-size:0.98rem;">${s.desc}</div>
+        `;
+        slides.appendChild(div);
+      });
+    })();
+
+    // Service Quote Modal Logic
+    function openServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'flex';
+      document.getElementById('serviceQuoteForm').reset();
+      document.getElementById('quoteSuccessMsg').style.display = 'none';
+    }
+    function closeServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'none';
+    }
+    document.getElementById('getQuoteBtn').addEventListener('click', openServiceQuoteModal);
+
+    // Optionally, allow ESC to close modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeServiceQuoteModal();
+    });
+
+    // Submit handler for quote form
+    document.getElementById('serviceQuoteForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // You can integrate with your backend/email API here.
+      document.getElementById('quoteSuccessMsg').textContent = "Thank you! Your request has been submitted. We'll contact you soon.";
+      document.getElementById('quoteSuccessMsg').style.display = 'block';
+      setTimeout(closeServiceQuoteModal, 2500);
+    });
+  </script>
+</body>
+</html>
+<!-- Footer (Optional) -->
+  <footer style="background:#959aa0;color:#fff;padding:2rem 0;text-align:center;">
+    <p style="margin:0;font-size:0.9rem;">
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
+    </p>
+  </footer>

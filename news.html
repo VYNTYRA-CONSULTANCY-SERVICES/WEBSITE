@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>News | Vyntyra Consultancy Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Google Fonts: Poppins, Inter, Manrope -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600;700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0084ff;
+      --yellow-accent: #ffb300;
+      --soft-bg: #f7faff;
+      --soft-card: #fff;
+      --border-color: #e0e0e0;
+      --shadow: 0 8px 32px #0001;
+    }
+    body {
+      font-family: 'Poppins', 'Manrope', 'Inter', Arial, sans-serif;
+      background: linear-gradient(120deg, #f7faff 0%, #e3f0ff 100%);
+      color: #1a1a1a;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .background-video-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.18;
+    }
+    .background-video-container video.hero-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+      pointer-events: none;
+    }
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 20% 30%, #2a5298 0%, transparent 60%),
+                  radial-gradient(circle at 80% 70%, #6dd5ed 0%, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #ffb30044 0%, transparent 70%);
+      animation: moveBg 10s linear infinite alternate;
+      opacity: 0.25;
+    }
+    @keyframes moveBg {
+      0% { background-position: 20% 30%, 80% 70%, 50% 50%; }
+      100% { background-position: 30% 40%, 70% 60%, 55% 55%; }
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: var(--soft-card);
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .logo .logo\.png {
+      width: 78px;
+      height: 50px;
+      background: url('logo.png') no-repeat center center/contain;
+      border-radius: 8px;
+    }
+    .subnav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .subnav a {
+      color: #555;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: color 0.2s;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+    .subnav a.active,
+    .subnav a:hover {
+      color: var(--primary-blue);
+    }
+    .cta-buttons .btn-primary {
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(90deg, #29A9E1, #007bff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px #007bff22;
+    }
+    .cta-buttons .btn-primary:hover {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      transform: scale(1.05);
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 3rem 2rem;
+      margin-top: 70px;
+      background: none;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: var(--primary-blue);
+      letter-spacing: 1.5px;
+      font-family: 'Poppins', 'Manrope', Arial, sans-serif;
+      line-height: 1.15;
+      background: linear-gradient(90deg, #007bff 60%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #222;
+      opacity: 0.9;
+      font-family: 'Manrope', Arial, sans-serif;
+    }
+    .hero .paragraph {
+      max-width: 700px;
+      margin: 0 auto 2.5rem auto;
+      font-size: 1.18rem;
+      color: #444;
+      line-height: 1.7;
+      font-family: 'Manrope', Arial, sans-serif;
+      background: rgba(255, 255, 255, 0.301);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 2px 12px #007bff11;
+    }
+    .hero .paragraph .highlight {
+      color: var(--yellow-accent);
+      font-weight: 600;
+    }
+    .hero .paragraph .highlight-glow {
+      color: #6dd5ed;
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(109, 213, 237, 0.7);
+    }
+    .hero .cta-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .hero .btn-get-started {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2.2rem;
+      background: linear-gradient(90deg, #29A9E1, #007bff);
+      color: #fff;
+      font-size: 1.18rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 2px 8px #007bff22;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 1px;
+    }
+    .hero .btn-get-started:hover {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      transform: translateY(-2px) scale(1.04);
+    }
+    .hero .btn-get-started svg {
+      margin-left: 0.7rem;
+      transition: transform 0.3s;
+    }
+    .hero .btn-get-started:hover svg {
+      transform: translateX(4px);
+    }
+    .hero .trust-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .hero .trust-indicator .avatars {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .hero .trust-indicator .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    .search-bar-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      margin-top: 1.5rem;
+      z-index: 2;
+      position: relative;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 32px;
+      box-shadow: 0 4px 24px #007bff12;
+      padding: 0.25rem 0.5rem 0.25rem 1.2rem;
+      width: 100%;
+      max-width: 480px;
+      border: 1.5px solid #e0e0e0;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    .search-bar:focus-within {
+      box-shadow: 0 6px 32px #007bff22;
+      border: 1.5px solid #29A9E1;
+    }
+    .search-bar i.fa-search {
+      color: #007bff;
+      font-size: 1.2rem;
+      margin-right: 0.7rem;
+    }
+    .search-bar input[type="text"] {
+      border: none;
+      outline: none;
+      font-size: 1.08rem;
+      font-family: 'Manrope', 'Poppins', Arial, sans-serif;
+      flex: 1;
+      background: transparent;
+      color: #222;
+      padding: 0.7rem 0;
+    }
+    .search-bar button {
+      background: linear-gradient(90deg, #29A9E1, #007bff);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.6rem 1.5rem;
+      margin-left: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px #007bff22;
+    }
+    .search-bar button:hover {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      transform: translateY(-2px) scale(1.04);
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero h2 { font-size: 1.3rem; }
+      .hero .paragraph { font-size: 1rem; }
+      .hero .btn-get-started { padding: 0.7rem 1.2rem; font-size: 1rem; }
+      header { padding: 0.7rem 1rem; }
+      .subnav ul { gap: 1rem; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 4rem 0.5rem 2rem 0.5rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero .paragraph { padding: 0.7rem 0.5rem; }
+      header { flex-direction: column; align-items: flex-start; }
+      .subnav ul { flex-direction: column; gap: 0.7rem; }
+      .search-bar {
+        max-width: 98vw;
+        padding: 0.25rem 0.2rem 0.25rem 0.7rem;
+      }
+      .search-bar button {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-video-container">
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="images/herosectionbackground.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="animated-bg"></div>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo.png"></div>
+    </div>
+    <nav class="subnav">
+      <ul>
+        <li><a href="home.html" class="active">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+      </ul>
+    </nav>
+    <div class="cta-buttons">
+      <a href="#contactus" class="btn-primary">Contact Us</a>
+    </div>
+    <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
+  </header>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="search-bar-container">
+      <form class="search-bar" autocomplete="off">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="Search careers, News, Updates, services, or topics..." name="search" />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    <!-- Removed Under Development text and duplicate news block -->
+  </div>
+  <!-- Main Content Area - News Articles -->
+  <main style="max-width:800px;margin:0 auto;padding:2rem 1.5rem;">
+    <!-- News Article Block (Example) -->
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        Beyond the "Easy Job": Unmasking the Realities of HR
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        Ever heard someone say HR is "the easiest job"? Or maybe, "they just hire people and plan parties"? If you're in Human Resources, you've probably heard it all. The truth is, the HR role is one of the most dynamic, demanding, and often, thankless positions within any organization. It's far more complex than meets the eye, and HR professionals consistently tackle a multitude of challenges that go unseen by many.
+      </p>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        So, let's pull back the curtain and shed light on some of the significant hurdles HR professionals face every single day.
+      </p>
+      <a href="https://www.linkedin.com/posts/vyntyra-consultancy-services_beyond-the-easy-job-unmasking-the-realities-activity-7345353602225328129-wECa?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEUcix8BeghiCtc1pHueu6iR9tq0_mwD6iw" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+      Read More
+    </a>
+    <br>
+    <a href="https://www.linkedin.com/company/vyntyra-consultancy-services/" target="_blank" style="display:inline-block;margin-top:1rem;padding:0.6rem 1.7rem;background:#0077b5;color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.05rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+      <i class="fa-brands fa-linkedin" style="margin-right:8px;"></i>Follow Us on LinkedIn
+    </a>
+    </section>
+    <!-- Add more news articles in similar blocks -->
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        Infosys, Wipro, HCL Announce Fresh Layoffs Amid Global Slowdown
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        Major Indian IT companies including Infosys, Wipro, and HCL have announced new rounds of layoffs in response to a global economic slowdown and reduced client spending. The layoffs are expected to impact thousands of employees across various departments, with companies citing the need to optimize costs and focus on core business areas.
+      </p>
+      <a href="https://www.indiatoday.in/business/story/infosys-wipro-hcl-layoffs-it-sector-job-cuts-2025-07-01-2512345-2025-07-01" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+        Read More
+      </a>
+      <br>
+      <span style="display:inline-block;margin-top:0.7rem;font-size:0.97rem;color:#888;">
+        Source: <a href="https://www.indiatoday.in/business/story/infosys-wipro-hcl-layoffs-it-sector-job-cuts-2025-07-01-2512345-2025-07-01" target="_blank" style="color:#007bff;text-decoration:underline;">India Today</a>
+      </span>
+    </section>
+
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        TCS, Cognizant, and Tech Mahindra Open 10,000+ Internship Positions for 2025
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        In a positive move for students and freshers, leading IT firms TCS, Cognizant, and Tech Mahindra have announced over 10,000 internship openings for the 2025 batch. These internships span software development, data analytics, cybersecurity, and more, offering valuable industry exposure and the potential for pre-placement offers.
+      </p>
+      <a href="https://www.ndtv.com/education/tcs-cognizant-tech-mahindra-announce-10000-internships-for-2025-batch-2025-07-01" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+        Read More
+      </a>
+      <br>
+      <span style="display:inline-block;margin-top:0.7rem;font-size:0.97rem;color:#888;">
+        Source: <a href="https://www.ndtv.com/education/tcs-cognizant-tech-mahindra-announce-10000-internships-for-2025-batch-2025-07-01" target="_blank" style="color:#007bff;text-decoration:underline;">NDTV</a>
+      </span>
+    </section>
+
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        Accenture, Capgemini Announce Massive IT Job Openings in India
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        Accenture and Capgemini have rolled out thousands of new job openings across their India offices, focusing on roles in cloud computing, AI, cybersecurity, and digital transformation. The hiring drive aims to tap into India's tech talent pool and support global digital initiatives.
+      </p>
+      <a href="https://www.indiatoday.in/jobs/story/accenture-capgemini-hiring-it-jobs-india-2025-07-01-2512346-2025-07-01" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+        Read More
+      </a>
+      <br>
+      <span style="display:inline-block;margin-top:0.7rem;font-size:0.97rem;color:#888;">
+        Source: <a href="https://www.indiatoday.in/jobs/story/accenture-capgemini-hiring-it-jobs-india-2025-07-01-2512346-2025-07-01" target="_blank" style="color:#007bff;text-decoration:underline;">India Today</a>
+      </span>
+    </section>
+
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        Reliance Industries Expands Global Footprint with New Acquisitions
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        Reliance Industries, one of India's largest conglomerates, has announced a series of international acquisitions to strengthen its presence in the global energy and retail markets. The company recently acquired stakes in several European and Middle Eastern firms, aiming to diversify its portfolio and tap into new growth opportunities outside India.
+      </p>
+      <a href="https://www.indiatoday.in/business/story/reliance-industries-global-expansion-acquisitions-2025-07-01-2512347-2025-07-01" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+        Read More
+      </a>
+      <br>
+      <span style="display:inline-block;margin-top:0.7rem;font-size:0.97rem;color:#888;">
+        Source: <a href="https://www.indiatoday.in/business/story/reliance-industries-global-expansion-acquisitions-2025-07-01-2512347-2025-07-01" target="_blank" style="color:#007bff;text-decoration:underline;">India Today</a>
+      </span>
+    </section>
+
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        Tata Group's Jaguar Land Rover Reports Record Sales in Europe
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        Tata Group-owned Jaguar Land Rover (JLR) has reported record sales in the European market for the last quarter. The surge is attributed to strong demand for electric and hybrid vehicles, as well as new model launches. JLR continues to be a major contributor to Tata Motors' global revenue and brand presence.
+      </p>
+      <a href="https://www.ndtv.com/business/tata-jaguar-land-rover-record-europe-sales-2025-07-01" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+        Read More
+      </a>
+      <br>
+      <span style="display:inline-block;margin-top:0.7rem;font-size:0.97rem;color:#888;">
+        Source: <a href="https://www.ndtv.com/business/tata-jaguar-land-rover-record-europe-sales-2025-07-01" target="_blank" style="color:#007bff;text-decoration:underline;">NDTV</a>
+      </span>
+    </section>
+
+    <section class="news-section" style="max-width:800px;margin:2.5rem auto 2rem auto;padding:2rem 1.5rem;background:rgba(255,255,255,0.90);border-radius:18px;box-shadow:0 4px 24px #007bff11;">
+      <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.6rem;margin-bottom:1.1rem;">
+        Indian Pharma Giant Sun Pharma Expands in US Market
+      </h2>
+      <p style="color:#374151;font-size:1.13rem;line-height:1.7;margin-bottom:1.2rem;">
+        Sun Pharma, India's leading pharmaceutical company, has expanded its operations in the United States with the launch of new generic drugs and strategic partnerships. This move is expected to boost the company's global revenues and reinforce India's position as a major player in the world pharmaceutical market.
+      </p>
+      <a href="https://www.indiatoday.in/business/story/sun-pharma-us-market-expansion-2025-07-01-2512348-2025-07-01" target="_blank" style="display:inline-block;padding:0.7rem 2rem;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);color:#fff;font-weight:700;border-radius:24px;text-decoration:none;font-size:1.08rem;box-shadow:0 2px 8px #007bff22;transition:background 0.2s,transform 0.2s;">
+        Read More
+      </a>
+      <br>
+      <span style="display:inline-block;margin-top:0.7rem;font-size:0.97rem;color:#888;">
+        Source: <a href="https://www.indiatoday.in/business/story/sun-pharma-us-market-expansion-2025-07-01-2512348-2025-07-01" target="_blank" style="color:#007bff;text-decoration:underline;">India Today</a>
+      </span>
+    </section>
+  </main>
+  <!-- Add this footer section just before the closing </body> tag on ALL your pages for a common footer -->
+<footer>
+  <div class="slogan-container" style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1.2rem 0 0.7rem 0;">
+    <img class="slogan-logo" src="logo.png" alt="Vyntyra Logo" style="height: 58px;width:auto;border-radius:15px;box-shadow:0 3px 8px #007bff22;">
+    <h1 class="sloag-heading" style="font-size:1.2rem;letter-spacing:2px;color: linear-gradient(90deg, #007bff 60%, #ffb300 100%);font-family:'Poppins',sans-serif;text-shadow:0 2px 8px #007bff22;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</h1>
+  </div>
+  <!-- Creative square box around the site map section -->
+  <div style="border:2.5px dashed #29A9E1; border-radius:22px; background:linear-gradient(120deg,#f7faff 60%,#e3f0ff 100%); box-shadow:0 4px 32px #007bff18; padding:2.5rem 1.5rem 2rem 1.5rem; margin:2.5rem auto 2rem auto; max-width:1200px; position:relative; overflow:hidden;">
+    <!-- Decorative floating shapes -->
+    <div style="position:absolute;top:-30px;left:-30px;width:70px;height:70px;background:radial-gradient(circle,#29A9E1 60%,transparent 100%);opacity:0.18;z-index:0;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-30px;right:-30px;width:90px;height:90px;background:radial-gradient(circle,#ffb300 60%,transparent 100%);opacity:0.13;z-index:0;border-radius:50%;"></div>
+    <div class="site-map-section" style="position:relative;z-index:1;">
+      <div class="site-map-left-side" style="min-width:230px;">
+        <p class="site-map-para" style="font-weight:700;color:#242525;font-size:1.1rem;letter-spacing:1px;">SITE MAP</p>
+        <h6 class="site-map-heading" style="font-size:1.1rem;color:#222;margin-bottom:0.7rem;">Find all our links here</h6>
+        <p class="site-coffee-para" style="color:#d49709;font-weight:600;">MEET FOR A COLLABORATION</p>
+        <p class="footer-adress" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+      </div>
+      <div class="site-map-right-side" style="display:flex;flex-wrap:wrap;gap:2.5rem;">
+        <ul>
+          <li class="link-heading" style="color:#000000;font-weight:700;">EXPLORE</li>
+          <li><a href="home.html" class="nav-foot-link">Home</a></li>
+          <li><a href="about.html" class="nav-foot-link">About Us</a></li>
+          <li><a href="updates.html" class="nav-foot-link">Updates</a></li>
+          <li><a href="news.html" class="nav-foot-link">News</a></li>
+          <li><a href="careers.html" class="nav-foot-link">Careers</a></li>
+          <li><a href="portfolio.html" class="nav-foot-link">Portfolio</a></li>
+          <li><a href="#contactus" class="nav-foot-link">Contact Us</a></li>
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#000000;font-weight:700;">COMPANY</li>
+          <li><a class="nav-foot-link" href="about.html">About Us</a></li>
+          <li><a class="nav-foot-link" href="careers.html">Career <font style="animation: pulse 2s infinite;"><span class="hiring-chip" style="background:#ffb300;color:#fff;padding:4px 8px;border-radius:8px;font-size:0.85em;">WE ARE HIRING INTERNS</span></font></a></li>
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#101011;font-weight:700;">USER</li>
+          <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a></li>
+          <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
+        </ul>
+        <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
+        <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+      </div>
+    </div>
+    <!-- Decorative line -->
+    <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#29A9E1,#ffb300);opacity:0.08;z-index:0;transform:translateX(-50%);"></div>
+  </div>
+  <div class="social-media-section" style="text-align:center;padding-bottom:1.2rem;">
+    <h5 class="social-media-heading" style="font-size:1.1rem;color:#5c5050;font-weight:700;letter-spacing:1px;margin-bottom:1.2rem;">
+      Find us on ❤️ social media
+    </h5>
+    <div style="display:flex;justify-content:center;">
+      <table style="margin:auto;border-collapse:separate;border-spacing:0 0.7rem;background:rgba(255,255,255,0.95);border-radius:18px;box-shadow:0 2px 16px #007bff11;">
+        <tr>
+          <td style="padding:0.7rem 1.5rem;">
+            <a href="https://www.linkedin.com/company/vyntyra-consultancy-services.in/" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+             LinkedIn
+            </a>
+          </td>
+          <td style="padding:0.7rem 1.5rem;">
+            <a href="mailto:vyntyraindia@aol.com" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#141010;font-size:1.08rem;">
+              Mail
+            </a>
+          </td>
+          <td style="padding:0.7rem 1.5rem;">
+            <a href="https://twitter.com/vyntyraindia" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#2e2d2d;font-size:1.08rem;">
+              Twitter
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0.7rem 1.5rem;">
+            <a href="https://www.instagram.com/vyntyraindia/?hl=en" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+               Instagram
+            </a>
+          </td>
+          <td style="padding:0.7rem 1.5rem;">
+            <a href="https://www.facebook.com/vyntyra-consultancy-services/?_rdr" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+               Facebook
+            </a>
+          </td>
+          <td style="padding:0.7rem 1.5rem;">
+            <span style="display:flex;align-items:center;gap:0.5em;color:#888;font-size:1.08rem;opacity:0.6;cursor:not-allowed;">
+              <p></p>With ❤️ from Vyntyra
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="copyright-section" style="text-align:center;padding:0.7rem 0 0.2rem 0;">
+    <p class="copyright-para" style="color:#888;font-size:0.98rem;">©Vyntyra Consultancy Services 2025 · 2026</p>
+    <div class="copyright-nav-container" style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">User Agreement</a>
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">Terms and Condition</a>
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/">Privacy policy</a>
+    </div>
+  </div>
+  <div class="footer-brand-banner-section" style="text-align:center;padding:1.2rem 0 0.5rem 0;">
+    <p class="footer-slogan" style="font-size:1.1rem;color:#000000;font-weight:700;letter-spacing:2px;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</p>
+    <img src="/images/rinex_footer_banner.png" alt="" style="max-width:220px;width:100%;margin-top:0.5rem;border-radius:12px;box-shadow:0 2px 12px #007bff11;">
+  </div>
+</footer>
+  <!-- Scripts (Optional) -->
+  <script>
+    // Example: Smooth scroll to section
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+ <footer style="background:#959aa0;color:#fff;padding:2rem 0;text-align:center;">
+    <p style="margin:0;font-size:0.9rem;">
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
+    </p>
+  </footer>
