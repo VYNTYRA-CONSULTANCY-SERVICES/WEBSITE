@@ -329,8 +329,21 @@
         <li><a href="portfolio.html">Portfolio</a></li>
       </ul>
     </nav>
-    <div class="cta-buttons">
-      <a href="#contactus" class="btn-primary">Contact Us</a>
+    <div class="cta-buttons" style="position:relative;">
+      <a href="contactus" class="btn-primary" id="mainContactBtn" style="position:relative;z-index:2;">
+        Contact Us
+      </a>
+      <div id="subContactBtns" style="display:none;flex-direction:column;gap:0.5rem;position:absolute;top:110%;right:0;z-index:3;">
+        <a href="tel:+919390515106" class="btn-primary" style="background:linear-gradient(90deg,#007bff,#29A9E1);font-size:0.98rem;">
+          <i class="fa fa-phone" style="margin-right:7px;"></i> +91 9390515106 (Mobile)
+        </a>
+        <a href="https://wa.me/919390515106" target="_blank" class="btn-primary" style="background:linear-gradient(90deg,#25d366,#128c7e);font-size:0.98rem;">
+          <i class="fa fa-whatsapp" style="margin-right:7px;"></i> +91 9390515106 (WhatsApp)
+        </a>
+        <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="background:linear-gradient(90deg,#ffb300,#ff9800);font-size:0.98rem;">
+          <i class="fa fa-envelope" style="margin-right:7px;"></i> vyntyraindia@aol.com (Email)
+        </a>
+      </div>
     </div>
     <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
   </header>
@@ -342,7 +355,7 @@
       At Vyntyra, we specialize in turning visionary ideas into reality. Our team of experts is dedicated to providing top-notch consultancy services that drive success and foster growth. Join us on a journey of innovation and excellence.
     </div>
     <div class="cta-section">
-      <a href="#services" class="btn-get-started">
+      <a href="services" class="btn-get-started">
         Get Started Now
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.3 8.3a.8.8 0 0 1 0 1.4l-4.5 2.6a.8.8 0 0 1-1.2-.7V9.7a.8.8 0 0 1 1.2-.7l4.5 2.6z"/>
@@ -570,6 +583,39 @@
       });
     });
   });
+
+  // Contact button dropdown
+  document.addEventListener('DOMContentLoaded', function() {
+    const mainBtn = document.getElementById('mainContactBtn');
+    const subBtns = document.getElementById('subContactBtns');
+    let hideTimeout;
+
+    function showSubBtns() {
+      clearTimeout(hideTimeout);
+      subBtns.style.display = 'flex';
+    }
+    function hideSubBtns() {
+      hideTimeout = setTimeout(() => {
+        subBtns.style.display = 'none';
+      }, 300);
+    }
+
+    if (mainBtn && subBtns) {
+      mainBtn.addEventListener('mouseenter', showSubBtns);
+      mainBtn.addEventListener('focus', showSubBtns);
+      mainBtn.addEventListener('mouseleave', hideSubBtns);
+      subBtns.addEventListener('mouseenter', showSubBtns);
+      subBtns.addEventListener('mouseleave', hideSubBtns);
+
+      // For mobile: toggle on click
+      mainBtn.addEventListener('click', function(e) {
+        if (window.innerWidth < 900) {
+          e.preventDefault();
+          subBtns.style.display = subBtns.style.display === 'flex' ? 'none' : 'flex';
+        }
+      });
+    }
+  });
   </script>
 <!-- Place this just before the closing </body> tag -->
 <footer>
@@ -606,8 +652,10 @@
         </ul>
         <ul>
           <li class="link-heading" style="color:#101011;font-weight:700;">USER</li>
-          <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a></li>
-          <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
+          <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a>
+          </li>
+          <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a>
+          </li>
         </ul>
         <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
         <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
@@ -675,8 +723,9 @@
 </body>
 </html>
 <!-- Footer (Optional) -->
-  <footer style="background:#7e8388;color:#fff;padding:1rem 0;text-align:center;">
+  <footer style="background:#cde4ff;color:#fff;padding:2rem 0;text-align:center;">
     <p style="margin:0;font-size:0.9rem;">
-      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
+      <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>
     </p>
   </footer>

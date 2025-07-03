@@ -520,10 +520,21 @@
   <div class="search-bar-container" style="margin-top:110px; display:flex; justify-content:center; z-index:2; position:relative;">
     <form class="search-bar" autocomplete="off" style="display:flex;align-items:center;background:#fff;border-radius:32px;box-shadow:0 4px 24px #007bff12;padding:0.25rem 0.5rem 0.25rem 1.2rem;width:100%;max-width:480px;border:1.5px solid #e0e0e0;transition:box-shadow 0.2s,border 0.2s;">
       <i class="fa fa-search" style="color:#007bff;font-size:1.2rem;margin-right:0.7rem;"></i>
-      <input type="text" placeholder="Search courses, services, or topics..." name="search" style="border:none;outline:none;font-size:1.08rem;font-family:'Manrope','Poppins',Arial,sans-serif;flex:1;background:transparent;color:#222;padding:0.7rem 0;">
+      <div style="flex:1;overflow:hidden;position:relative;min-width:0;">
+        <div id="search-marquee" style="white-space:nowrap;display:inline-block;position:absolute;left:0;top:50%;transform:translateY(-50%);animation:searchScroll 12s linear infinite;">
+          Search careers, News, Updates, services, or topics...
+        </div>
+        <input type="text" placeholder="" name="search" style="background:transparent;border:none;outline:none;width:100%;height:100%;position:relative;z-index:1;font-size:1.08rem;font-family:'Manrope','Poppins',Arial,sans-serif;color:#222;padding:0.7rem 0;" />
+      </div>
       <button type="submit" style="background:linear-gradient(90deg,#29A9E1,#007bff);color:#fff;border:none;border-radius:24px;font-weight:600;font-size:1rem;padding:0.6rem 1.5rem;margin-left:0.8rem;cursor:pointer;transition:background 0.2s,transform 0.2s;box-shadow:0 2px 8px #007bff22;">Search</button>
     </form>
   </div>
+  <style>
+    @keyframes searchScroll {
+      0% { left: 100%; }
+      100% { left: -100%; }
+    }
+  </style>
 
   <section class="about-section">
     <h1>About Vyntyra Consultancy Services</h1>
@@ -642,7 +653,10 @@
     <div class="founder-message-section" style="max-width:700px;margin:2.5rem auto 2rem auto;padding:1.7rem 1.3rem;background:#fffbe7;border-radius:18px;box-shadow:0 4px 24px #ffb30022;text-align:center;">
       <img src="founder.jpg" alt="Founder" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid #ffb300;margin-bottom:0.7rem;">
       <h2 style="color:#5aa7a0;font-size:1.18rem;margin-bottom:0.5rem;font-family:'Montserrat',Arial,sans-serif;">Message from Our Founder</h2>
-      <p style="color:#616872;font-size:1.18rem;line-height:1.7;margin:0 auto 0.7rem auto;max-width:650px;">JAMI ESWAR ANIL KUMAR</p>
+      <p style="color:#616872;font-size:1.18rem;line-height:1.7;margin:0 auto 0.7rem auto;max-width:650px;">
+        JAMI ESWAR ANIL KUMAR<br>
+        <span style="color:#007bff;font-size:1rem;font-weight:600;">Front End Developer</span>
+      </p>
       <div style="text-align:justify;max-width:650px;margin:0 auto;">
         <span style="font-weight:600;color:#ffb300;"> “At Vyntyra, we believe that true progress is achieved when innovation meets execution. Our mission is to empower businesses and individuals to reach their highest potential through technology, creativity, and collaboration. Thank you for being a part of our journey.”
 </span>
@@ -1015,12 +1029,14 @@
       document.getElementById('quoteSuccessMsg').style.display = 'block';
       setTimeout(closeServiceQuoteModal, 2500);
     });
+  
   </script>
 </body>
 </html>
 <!-- Footer (Optional) -->
-  <footer style="background:#959aa0;color:#fff;padding:2rem 0;text-align:center;">
+  <footer style="background:#cde4ff;color:#fff;padding:2rem 0;text-align:center;">
     <p style="margin:0;font-size:0.9rem;">
-      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
+      <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>
     </p>
   </footer>

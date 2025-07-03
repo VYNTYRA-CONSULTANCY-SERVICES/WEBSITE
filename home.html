@@ -281,6 +281,26 @@
       background: linear-gradient(90deg, #007bff, #29A9E1);
       transform: translateY(-2px) scale(1.04);
     }
+    /* Replace the input in your search bar with the following for a scrolling effect */
+    .search-bar .scrolling-text {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      min-width: 0;
+    }
+    .search-bar .scrolling-text #search-marquee {
+      white-space: nowrap;
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: searchScroll 12s linear infinite;
+    }
+    @keyframes searchScroll {
+      0% { left: 100%; }
+      100% { left: -100%; }
+    }
     /* Responsive */
     @media (max-width: 900px) {
       .hero h1 { font-size: 2.2rem; }
@@ -329,9 +349,23 @@
         <li><a href="portfolio.html">Portfolio</a></li>
       </ul>
     </nav>
-    <div class="cta-buttons">
-      <a href="#contactus" class="btn-primary">Contact Us</a>
-    </div>
+    <!-- Replace this block in your header for contact buttons -->
+<div class="cta-buttons" style="position:relative;">
+  <a href="contactus" class="btn-primary" id="mainContactBtn" style="position:relative;z-index:2;">
+    Contact Us
+  </a>
+  <div id="subContactBtns" style="display:none;flex-direction:column;gap:0.5rem;position:absolute;top:110%;right:0;z-index:3;">
+    <a href="tel:+919390515106" class="btn-primary" style="background:linear-gradient(90deg,#007bff,#29A9E1);font-size:0.98rem;">
+      <i class="fa fa-phone" style="margin-right:7px;"></i> +91 9390515106 (Mobile)
+    </a>
+    <a href="https://wa.me/919390515106" target="_blank" class="btn-primary" style="background:linear-gradient(90deg,#25d366,#128c7e);font-size:0.98rem;">
+      <i class="fa fa-whatsapp" style="margin-right:7px;"></i> +91 9390515106 (WhatsApp)
+    </a>
+    <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="background:linear-gradient(90deg,#ffb300,#ff9800);font-size:0.98rem;">
+      <i class="fa fa-envelope" style="margin-right:7px;"></i> vyntyraindia@aol.com (Email)
+    </a>
+  </div>
+</div>
     <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
   </header>
   <!-- Hero Section -->
@@ -339,15 +373,18 @@
     <div class="search-bar-container">
       <form class="search-bar" autocomplete="off">
         <i class="fa fa-search"></i>
-        <input type="text" placeholder="Search careers, News, Updates, services, or topics..." name="search" />
+        <div class="scrolling-text">
+          <div id="search-marquee">Search careers, News, Updates, services, or topics...</div>
+          <input type="text" placeholder="" name="search" />
+        </div>
         <button type="submit">Search</button>
       </form>
     </div>
     <h1>
-      <span class="highlight" id="mainText">We Design</span>
-      <span class="highlight" id="staticText">branding strategies</span>
+      <span class="highlight" id="mainText">Welcome </span>
+      <span class="highlight" id="staticText">to Vyntyra Consultancy Services</span>
     </h1>
-    <h1 id="subText">To Increase Sales</h1>
+    <h1 id="subText">Where Innovation, Implementation, Growth, Success meets</h1>
     <div class="paragraph">
       <p>
         <span>
@@ -534,6 +571,38 @@
       });
     });
   });
+
+// filepath: c:\Users\Jamia\OneDrive\Desktop\website\home.html
+// Place after your header or at the end of the body
+document.addEventListener('DOMContentLoaded', function() {
+  const mainBtn = document.getElementById('mainContactBtn');
+  const subBtns = document.getElementById('subContactBtns');
+  let hideTimeout;
+
+  function showSubBtns() {
+    clearTimeout(hideTimeout);
+    subBtns.style.display = 'flex';
+  }
+  function hideSubBtns() {
+    hideTimeout = setTimeout(() => {
+      subBtns.style.display = 'none';
+    }, 300);
+  }
+
+  mainBtn.addEventListener('mouseenter', showSubBtns);
+  mainBtn.addEventListener('focus', showSubBtns);
+  mainBtn.addEventListener('mouseleave', hideSubBtns);
+  subBtns.addEventListener('mouseenter', showSubBtns);
+  subBtns.addEventListener('mouseleave', hideSubBtns);
+
+  // For mobile: toggle on click
+  mainBtn.addEventListener('click', function(e) {
+    if (window.innerWidth < 900) {
+      e.preventDefault();
+      subBtns.style.display = subBtns.style.display === 'flex' ? 'none' : 'flex';
+    }
+  });
+});
   </script>
 <!-- Place this just before the closing </body> tag -->
 <footer>
@@ -638,8 +707,10 @@
 </footer>
 </body>
 </html>
- <footer style="background:#959aa0;color:#fff;padding:2rem 0;text-align:center;">
+<!-- Footer (Optional) -->
+  <footer style="background:#cde4ff;color:#fff;padding:2rem 0;text-align:center;">
     <p style="margin:0;font-size:0.9rem;">
-      &copy; 2025 Vyntyra Consultancy Services. All rights reserved.
+      &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
+      <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>
     </p>
   </footer>
