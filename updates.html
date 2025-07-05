@@ -900,63 +900,58 @@
 
 <!-- ...existing code continues... -->
 
+<script src="https://smtpjs.com/v3/smtp.js"></script>
 <script>
-    // Hide Instagram dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-      var instaDropdown = document.getElementById('instaDropdown');
-      if (instaDropdown && !instaDropdown.contains(event.target) && !event.target.closest('.fab.fa-instagram')) {
-        instaDropdown.style.display = 'none';
-      }
-    });
-    // Login modal functions (if needed)
-    function showLoginOptions(e) {
-      e.preventDefault();
-      // Implement your login modal logic here
-      alert('Show login options modal here.');
-    }
-    function closeLoginOptions() {
-      // Implement your close modal logic here
-    }
-    document.querySelector('.search-bar').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
-      if (val.match(/^(about|about us|abou)$/)) {
-        window.location.href = 'about.html';
-      } else if (val.match(/^(updates?|update)$/)) {
-        window.location.href = 'updates.html';
-      } else if (val.match(/^(news)$/)) {
-        window.location.href = 'news.html';
-      } else if (val.match(/^(careers?|career)$/)) {
-        window.location.href = 'careers.html';
-      }
-    });
-    // Toggle contact sub-buttons
-    document.addEventListener('DOMContentLoaded', function() {
-      const btn = document.getElementById('contactUsBtn');
-      const subBtns = document.getElementById('contactSubButtons');
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        subBtns.style.display = (subBtns.style.display === 'block') ? 'none' : 'block';
-      });
-      // Hide on click outside
-      document.addEventListener('click', function(e) {
-        if (subBtns.style.display === 'block' && !btn.contains(e.target) && !subBtns.contains(e.target)) {
-          subBtns.style.display = 'none';
-        }
-      });
-    });
-    // Internship Application Form Submission
-  document.getElementById('internshipAppForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // You can integrate with your backend/email API here.
-    document.getElementById('internshipAppSuccess').textContent = "Thank you! Your application has been submitted. We'll contact you if shortlisted.";
-    document.getElementById('internshipAppSuccess').style.display = 'block';
-    setTimeout(() => {
-      document.getElementById('internshipAppForm').reset();
-      document.getElementById('internshipAppSuccess').style.display = 'none';
-    }, 3000);
+document.getElementById('internshipAppForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Collect form data
+  const name = document.getElementById('applicantName').value;
+  const email = document.getElementById('applicantEmail').value;
+  const phone = document.getElementById('applicantPhone').value;
+  const degree = document.getElementById('applicantDegree').value;
+  const year = document.getElementById('applicantYear').value;
+  const role = document.getElementById('applicantRole').value;
+  const skills = document.getElementById('applicantSkills').value;
+  const why = document.getElementById('applicantWhy').value;
+
+  // 1. Send data to Google Sheets using a Google Apps Script Web App
+  fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      name, email, phone, degree, year, role, skills, why
+    })
   });
-  </script>
+
+  // 2. Forward data to email using SMTPJS (or use Apps Script mail in your sheet script)
+  Email.send({
+    SecureToken: "https://inspiring-wisp-26c07a.netlify.app/",
+    To: 'jamianil37@gmail.com',
+    From: "https://inspiring-wisp-26c07a.netlify.app/",
+    Subject: "New Internship Application Received",
+    Body: `
+      <b>Name:</b> ${name}<br>
+      <b>Email:</b> ${email}<br>
+      <b>Phone:</b> ${phone}<br>
+      <b>Degree/Branch:</b> ${degree}<br>
+      <b>Year of Study:</b> ${year}<br>
+      <b>Preferred Role:</b> ${role}<br>
+      <b>Skills:</b> ${skills}<br>
+      <b>Why intern with us:</b> ${why}
+    `
+  });
+
+  // Show success message
+  document.getElementById('internshipAppSuccess').textContent = "Thank you! Your application has been submitted. We'll contact you if shortlisted.";
+  document.getElementById('internshipAppSuccess').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('internshipAppForm').reset();
+    document.getElementById('internshipAppSuccess').style.display = 'none';
+  }, 3000);
+});
+</script>
 </body>
 </html>
  <!-- Footer (Optional) -->
