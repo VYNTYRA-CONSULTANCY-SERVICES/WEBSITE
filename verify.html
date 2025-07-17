@@ -145,21 +145,72 @@
     </div>
     <div class="animated-bg"></div>
     <header>
-        <div class="main-header">
-            <div class="logo"></div>
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="updates.html">Updates</a></li>
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="careers.html">Careers</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="verify.html" class="active">Certificate Verification</a></li>
-                </ul>
-            </nav>
+  <div class="logo" style="display:inline-block;vertical-align:middle;">
+    <img src="logo.png" alt="Vyntyra Logo" style="height:38px;width:auto;vertical-align:middle;">
+  </div>
+  <nav class="subnav" style="display:inline-block;vertical-align:middle;width:100%;">
+    <ul style="display:flex;justify-content:center;align-items:center;gap:1.5rem;list-style:none;margin:0;padding:0;">
+      <li><a href="home.html" class="nav-foot-link" style="text-decoration:none;color:#222;font-weight:600;font-size:1rem;">Home</a></li>
+      <li><a href="about.html" class="nav-foot-link" style="text-decoration:none;color:#222;font-weight:600;font-size:1rem;">About Us</a></li>
+      <li><a href="updates.html" class="nav-foot-link" style="text-decoration:none;color:#222;font-weight:600;font-size:1rem;">Updates</a></li>
+      <li><a href="news.html" class="nav-foot-link" style="text-decoration:none;color:#222;font-weight:600;font-size:1rem;">News</a></li>
+      <li><a href="careers.html" class="nav-foot-link" style="text-decoration:none;color:#222;font-weight:600;font-size:1rem;">Careers</a></li>
+      <li><a href="portfolio.html" class="nav-foot-link" style="text-decoration:none;color:#222;font-weight:600;font-size:1rem;">Portfolio</a></li>
+      <li><a href="verify.html" class="nav-foot-link active" style="text-decoration:none;color:#007bff;font-weight:700;font-size:1rem;">Certificate Verification</a></li>
+      <li>
+        <div class="cta-buttons" style="display:inline-block;position:relative;">
+          <a href="#" class="btn-primary" id="mainContactBtn" style="position:relative;z-index:2;">
+            Contact Us
+          </a>
+          <div id="subContactBtns" style="display:none;flex-direction:column;gap:0.5rem;position:absolute;top:110%;right:0;z-index:3;">
+            <a href="tel:+919390515106" class="btn-primary" style="background:linear-gradient(90deg,#007bff,#29A9E1);font-size:0.98rem;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Phone_font_awesome.svg" alt="Phone" style="height:18px;width:18px;margin-right:7px;"> +91 9390515106 (Mobile)
+            </a>
+            <a href="https://wa.me/919390515106" target="_blank" class="btn-primary" style="background:linear-gradient(90deg,#25d366,#128c7e);font-size:0.98rem;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="height:18px;width:18px;margin-right:7px;"> +91 9390515106 (WhatsApp)
+            </a>
+            <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="background:linear-gradient(90deg,#ffb300,#ff9800);font-size:0.98rem;">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email" style="height:18px;width:18px;margin-right:7px;"> vyntyraindia@aol.com (Email)
+            </a>
+          </div>
         </div>
-    </header>
+      </li>
+    </ul>
+  </nav>
+  <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
+</header>
+<script>
+  // Contact button dropdown logic (same as home.html)
+  document.addEventListener('DOMContentLoaded', function() {
+    const mainBtn = document.getElementById('mainContactBtn');
+    const subBtns = document.getElementById('subContactBtns');
+    let hideTimeout;
+
+    function showSubBtns() {
+      clearTimeout(hideTimeout);
+      subBtns.style.display = 'flex';
+    }
+    function hideSubBtns() {
+      hideTimeout = setTimeout(() => {
+        subBtns.style.display = 'none';
+      }, 300);
+    }
+
+    mainBtn.addEventListener('mouseenter', showSubBtns);
+    mainBtn.addEventListener('focus', showSubBtns);
+    mainBtn.addEventListener('mouseleave', hideSubBtns);
+    subBtns.addEventListener('mouseenter', showSubBtns);
+    subBtns.addEventListener('mouseleave', hideSubBtns);
+
+    // For mobile: toggle on click
+    mainBtn.addEventListener('click', function(e) {
+      if (window.innerWidth < 900) {
+        e.preventDefault();
+        subBtns.style.display = subBtns.style.display === 'flex' ? 'none' : 'flex';
+      }
+    });
+  });
+</script>
     <div class="container">
         <h2 style="text-align:center;color:#007bff;margin-bottom:0.5rem;">Certificate Verification</h2>
         <div class="search-tip">
@@ -209,7 +260,7 @@
             <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
           </ul>
           <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
-          <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+          <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
         </div>
       </div>
       <!-- Decorative line -->
@@ -280,16 +331,149 @@
         {
             id: "VCS25INTMA001",
             name: "SIDDHI AGGARWAL",
-            course: "3-Month Internship Program as Chief Marketing Officer(CFO)",
+            course: "3-Month Internship Program as Financial Strategy Intern",
             issue_date_and_time: "26/07/2025,10:22:34 AM",
-            file: "certificates/VCS25INTMA001.pdf"
+            file: "https://drive.google.com/file/d/1ZEAf2qKxUuzq9KjImbAmbIclWiKzIpFo/view?usp=sharing"
         },
         {
             id: "VCS2024-002",
             name: "Harshitha Patnana",
             course: "UI/UX Design",
             issue_date: "2024-06-20",
-            file: "certificates/VCS2024-002.pdf"
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID1/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-001",
+            name: "John Doe",
+            course: "Web Development",
+            issue_date: "2024-05-15",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID2/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-003",
+            name: "Jane Smith",
+            course: "Data Science",
+            issue_date: "2024-07-10",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID3/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-004",
+            name: "Alice Johnson",
+            course: "Digital Marketing",
+            issue_date: "2024-08-05",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID4/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-005",
+            name: "Bob Brown",
+            course: "Graphic Design",
+            issue_date: "2024-09-01",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID5/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-006",
+            name: "Charlie Davis",
+            course: "Cybersecurity",
+            issue_date: "2024-10-12",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID6/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-007",
+            name: "Eve White",
+            course: "Cloud Computing",
+            issue_date: "2024-11-20",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID7/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-008",
+            name: "David Green",
+            course: "Mobile App Development",
+            issue_date: "2024-12-15",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID8/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-009",
+            name: "Grace Lee",
+            course: "AI and Machine Learning",
+            issue_date: "2025-01-10",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID9/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-010",
+            name: "Hank Wilson",
+            course: "Blockchain Technology",
+            issue_date: "2025-02-05",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID10/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-011",
+            name: "Ivy Martinez",
+            course: "Software Testing",
+            issue_date: "2025-03-01",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID11/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-012",
+            name: "Jack Taylor",
+            course: "Network Administration",
+            issue_date: "2025-04-20",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID12/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-013",
+            name: "Kathy Anderson",
+            course: "SEO Optimization",
+            issue_date: "2025-05-15",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID13/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-014",
+            name: "Leo Thomas",
+            course: "Content Writing",
+            issue_date: "2025-06-10",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID14/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-015",
+            name: "Mia Robinson",
+            course: "Project Management",
+            issue_date: "2025-07-05",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID15/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-016",
+            name: "Noah Clark",
+            course: "Business Analysis",
+            issue_date: "2025-08-01",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID16/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-017",
+            name: "Olivia Lewis",
+            course: "Financial Analysis",
+            issue_date: "2025-09-10",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID17/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-018",
+            name: "Paul Walker",
+            course: "Human Resource Management",
+            issue_date: "2025-10-15",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID18/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-019",
+            name: "Quinn Hall",
+            course: "Supply Chain Management",
+            issue_date: "2025-11-20",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID19/view?usp=drivesdk"
+        },
+        {
+            id: "VCS2024-020",
+            name: "Rita Young",
+            course: "Data Visualization",
+            issue_date: "2025-12-25",
+            file: "https://drive.google.com/file/d/1abcDEF2345678EXAMPLEID20/view?usp=drivesdk"
         }
         // Add more certificate objects here
     ];
@@ -300,9 +484,8 @@
         const cert = certificates.find(c => c.id.toLowerCase() === certId.toLowerCase());
         const resultDiv = document.getElementById('result');
         if (cert) {
-            // Get file extension for download attribute
-            const fileExt = cert.file.split('.').pop();
-            const driveUrl = "https://drive.google.com/file/d/1KiXWKkO8RL9tbUX_HE6D8Bb0uSFiVA7K/view?usp=drivesdk";
+            // Get file extension for download attribute (optional, since Google Drive links don't show extension)
+            const fileExt = "pdf";
             resultDiv.innerHTML = `
                 <div class="valid">
                     <b>Certificate is VERIFIED by Organisation</b><br>
@@ -310,15 +493,11 @@
                     Certificate ID: ${cert.id}<br>
                     Course: ${cert.course || cert["Internship Details"] || ""}<br>
                     Issue Date: ${cert.issue_date || cert.issue_date_and_time || ""}<br>
-                    <a class="download-link" href="${driveUrl}" target="_blank" rel="noopener">
+                    <a class="download-link" href="${cert.file}" target="_blank" rel="noopener">
                         Download Certificate (.${fileExt})
                     </a>
                 </div>
             `;
-            // Auto-forward to Google Drive on download click
-            document.querySelector('.download-link').addEventListener('click', function(e) {
-                window.open(driveUrl, '_blank');
-            });
         } else {
             resultDiv.innerHTML = `
                 <div class="invalid">
