@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificate Verification | Vyntyra Consultancy Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Google Fonts: Poppins, Inter, Manrope -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600;700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0084ff;
+      --yellow-accent: #ffb300;
+      --soft-bg: #f7faff;
+      --soft-card: #fff;
+      --border-color: #e0e0e0;
+      --shadow: 0 8px 32px #0001;
+    }
+    body {
+      font-family: 'Poppins', 'Manrope', 'Inter', Arial, sans-serif;
+      background: linear-gradient(120deg, #f7faff 0%, #e3f0ff 100%);
+      color: #1a1a1a;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .background-video-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.18;
+    }
+    .background-video-container video.hero-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+      pointer-events: none;
+    }
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 20% 30%, #2a5298 0%, transparent 60%),
+                  radial-gradient(circle at 80% 70%, #6dd5ed 0%, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #ffb30044 0%, transparent 70%);
+      animation: moveBg 10s linear infinite alternate;
+      opacity: 0.25;
+    }
+    @keyframes moveBg {
+      0% { background-position: 20% 30%, 80% 70%, 50% 50%; }
+      100% { background-position: 30% 40%, 70% 60%, 55% 55%; }
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: var(--soft-card);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .logo .logo\.png {
+      width: 78px;
+      height: 50px;
+      background: url('logo.png') no-repeat center center/contain;
+      border-radius: 8px;
+    }
+    .subnav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .subnav a {
+      color: #555;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      transition: color 0.2s;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+    .subnav a.active,
+    .subnav a:hover {
+      color: var(--primary-blue);
+    }
+    .cta-buttons .btn-primary {
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(90deg, #29A9E1, #007bff);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px #007bff22;
+    }
+    .cta-buttons .btn-primary:hover {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      transform: scale(1.05);
+    }
+
+    /* Hamburger Menu Styles */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary-blue);
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 101;
+    }
+
+    /* Mobile Navigation */
+    .subnav.mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--soft-card);
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+      z-index: 99;
+      animation: slideDown 0.3s ease-out forwards;
+    }
+
+    .subnav.mobile-menu.active {
+      display: flex;
+    }
+
+    .subnav.mobile-menu ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .subnav.mobile-menu li {
+      width: 100%;
+      text-align: center;
+    }
+
+    .subnav.mobile-menu a {
+      display: block;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .subnav.mobile-menu a:hover {
+      background-color: var(--soft-bg);
+    }
+
+    .cta-buttons.mobile-cta {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .cta-buttons.mobile-cta.active {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      header { padding: 0.7rem 1rem; }
+      .subnav ul { gap: 1rem; }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        justify-content: space-between;
+        flex-direction: row;
+        position: fixed;
+      }
+      .subnav#main-nav,
+      .cta-buttons#desktop-cta {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .certificate-portal-container, .duplicate-certificate-container {
+        padding-top: 8rem; /* Adjust for fixed header */
+      }
+    }
+
+    @media (max-width: 600px) {
+      .certificate-portal-container, .duplicate-certificate-container {
+        padding: 4rem 0.5rem 2rem 0.5rem;
+      }
+      .verification-card, .application-card {
+        padding: 1.5rem 1rem;
+      }
+      .input-group input, .input-group button, .input-group textarea {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.8rem;
+      }
+      .qr-scanner-buttons button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9em;
+      }
+    }
+
+    /* Certificate Portal Specific Styles */
+    .certificate-portal-container, .duplicate-certificate-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 70px - 150px); /* Adjust based on header/footer height */
+      padding: 6rem 2rem 3rem 2rem;
+      position: relative;
+      z-index: 1;
+      margin-top: 70px; /* Offset for fixed header */
+    }
+
+    .certificate-portal-container h1, .duplicate-certificate-container h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary-blue);
+      text-align: center;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #007bff 60%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .verification-card, .application-card {
+      background: var(--soft-card);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      border: 1.5px solid var(--border-color);
+      transition: all 0.3s ease;
+      margin-bottom: 3rem; /* Space between cards */
+    }
+    .verification-card:hover, .application-card:hover {
+      box-shadow: 0 12px 48px rgba(0, 123, 255, 0.15);
+      border-color: var(--primary-blue);
+    }
+
+    .verification-card h2, .application-card h2 {
+      font-size: 1.8rem;
+      color: #2a5298;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      color: #374151;
+      font-size: 1rem;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="tel"],
+    .input-group input[type="email"],
+    .input-group textarea {
+      width: calc(100% - 24px); /* Account for padding */
+      padding: 0.8rem 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+
+    .input-group input[type="text"]:focus,
+    .input-group input[type="tel"]:focus,
+    .input-group input[type="email"]:focus,
+    .input-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.2);
+    }
+    .input-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .input-group p.or-divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      color: #777;
+      font-weight: 500;
+      position: relative;
+      font-size: 0.95rem;
+    }
+    .input-group p.or-divider::before,
+    .input-group p.or-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background-color: #e0e0e0;
+    }
+    .input-group p.or-divider::before { left: 0; }
+    .input-group p.or-divider::after { right: 0; }
+
+    /* Updated QR scanner styles */
+    #qr-reader {
+      width: 100%;
+      max-width: 400px; /* Limit scanner width */
+      margin: 1.5rem auto 1rem auto;
+      border: 2px dashed var(--primary-blue);
+      border-radius: 12px;
+      overflow: hidden;
+      display: none; /* Hidden by default, shown when active */
+    }
+    #qr-reader div { /* Targeting specific qr-reader elements for styling */
+      border-radius: 10px !important; /* Ensure rounded corners */
+    }
+    #qr-reader__dashboard_section_csr { /* Styles for controls within scanner */
+      background: var(--soft-bg);
+      padding: 10px;
+      border-top: 1px solid var(--border-color);
+    }
+    #qr-reader-results {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #28a745;
+    }
+
+    .qr-scanner-placeholder {
+      background: #f0f2f5;
+      border: 2px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      color: #777;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem; /* Reduced margin */
+    }
+    .qr-scanner-placeholder i {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary-blue);
+    }
+
+    .qr-scanner-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      margin-top: 1rem;
+    }
+
+    .qr-scanner-buttons button {
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .qr-scanner-buttons button.start-scan {
+      background: var(--primary-blue);
+      color: #fff;
+    }
+    .qr-scanner-buttons button.start-scan:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    }
+    .qr-scanner-buttons button.stop-scan {
+      background: #dc3545;
+      color: #fff;
+    }
+    .qr-scanner-buttons button.stop-scan:hover {
+      background: #c82333;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    }
+
+
+    button.verify-btn, button.submit-application-btn {
+      width: 100%;
+      padding: 0.9rem 0;
+      background: linear-gradient(90deg, #28a745, #218838); /* Green for verification */
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+    }
+    button.verify-btn:hover, button.submit-application-btn:hover {
+      background: linear-gradient(90deg, #218838, #28a745);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+    }
+
+    #verificationResult, #applicationResult {
+      margin-top: 2rem;
+      background: #e6f7ff;
+      border: 1px solid #91d5ff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: left;
+      color: #1a1a1a;
+      display: none; /* Hidden by default */
+      animation: fadeInScaleUp 0.5s ease-out forwards;
+    }
+
+    #verificationResult.error, #applicationResult.error {
+      background: #fff0f6;
+      border-color: #ffadd2;
+      color: #cf1322;
+    }
+    #applicationResult.success {
+      background: #e6ffed;
+      border-color: #98fb98;
+      color: #28a745;
+    }
+
+
+    #verificationResult h3, #applicationResult h3 {
+      color: var(--primary-blue);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    #verificationResult p, #applicationResult p {
+      margin-bottom: 0.7rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    #verificationResult p strong, #applicationResult p strong {
+      color: #333;
+    }
+
+    #verificationResult a.download-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.8rem;
+      background: var(--yellow-accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(255, 179, 0, 0.2);
+    }
+    #verificationResult a.download-link:hover {
+      background: #e09b00;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeInScaleUp {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Chatbot styles - copied from home.html */
+    #chatbotContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    #chatbotToggleBtnGlobal {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 2.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      animation: pulse 2s infinite;
+    }
+
+    #chatbotToggleBtnGlobal:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.6);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #chatWindow {
+      display: none; /* Hidden by default */
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      height: 450px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      flex-direction: column;
+      transition: all 0.3s ease-in-out;
+      transform-origin: bottom right;
+      opacity: 0;
+      transform: scale(0.8);
+      max-width: calc(100vw - 40px); /* Responsive width */
+      max-height: calc(100vh - 80px); /* Responsive height */
+    }
+
+    #chatWindow.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #chatHeader {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      color: #fff;
+      padding: 12px 15px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    #chatHeader .close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #chatMessages {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f0f2f5;
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    .chat-message.user {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .chat-message.bot {
+      background-color: #e2e8f0;
+      align-self: flex-start;
+      margin-right: auto;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 10px 15px;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+      align-items: center;
+    }
+
+    .chat-input-area textarea {
+      flex-grow: 1;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-size: 0.95rem;
+      resize: none;
+      outline: none;
+      max-height: 80px;
+      overflow-y: auto;
+      margin-right: 10px;
+    }
+
+    .chat-input-area button {
+      background: var(--primary-blue);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.2s;
+    }
+
+    .chat-input-area button.mic-btn {
+        background-color: #FFC107;
+        margin-right: 8px;
+        box-shadow: 0 2px 5px rgba(255,193,7,0.4);
+    }
+    .chat-input-area button.mic-btn.recording {
+        background-color: #dc3545;
+        animation: pulseRed 1.2s infinite;
+    }
+    @keyframes pulseRed {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220,53,69, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220,53,69, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220,53,69, 0); }
+    }
+
+    .chat-input-area button:hover {
+      background: #0056b3;
+    }
+    .chat-input-area button.mic-btn:hover {
+      background-color: #e0a800;
+    }
+
+    #languageSelect {
+      margin-left: 10px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 0.85rem;
+    }
+
+    .email-action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .email-action-buttons button {
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: 1px solid var(--primary-blue);
+        background-color: var(--primary-blue);
+        color: #fff;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    .email-action-buttons button:hover {
+        background-color: #0056b3;
+    }
+    .email-action-buttons button.copy {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .email-action-buttons button.copy:hover {
+        background-color: #218838;
+    }
+
+    /* Styles for the Service Quote Modal form elements */
+    #serviceQuoteModal {
+        display:none;
+        position:fixed;
+        z-index:9999;
+        left:0;
+        top:0;
+        width:100vw;
+        height:100vh;
+        background:rgba(30,60,114,0.13);
+        align-items:center;
+        justify-content:center;
+    }
+
+    #serviceQuoteForm {
+        background:#fff;
+        color:#222;
+        border-radius:18px;
+        max-width:95vw;
+        width:370px;
+        padding:2.2rem 1.8rem 1.8rem 1.8rem !important;
+        box-shadow:0 8px 32px #0006;
+        position:relative;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.98rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select,
+    .form-group textarea {
+        width: calc(100% - 20px);
+        padding: 0.8rem 10px;
+        border-radius: 8px;
+        border: 1.5px solid var(--border-color);
+        font-size: 1rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group input[type="tel"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.2);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    #serviceQuoteForm button[type="submit"] {
+      margin-top: 1.5rem;
+      padding: 0.9rem 0;
+      font-size: 1.1rem;
+      border-radius: 28px;
+    }
+
+    #quoteSuccessMsg {
+        margin-top: 1.5rem;
+        padding: 0.8rem;
+        border-radius: 8px;
+        background-color: #e6ffed;
+        color: #28a745;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="background-video-container">
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="images/herosectionbackground.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="animated-bg"></div>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo.png"></div>
+    </div>
+    <nav class="subnav" id="main-nav">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="certificate_verification.html" class="active">Certificates</a></li>
+      </ul>
+    </nav>
+    <div class="cta-buttons" id="desktop-cta">
+      <a href="#" id="headerContactBtnDesktop" class="btn-primary">Contact Us</a>
+    </div>
+    <!-- Hamburger menu icon -->
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation and CTA (hidden by default) -->
+  <nav class="subnav mobile-menu" id="mobile-nav">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="certificate_verification.html" class="active">Certificates</a></li>
+    </ul>
+  </nav>
+  <div class="cta-buttons mobile-cta" id="mobile-cta">
+    <a href="#" id="headerContactBtnMobile" class="btn-primary">Contact Us</a>
+  </div>
+
+  <!-- Certificate Verification Portal Section -->
+  <div class="certificate-portal-container">
+    <h1>Verify Your Certificate</h1>
+    <div class="verification-card">
+      <h2>Enter Details to Verify</h2>
+      <div class="input-group">
+        <label for="certificateNumber">Certificate Number:</label>
+        <input type="text" id="certificateNumber" placeholder="e.g., VYSCS-2025-001">
+      </div>
+      <p class="or-divider">OR</p>
+      <div class="input-group">
+        <label for="registrationNumber">Registration Number:</label>
+        <input type="text" id="registrationNumber" placeholder="e.g., REG-VYSCS-1001">
+      </div>
+      <p class="or-divider">OR</p>
+      <div class="input-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" placeholder="e.g., +919876543210">
+      </div>
+      <p class="or-divider">OR</p>
+
+      <!-- QR Scanner Section -->
+      <div id="qr-reader-placeholder" class="qr-scanner-placeholder">
+        <i class="fas fa-qrcode"></i>
+        <p>Click "Start Scan" to activate QR Scanner</p>
+      </div>
+      <div id="qr-reader" style="display: none;"></div>
+      <div class="qr-scanner-buttons">
+        <button id="startQrScanBtn" class="start-scan">Start Scan</button>
+        <button id="stopQrScanBtn" class="stop-scan" style="display: none;">Stop Scan</button>
+      </div>
+      <div id="qr-reader-results" style="display: none;"></div>
+      <!-- End QR Scanner Section -->
+
+      <button class="verify-btn" id="verifyCertificateBtn">Verify Certificate</button>
+
+      <div id="verificationResult">
+        <!-- Certificate details will be displayed here -->
+      </div>
+    </div>
+
+    <!-- Apply for Lost/Duplicate Certificate Section -->
+    <div class="application-card">
+      <h2>Apply for Lost / Duplicate Certificate</h2>
+      <div class="input-group">
+        <label for="applicantName">Your Full Name:</label>
+        <input type="text" id="applicantName" placeholder="e.g., Jami Eswar Anil Kumar" required>
+      </div>
+      <div class="input-group">
+        <label for="applicantEmail">Your Email:</label>
+        <input type="email" id="applicantEmail" placeholder="e.g., yourname@example.com" required>
+      </div>
+      <div class="input-group">
+        <label for="applicantPhone">Your Phone Number:</label>
+        <input type="tel" id="applicantPhone" placeholder="e.g., +919876543210" required>
+      </div>
+      <div class="input-group">
+        <label for="originalCertNumber">Original Certificate Number (if known):</label>
+        <input type="text" id="originalCertNumber" placeholder="Optional, if you remember it">
+      </div>
+      <div class="input-group">
+        <label for="reasonForRequest">Reason for Request:</label>
+        <textarea id="reasonForRequest" rows="4" placeholder="e.g., Lost my original certificate, damaged certificate, etc." required></textarea>
+      </div>
+      <button class="submit-application-btn" id="submitApplicationBtn">Submit Application</button>
+      <div id="applicationResult">
+        <!-- Application submission result will be displayed here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Quote Modal - copied from home.html -->
+  <div id="serviceQuoteModal">
+    <form id="serviceQuoteForm" action="YOUR_APPS_SCRIPT_WEB_APP_URL_HERE" method="POST">
+      <button type="button" onclick="closeServiceQuoteModal()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.3rem;color:#e53935;cursor:pointer;">&times;</button>
+      <h2 style="text-align:center;color:#2a5298;margin-bottom:1.2rem;font-size:1.35rem;">Request a Service Quote</h2>
+      <div class="form-group">
+        <label for="quoteName">Your Name</label>
+        <input id="quoteName" name="name" type="text" required>
+      </div>
+      <div class="form-group">
+        <label for="quoteEmail">Email</label>
+        <input id="quoteEmail" name="email" type="email" required>
+      </div>
+      <div class="form-group">
+        <label for="quotePhone">Phone</label>
+        <input id="quotePhone" name="phone" type="tel" pattern="[0-9+\-\s]{7,}" required>
+      </div>
+      <div class="form-group">
+        <label for="quoteService">Service Interested In</label>
+        <select id="quoteService" name="service" required>
+          <option value="">Select a Service</option>
+          <option>IT Consultancy</option>
+          <option>Software Solutions</option>
+          <option>Web Development</option>
+          <option>Hiring & Recruitment</option>
+          <option>Branding & Marketing</option>
+          <option>E-Learning & Training</option>
+          <option>Resume Building</option>
+          <option>Research & Development</option>
+          <option>Cybersecurity</option>
+          <option>Business Analytics</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="quoteDetails">Project Details / Requirements</label>
+        <textarea id="quoteDetails" name="details" rows="3" required></textarea>
+      </div>
+      <button type="submit">
+        Submit Request
+      </button>
+      <div id="quoteSuccessMsg"></div>
+    </form>
+  </div>
+
+  <!-- Chatbot Container -->
+  <div id="chatbotContainer">
+    <div id="chatWindow">
+      <div id="chatHeader">
+        <span>Vyntyra Chatbot <i class="fas fa-robot"></i></span>
+        <select id="languageSelect">
+          <option value="en-US">English</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="te-IN">Telugu</option>
+          <option value="ar-EG">Arabic</option>
+          <option value="de-DE">German</option>
+          <option value="es-US">Spanish</option>
+          <option value="fr-FR">French</option>
+          <option value="id-ID">Indonesian</option>
+          <option value="it-IT">Italian</option>
+          <option value="ja-JP">Japanese</option>
+          <option value="ko-KR">Korean</option>
+          <option value="pt-BR">Portuguese (Brazil)</option>
+          <option value="ru-RU">Russian</option>
+          <option value="nl-NL">Dutch</option>
+          <option value="pl-PL">Polish</option>
+          <option value="th-TH">Thai</option>
+          <option value="tr-TR">Turkish</option>
+          <option value="vi-VN">Vietnamese</option>
+          <option value="ro-RO">Romanian</option>
+          <option value="uk-UA">Ukrainian</option>
+          <option value="bn-BD">Bengali</option>
+          <option value="en-IN">English (India)</option>
+          <option value="mr-IN">Marathi</option>
+          <option value="ta-IN">Tamil</option>
+        </select>
+        <button id="closeChatbotBtn" class="close-btn">&#x2715;</button>
+      </div>
+      <div id="chatMessages">
+        <!-- Chat messages will be appended here -->
+      </div>
+      <div class="chat-input-area">
+        <button id="micBtn" class="mic-btn"><i class="fas fa-microphone"></i></button>
+        <textarea id="chatInput" placeholder="Type your message..."></textarea>
+        <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    <button id="chatbotToggleBtnGlobal">
+      <i class="fas fa-robot"></i>
+    </button>
+  </div>
+
+  <!-- QR Code Scanner Library -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <script>
+    // Global functions (for onclick attributes)
+    function openServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'flex';
+      document.getElementById('serviceQuoteForm').reset();
+      document.getElementById('quoteSuccessMsg').style.display = 'none';
+    }
+
+    function closeServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'none';
+    }
+
+    // Chatbot specific global variables and functions
+    const chatbotWindow = document.getElementById('chatWindow');
+    const chatbotToggleBtn = document.getElementById('chatbotToggleBtnGlobal');
+    const closeChatbotBtn = document.getElementById('closeChatbotBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const languageSelect = document.getElementById('languageSelect');
+    const micBtn = document.getElementById('micBtn');
+
+    // Store chat history for conversational context
+    let chatHistory = [];
+
+    // State for email drafting process
+    let emailDraftingState = 'none';
+    let emailDetails = { to: '', subject: '', body: '' };
+    const OFFICIAL_EMAIL = 'enquiries.vyntyraconsultancyservices@outlook.com';
+
+    // Speech Recognition setup
+    let recognition;
+    let isRecording = false;
+
+    // Function to toggle chatbot visibility
+    function toggleChatbot() {
+      chatbotWindow.classList.toggle('active');
+      if (chatbotWindow.classList.contains('active')) {
+        if (chatHistory.length === 0) {
+          appendMessage("Hello! I'm Vyntyra's AI assistant. On this page, I can help you verify and even *simulate* downloading certificates. You can also apply for a lost or duplicate certificate here. Just tell me what you're looking for! ✨", 'bot');
+        }
+        chatInput.focus();
+      } else {
+        if (isRecording) {
+            recognition.stop();
+        }
+      }
+    }
+
+    // Check if Web Speech API is supported
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.interimResults = false;
+        recognition.lang = languageSelect.value;
+
+        recognition.onstart = () => {
+            console.log('Voice recognition started.');
+            micBtn.classList.add('recording');
+            appendMessage('Listening... Please speak now.', 'bot');
+            isRecording = true;
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            console.log('Speech recognized:', transcript);
+            chatInput.value = transcript;
+            sendMessage();
+            micBtn.classList.remove('recording');
+            isRecording = false;
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            micBtn.classList.remove('recording');
+            isRecording = false;
+            let errorMessage = "Sorry, I couldn't understand that. Please try typing.";
+            if (event.error === 'not-allowed' || event.error === 'denied') {
+                errorMessage = "Microphone access denied. Please enable microphone permissions in your browser settings to use voice input.";
+            } else if (event.error === 'no-speech') {
+                errorMessage = "No speech detected. Please try again.";
+            } else if (event.error === 'audio-capture') {
+                errorMessage = "Could not access microphone. Please ensure it's connected and not in use by another application.";
+            }
+            appendMessage(errorMessage, 'bot');
+        };
+
+        recognition.onend = () => {
+            console.log('Voice recognition ended.');
+            micBtn.classList.remove('recording');
+            isRecording = false;
+        };
+
+        micBtn.addEventListener('click', () => {
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.lang = languageSelect.value;
+                recognition.start();
+            }
+        });
+
+        languageSelect.addEventListener('change', () => {
+            if (recognition) {
+                recognition.lang = languageSelect.value;
+                appendMessage(`Language set to ${languageSelect.options[languageSelect.selectedIndex].text}.`, 'bot');
+            }
+        });
+
+    } else {
+        micBtn.style.display = 'none';
+        console.warn('Web Speech API is not supported in this browser.');
+    }
+
+    // Mock Certificate Data - In a real application, this would come from a secure backend
+    const mockCertificates = [
+      {
+        certificateNumber: "VYSCS-2025-001",
+        registrationNumber: "REG-VYSCS-1001",
+        phoneNumber: "+919876543210",
+        name: "Jami Eswar Anil Kumar",
+        course: "Full Stack Development Internship",
+        issueDate: "July 15, 2025",
+        qrCodeData: "VYSCS-2025-001|Jami Eswar Anil Kumar|Full Stack Development Internship",
+        downloadContent: "This certifies that Jami Eswar Anil Kumar has successfully completed the Full Stack Development Internship with Vyntyra Consultancy Services on July 15, 2025. Certificate No: VYSCS-2025-001."
+      },
+      {
+        certificateNumber: "VYSCS-2025-002",
+        registrationNumber: "REG-VYSCS-1002",
+        phoneNumber: "+919988776655",
+        name: "Anu Sri Metta",
+        course: "Cloud Solutions Training Program",
+        issueDate: "August 01, 2025",
+        qrCodeData: "VYSCS-2025-002|Anu Sri Metta|Cloud Solutions Training Program",
+        downloadContent: "This certifies that Anu Sri Metta has successfully completed the Cloud Solutions Training Program with Vyntyra Consultancy Services on August 01, 2025. Certificate No: VYSCS-2025-002."
+      },
+       {
+        certificateNumber: "VYSCS-2025-003",
+        registrationNumber: "REG-VYSCS-1003",
+        phoneNumber: "+917890123456",
+        name: "Harshitha Patnana",
+        course: "UI/UX Design Masterclass",
+        issueDate: "July 20, 2025",
+        qrCodeData: "VYSCS-2025-003|Harshitha Patnana|UI/UX Design Masterclass",
+        downloadContent: "This certifies that Harshitha Patnana has successfully completed the UI/UX Design Masterclass with Vyntyra Consultancy Services on July 20, 2025. Certificate No: VYSCS-2025-003."
+      }
+    ];
+
+    const certificateNumberInput = document.getElementById('certificateNumber');
+    const registrationNumberInput = document.getElementById('registrationNumber');
+    const phoneNumberInput = document.getElementById('phoneNumber');
+    const verifyCertificateBtn = document.getElementById('verifyCertificateBtn');
+    const verificationResultDiv = document.getElementById('verificationResult');
+
+    // QR Scanner related elements
+    const qrReaderDiv = document.getElementById('qr-reader');
+    const qrReaderPlaceholder = document.getElementById('qr-reader-placeholder');
+    const qrReaderResultsDiv = document.getElementById('qr-reader-results');
+    const startQrScanBtn = document.getElementById('startQrScanBtn');
+    const stopQrScanBtn = document.getElementById('stopQrScanBtn');
+
+    let html5QrCode; // Variable to hold the Html5QrcodeScanner instance
+
+    // Lost/Duplicate Certificate Application elements
+    const applicantNameInput = document.getElementById('applicantName');
+    const applicantEmailInput = document.getElementById('applicantEmail');
+    const applicantPhoneInput = document.getElementById('applicantPhone');
+    const originalCertNumberInput = document.getElementById('originalCertNumber');
+    const reasonForRequestInput = document.getElementById('reasonForRequest');
+    const submitApplicationBtn = document.getElementById('submitApplicationBtn');
+    const applicationResultDiv = document.getElementById('applicationResult');
+
+    function displayCertificateResult(certificate) {
+      verificationResultDiv.classList.remove('error');
+      if (certificate) {
+        verificationResultDiv.innerHTML = `
+          <h3>Certificate Found! 🎉</h3>
+          <p><strong>Name:</strong> ${certificate.name}</p>
+          <p><strong>Course/Program:</strong> ${certificate.course}</p>
+          <p><strong>Issue Date:</strong> ${certificate.issueDate}</p>
+          <p><strong>Certificate No:</strong> ${certificate.certificateNumber}</p>
+          <a href="#" class="download-link" data-content="${btoa(certificate.downloadContent)}" data-filename="Vyntyra_Certificate_${certificate.certificateNumber}.txt">Download Certificate</a>
+        `;
+        // Attach click listener for the dynamically created download link
+        verificationResultDiv.querySelector('.download-link').addEventListener('click', function(e) {
+          e.preventDefault();
+          simulateDownload(this.dataset.content, this.dataset.filename);
+        });
+      } else {
+        verificationResultDiv.innerHTML = `
+          <h3>Certificate Not Found 😔</h3>
+          <p>No certificate matches the details provided. Please double-check your input or Contact your Certificate provider.</p>
+        `;
+        verificationResultDiv.classList.add('error');
+      }
+      verificationResultDiv.style.display = 'block';
+    }
+
+    function simulateDownload(base64Content, filename) {
+        const decodedContent = atob(base64Content);
+        const blob = new Blob([decodedContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        appendMessage(`Simulated download of "${filename}" initiated. Check your downloads folder!`, 'bot');
+    }
+
+    function verifyCertificate(certNum = '', regNum = '', phoneNum = '', qrData = '') {
+      const lowerCertNum = certNum.toLowerCase();
+      const lowerRegNum = regNum.toLowerCase();
+      const cleanPhoneNum = phoneNum.replace(/\D/g, ''); // Remove non-digits for comparison
+      const lowerQrData = qrData.toLowerCase();
+
+      const foundCertificate = mockCertificates.find(cert =>
+        (lowerCertNum && cert.certificateNumber.toLowerCase() === lowerCertNum) ||
+        (lowerRegNum && cert.registrationNumber.toLowerCase() === lowerRegNum) ||
+        (cleanPhoneNum && cert.phoneNumber.replace(/\D/g, '') === cleanPhoneNum) ||
+        (lowerQrData && cert.qrCodeData.toLowerCase().includes(lowerQrData)) // Check if QR data matches any part of cert QR data
+      );
+      displayCertificateResult(foundCertificate);
+    }
+
+    // QR Code Scanner Functions
+    function onScanSuccess(decodedText, decodedResult) {
+      qrReaderResultsDiv.style.display = 'block';
+      qrReaderResultsDiv.textContent = `QR Code Scanned: ${decodedText}`;
+      
+      if (html5QrCode && html5QrCode.isScanning) { // Corrected check for isScanning
+          html5QrCode.stop().then(() => {
+              console.log("QR Code scanning stopped.");
+              qrReaderDiv.style.display = 'none';
+              qrReaderPlaceholder.style.display = 'block';
+              stopQrScanBtn.style.display = 'none';
+              startQrScanBtn.style.display = 'inline-block';
+          }).catch((err) => {
+              console.error("Error stopping QR code scanner:", err);
+          });
+      }
+
+      verifyCertificate('', '', '', decodedText);
+    }
+
+    function onScanError(errorMessage) {
+      // console.warn(`QR Scan Error: ${errorMessage}`); // Keep this silent for better UX unless debugging
+    }
+
+    startQrScanBtn.addEventListener('click', () => {
+      qrReaderPlaceholder.style.display = 'none';
+      qrReaderDiv.style.display = 'block';
+      startQrScanBtn.style.display = 'none';
+      stopQrScanBtn.style.display = 'inline-block';
+
+      if (!html5QrCode) {
+        html5QrCode = new Html5QrcodeScanner(
+          "qr-reader",
+          { fps: 10, qrbox: { width: 250, height: 250 } },
+          /* verbose= */ false
+        );
+      }
+      
+      html5QrCode.render(onScanSuccess, onScanError);
+      qrReaderResultsDiv.style.display = 'none';
+      verificationResultDiv.style.display = 'none';
+    });
+
+    stopQrScanBtn.addEventListener('click', () => {
+      if (html5QrCode && html5QrCode.isScanning) {
+        html5QrCode.stop().then(() => {
+          console.log("QR Code scanning stopped by user.");
+          qrReaderDiv.style.display = 'none';
+          qrReaderPlaceholder.style.display = 'block';
+          stopQrScanBtn.style.display = 'none';
+          startQrScanBtn.style.display = 'inline-block';
+          qrReaderResultsDiv.textContent = '';
+          qrReaderResultsDiv.style.display = 'none';
+        }).catch((err) => {
+          console.error("Error stopping QR code scanner:", err);
+        });
+      }
+    });
+
+    // Event listener for manual verification button
+    verifyCertificateBtn.addEventListener('click', () => {
+      const certNum = certificateNumberInput.value.trim();
+      const regNum = registrationNumberInput.value.trim();
+      const phoneNum = phoneNumberInput.value.trim();
+
+      if (!certNum && !regNum && !phoneNum) {
+        displayCertificateResult(null);
+        return;
+      }
+      if (html5QrCode && html5QrCode.isScanning) {
+          html5QrCode.stop().then(() => {
+              console.log("QR Code scanning stopped for manual verification.");
+              qrReaderDiv.style.display = 'none';
+              qrReaderPlaceholder.style.display = 'block';
+              stopQrScanBtn.style.display = 'none';
+              startQrScanBtn.style.display = 'inline-block';
+              qrReaderResultsDiv.textContent = '';
+              qrReaderResultsDiv.style.display = 'none';
+          }).catch((err) => {
+              console.error("Error stopping QR code scanner during manual verification:", err);
+          });
+      }
+      verifyCertificate(certNum, regNum, phoneNum);
+    });
+
+    // Lost/Duplicate Certificate Application Submission
+    submitApplicationBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default form submission
+
+      const name = applicantNameInput.value.trim();
+      const email = applicantEmailInput.value.trim();
+      const phone = applicantPhoneInput.value.trim();
+      const originalCert = originalCertNumberInput.value.trim();
+      const reason = reasonForRequestInput.value.trim();
+
+      applicationResultDiv.classList.remove('error', 'success'); // Clear previous states
+      applicationResultDiv.style.display = 'none';
+
+      if (!name || !email || !phone || !reason) {
+        applicationResultDiv.innerHTML = `
+          <h3>Application Error ⚠️</h3>
+          <p>Please fill in all required fields: Full Name, Email, Phone Number, and Reason for Request.</p>
+        `;
+        applicationResultDiv.classList.add('error');
+        applicationResultDiv.style.display = 'block';
+        return;
+      }
+
+      // Simulate sending data (in a real app, this would be an API call to a backend)
+      console.log('Lost/Duplicate Certificate Application Submitted:', {
+        name, email, phone, originalCert, reason
+      });
+
+      // Display success message
+      applicationResultDiv.innerHTML = `
+        <h3>Application Submitted! 🎉</h3>
+        <p>Thank you, <strong>${name}</strong>! Your request for a lost/duplicate certificate has been received. We will review your application and contact you at <strong>${email}</strong> or <strong>${phone}</strong> within 3-5 business days.</p>
+        <p style="font-size:0.9em;color:#555;">(This is a simulated submission for demonstration purposes.)</p>
+      `;
+      applicationResultDiv.classList.add('success');
+      applicationResultDiv.style.display = 'block';
+
+      // Clear the form
+      applicantNameInput.value = '';
+      applicantEmailInput.value = '';
+      applicantPhoneInput.value = '';
+      originalCertNumberInput.value = '';
+      reasonForRequestInput.value = '';
+
+      // Scroll to the result message for visibility
+      applicationResultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    const PAGE_CONTEXT = `
+      You are an AI assistant for Vyntyra Consultancy Services.
+      This context includes information from both the Home and Certificate Verification pages.
+
+      **Vyntyra Consultancy Services Overview (from Home Page):**
+      Vyntyra Consultancy Services is an innovation-driven firm providing tailored IT Consultancy, Hiring and Recruiting services, Branding, E-learning, Marketing, and Research & Development.
+      We connect talent with opportunities and elevate brand identities with strategic creativity. Our transformative digital education, smart marketing strategies, and innovative research ensure that our solutions make a meaningful impact.
+      Vyntyra has collaborated with 4+ companies.
+
+      **Certificate Verification Portal (from Certificate Verification Page):**
+      This portal allows users to verify and download their certificates issued by Vyntyra Consultancy Services.
+      Users can verify certificates using:
+      - **Certificate Number:** A unique identifier for each certificate (e.g., VYSCS-2025-001).
+      - **Registration Number:** A unique registration ID (e.g., REG-VYSCS-1001).
+      - **Phone Number:** The phone number associated with the certificate (e.g., +919876543210).
+      - **QR Scanner:** This feature is now enabled! You can click "Start Scan" on the page to activate your camera and scan a QR code on a certificate. The scanner will automatically process the QR data to verify.
+
+      **Apply for Lost or Duplicate Certificate (New Feature):**
+      Users can now submit an application if they have lost their original certificate or require a duplicate. The form requires:
+      - Your Full Name
+      - Your Email
+      - Your Phone Number
+      - Original Certificate Number (optional, if known)
+      - Reason for Request (e.g., Lost original, damaged, etc.)
+      Once submitted, the Vyntyra team will review the application and contact the applicant within 3-5 business days.
+
+      **Mock Certificate Data (for verification):**
+      Here are examples of certificates you can verify:
+      - **Certificate 1:**
+        - Certificate Number: VYSCS-2025-001
+        - Registration Number: REG-VYSCS-1001
+        - Phone Number: +919876543210
+        - Holder: Jami Eswar Anil Kumar
+        - Course: Full Stack Development Internship
+        - Issue Date: July 15, 2025
+        - QR Code Data (for scanning): VYSCS-2025-001|Jami Eswar Anil Kumar|Full Stack Development Internship
+      - **Certificate 2:**
+        - Certificate Number: VYSCS-2025-002
+        - Registration Number: REG-VYSCS-1002
+        - Phone Number: +919988776655
+        - Holder: Anu Sri Metta
+        - Course: Cloud Solutions Training Program
+        - Issue Date: August 01, 2025
+        - QR Code Data (for scanning): VYSCS-2025-002|Anu Sri Metta|Cloud Solutions Training Program
+      - **Certificate 3:**
+        - Certificate Number: VYSCS-2025-003
+        - Registration Number: REG-VYSCS-1003
+        - Phone Number: +917890123456
+        - Holder: Harshitha Patnana
+        - Course: UI/UX Design Masterclass
+        - Issue Date: July 20, 2025
+        - QR Code Data (for scanning): VYSCS-2025-003|Harshitha Patnana|UI/UX Design Masterclass
+
+      If a user asks to verify or download a certificate, you should ask them for the certificate number, registration number, phone number, or suggest they use the QR scanner. Once provided (or if they mention scanning), you can simulate finding the certificate and then tell the user that they can use the portal directly for verification and download. If they prefer, you can provide the certificate details in the chat and explain that the download is simulated.
+      Always instruct the user to use the inputs on the page (or the QR scanner) for actual verification/download or application submission.
+
+      **General Company Information (from Home/About Us):**
+      - **Internship Benefits:** Real-world projects, hands-on learning, global collaboration, teamwork, measurable impact. Benefits include LOR, Internship Certificate, Career Guidance, Resume Enhancement, Social Media Profile Profile Boosting, and potential for permanent position.
+      - **Monthly Performance Report:** June: grew to 19 members, surge of applications. July: 30% growth, competed with TCS.
+      - **Clients:** Undergoing client project for Q&A Android app and Android/iOS app for Aditya Institute of Technology and Management.
+      - **Detailed Service Offerings:** IT Consultancy, Software Solutions, Web Development, Hiring & Recruitment, Branding & Marketing, E-Learning & Training, Resume Building, Research & Development, Cybersecurity, Business Analytics.
+      - **Founder:** Jami Eswar Anil Kumar. Mission: "empower businesses and individuals to reach their highest potential through technology, creativity, and collaboration."
+      - **Team Members:** Anu Sri Metta (R&D Manager), Harshitha Patnana (IT-Consultant), Seera Sowjanya (HR Manager), Monika Lade (Marketing Head), Jeevanasri Maddi (Client Services), Lohitha Vana (Customer Support).
+      - **Locations:** Physical: Visakhapatnam. Virtual: Bangalore, Hyderabad, Uttar Pradesh.
+
+      **Important Links:**
+      - Home: home.html
+      - About Us: about.html
+      - Updates: updates.html
+      - News: news.html
+      - Careers: careers.html (Also the page for internship applications)
+      - Portfolio: portfolio.html
+      - Certificate Verification: certificate_verification.html
+      - User Agreement, Terms and Condition, Privacy policy: https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/ and https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/
+      - Contact Us: Can be initiated via the "Get a Quote for Service" form.
+
+      You should answer questions based on this information. If a user asks a question not covered by this information, inform them that you do not have that information.
+      If a user asks about a page like "Home", "About Us", "Updates", "News", "Careers", "Portfolio", "Contact Us", or "Certificate Verification", you can suggest they visit that page and provide the corresponding HTML file name or action. For "Contact Us", direct them to the "Get a Quote for Service" form.
+      Always respond in the language specified by the user in their prompt or chosen in the language selector.
+    `;
+
+    function copyToClipboard(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            appendMessage('Email copied to clipboard! ✅', 'bot');
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            appendMessage('Failed to copy email to clipboard. Please copy manually.', 'bot');
+        }
+        document.body.removeChild(textarea);
+    }
+
+    async function callGeminiAPI(history, targetLanguage) {
+      const apiKey = ""; // Canvas will automatically provide this at runtime
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+      const conversation = history.map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      }));
+
+      const systemInstruction = PAGE_CONTEXT + `\n\n Respond in ${targetLanguage}.`;
+      const fullConversation = [{
+        role: "user",
+        parts: [{ text: systemInstruction }]
+      },
+      {
+        role: "model",
+        parts: [{ text: "Okay, I understand." }]
+      },
+      ...conversation];
+
+
+      const payload = {
+        contents: fullConversation,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 500,
+        },
+      };
+
+      let retries = 0;
+      const maxRetries = 5;
+      const baseDelay = 1000;
+
+      while (retries < maxRetries) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            console.error(`Gemini API HTTP error! Status: ${response.status}, StatusText: ${response.statusText}`);
+            const errorBody = await response.text();
+            console.error('API Error Body:', errorBody);
+            if (response.status === 429) {
+              const delay = baseDelay * Math.pow(2, retries);
+              retries++;
+              console.warn(`Retrying API call in ${delay}ms... (Attempt ${retries}/${maxRetries})`);
+              await new Promise(res => setTimeout(res, delay));
+              continue;
+            }
+            return `An API error occurred: ${response.status}. Please check the console for details.`;
+          }
+
+          const result = await response.json();
+
+          if (result.candidates && result.candidates.length > 0) {
+              const firstCandidate = result.candidates[0];
+              if (firstCandidate.finishReason === "SAFETY") {
+                  console.warn("Gemini API response blocked due to safety reasons:", result);
+                  return "I'm sorry, I cannot generate a response for that request due to safety concerns. Please try rephrasing.";
+              }
+              if (firstCandidate.content && firstCandidate.content.parts && firstCandidate.content.parts.length > 0) {
+                  return firstCandidate.content.parts[0].text;
+              }
+          }
+
+          console.error("Unexpected API response structure or no content generated:", result);
+          return "I'm sorry, I couldn't generate a response for that. The API response was unexpected. Could you please try asking something else or rephrase your request?";
+
+        } catch (error) {
+          console.error("Error calling Gemini API:", error);
+          return "I'm having trouble connecting to my service right now. This might be a network issue or an API problem. Please check your internet connection and try again later.";
+        }
+      }
+      return "I'm currently overloaded with requests. Please try again in a few moments.";
+    }
+
+    async function sendMessage() {
+      const userMessage = chatInput.value.trim();
+      if (userMessage === '') return;
+
+      appendMessage(userMessage, 'user');
+      chatInput.value = '';
+
+      const loadingMessage = document.createElement('div');
+      loadingMessage.classList.add('chat-message', 'bot', 'loading');
+      loadingMessage.innerHTML = 'Thinking... <i class="fas fa-spinner fa-spin"></i>';
+      chatMessages.appendChild(loadingMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      const selectedLanguage = languageSelect.value;
+      let botResponseText;
+      const lowerCaseUserMessage = userMessage.toLowerCase();
+
+      // --- Certificate Verification Logic within Chatbot ---
+      if (lowerCaseUserMessage.includes('verify certificate') || lowerCaseUserMessage.includes('check certificate') || lowerCaseUserMessage.includes('download certificate') || lowerCaseUserMessage.includes('certificate number') || lowerCaseUserMessage.includes('registration number') || lowerCaseUserMessage.includes('phone number') || lowerCaseUserMessage.includes('qr code') || lowerCaseUserMessage.includes('scan qr')) {
+        let identifierValue = '';
+        let identifierType = '';
+
+        const certMatch = lowerCaseUserMessage.match(/certificate number (\S+)/);
+        const regMatch = lowerCaseUserMessage.match(/(registration number|reg no|reg-no) (\S+)/);
+        const phoneMatch = lowerCaseUserMessage.match(/(phone number|phone|mobile) (\S+)/);
+        const qrMatch = lowerCaseUserMessage.match(/(qr code|qr data|scanned qr) (.+)/);
+
+        if (certMatch) {
+            identifierValue = certMatch[1].toUpperCase();
+            identifierType = 'certificateNumber';
+        } else if (regMatch) {
+            identifierValue = regMatch[2].toUpperCase();
+            identifierType = 'registrationNumber';
+        } else if (phoneMatch) {
+            identifierValue = phoneMatch[2].replace(/\D/g, '');
+            identifierType = 'phoneNumber';
+        } else if (qrMatch) {
+            identifierValue = qrMatch[2].trim();
+            identifierType = 'qrData';
+            if (identifierValue.toLowerCase().includes('scan')) {
+                botResponseText = "To scan a QR code, please use the 'Start Scan' button on the page above. I cannot directly scan QR codes from chat.";
+                appendMessage(botResponseText, 'bot');
+                chatHistory.push({ sender: 'user', text: userMessage });
+                chatHistory.push({ sender: 'bot', text: botResponseText });
+                chatMessages.removeChild(loadingMessage);
+                return;
+            }
+        }
+
+        if (identifierValue) {
+            const foundCert = mockCertificates.find(cert => {
+                if (identifierType === 'certificateNumber') return cert.certificateNumber.toLowerCase() === identifierValue.toLowerCase();
+                if (identifierType === 'registrationNumber') return cert.registrationNumber.toLowerCase() === identifierValue.toLowerCase();
+                if (identifierType === 'phoneNumber') return cert.phoneNumber.replace(/\D/g, '') === identifierValue;
+                if (identifierType === 'qrData') return cert.qrCodeData.toLowerCase().includes(identifierValue.toLowerCase());
+                return false;
+            });
+
+            chatMessages.removeChild(loadingMessage);
+
+            if (foundCert) {
+                let response = `I found a certificate for ${foundCert.name} (${foundCert.course}) issued on ${foundCert.issueDate} with Certificate No: ${foundCert.certificateNumber}.`;
+                response += `\n\nYou can view and download this certificate directly on the portal above. For a simulated download here, would you like me to provide the content? (yes/no)`;
+                
+                chatHistory.push({ sender: 'user', text: userMessage });
+                chatHistory.push({ sender: 'bot', text: response });
+                
+                emailDraftingState = 'awaiting_download_confirmation';
+                emailDetails.currentCert = foundCert;
+
+                appendMessage(response, 'bot');
+                return;
+
+            } else {
+                botResponseText = "I couldn't find a certificate matching the details provided. Please double-check the certificate number, registration number, phone number, or QR code data and try again. Remember, you can use the input fields or the QR scanner on the page for direct verification!";
+                appendMessage(botResponseText, 'bot');
+                chatHistory.push({ sender: 'user', text: userMessage });
+                chatHistory.push({ sender: 'bot', text: botResponseText });
+                chatMessages.removeChild(loadingMessage);
+                return;
+            }
+        } else {
+            botResponseText = "Please provide a certificate number, registration number, phone number, or QR code data for verification. For example: 'Verify certificate number VYSCS-2025-001' or 'Check registration number REG-VYSCS-1001' or 'I scanned QR code data: VYSCS-2025-001|Name|Course'.";
+            appendMessage(botResponseText, 'bot');
+            chatHistory.push({ sender: 'user', text: userMessage });
+            chatHistory.push({ sender: 'bot', text: botResponseText });
+            chatMessages.removeChild(loadingMessage);
+            return;
+        }
+      } else if (emailDraftingState === 'awaiting_download_confirmation') {
+          if (lowerCaseUserMessage.includes('yes')) {
+              if (emailDetails.currentCert) {
+                  const cert = emailDetails.currentCert;
+                  const content = `Certificate Details:\nName: ${cert.name}\nCourse: ${cert.course}\nIssue Date: ${cert.issueDate}\nCertificate No: ${cert.certificateNumber}\n\nFull Certificate Content:\n${cert.downloadContent}`;
+                  
+                  appendMessage(`Okay, here is the simulated certificate content for "${cert.name}":\n\n\`\`\`text\n${content}\n\`\`\`\n\nFor a full download, please use the "Download Certificate" button on the portal above.`, 'bot');
+                  
+                  emailDraftingState = 'none';
+                  emailDetails.currentCert = null;
+                  chatHistory.push({ sender: 'user', text: userMessage });
+                  chatHistory.push({ sender: 'bot', text: "Simulated certificate content provided." });
+                  chatMessages.removeChild(loadingMessage);
+                  return;
+              } else {
+                  botResponseText = "It seems I lost track of which certificate you wanted to download. Could you please re-initiate the verification by providing the certificate number, registration number, or phone number again?";
+              }
+          } else if (lowerCaseUserMessage.includes('no')) {
+              botResponseText = "Understood. You can use the portal above to verify and download certificates at any time.";
+          } else {
+              botResponseText = "Please answer with 'yes' or 'no' if you'd like to see the simulated certificate content.";
+          }
+          appendMessage(botResponseText, 'bot');
+          chatHistory.push({ sender: 'user', text: userMessage });
+          chatHistory.push({ sender: 'bot', text: botResponseText });
+          emailDraftingState = 'none';
+          emailDetails.currentCert = null;
+          chatMessages.removeChild(loadingMessage);
+          return;
+      }
+      // --- End Certificate Verification Logic within Chatbot ---
+
+      // --- Lost/Duplicate Certificate Application Logic (new for chatbot) ---
+      if (lowerCaseUserMessage.includes('apply for lost certificate') || lowerCaseUserMessage.includes('request duplicate certificate') || lowerCaseUserMessage.includes('lost certificate application')) {
+          botResponseText = "Certainly! You can easily apply for a lost or duplicate certificate using the form directly on this page. Please scroll down to the 'Apply for Lost / Duplicate Certificate' section and fill in the required details. Once submitted, our team will get back to you!";
+          appendMessage(botResponseText, 'bot');
+          chatHistory.push({ sender: 'user', text: userMessage });
+          chatHistory.push({ sender: 'bot', text: botResponseText });
+          chatMessages.removeChild(loadingMessage);
+          // Scroll to the application section
+          document.querySelector('.application-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+      }
+      // --- End Lost/Duplicate Certificate Application Logic ---
+
+
+      // --- Email Drafting Logic ---
+      if (emailDraftingState === 'none' && (lowerCaseUserMessage.includes('write an email') || lowerCaseUserMessage.includes('compose an email'))) {
+        emailDraftingState = 'awaiting_recipient';
+        botResponseText = "Certainly! I can help you draft a professional email. To whom should this email be addressed (e.g., 'our sales team', 'Mr. Smith', 'info@example.com')?";
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_recipient') {
+        emailDetails.to = userMessage;
+        emailDraftingState = 'awaiting_subject';
+        botResponseText = `Got it. The recipient is "${emailDetails.to}". What would be the subject line of the email?`;
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_subject') {
+        emailDetails.subject = userMessage;
+        emailDraftingState = 'awaiting_body';
+        botResponseText = `Okay, the subject is "${emailDetails.subject}". Please tell me the main points or purpose you want to convey in the email body.`;
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_body') {
+        emailDetails.body = userMessage;
+        emailDraftingState = 'draft_ready';
+
+        const emailPrompt = `Draft a professional email with the following details, using clear and concise language. Ensure the tone is appropriate for a business communication.
+        Recipient: ${emailDetails.to}
+        Subject: ${emailDetails.subject}
+        Main Content/Purpose: ${emailDetails.body}
+        `;
+        botResponseText = await callGeminiAPI([{ sender: 'user', text: emailPrompt }], selectedLanguage);
+
+        chatMessages.removeChild(loadingMessage);
+
+        const emailContentHtml = `
+            <p>Here's your drafted email:</p>
+            <div style="background:#f9f9f9; padding:15px; border-radius:8px; border:1px solid #eee; margin-bottom:10px;">
+                <p><strong>To:</strong> ${emailDetails.to}</p>
+                <p><strong>Subject:</strong> ${emailDetails.subject}</p>
+                <hr style="border:0; border-top:1px dashed #ddd;">
+                <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: 'Manrope', 'Poppins', sans-serif; font-size: 0.95rem; color: #333;">${botResponseText}</pre>
+            </div>
+            <div class="email-action-buttons">
+                <button onclick="copyToClipboard('${botResponseText.replace(/'/g, "\\'")}')">Copy Email</button>
+                <a href="mailto:${encodeURIComponent(emailDetails.to)}?subject=${encodeURIComponent(emailDetails.subject)}&body=${encodeURIComponent(botResponseText)}" target="_blank" style="text-decoration: none;">
+                    <button>Send via Email Client</button>
+                </a>
+            </div>
+            <p style="font-size:0.85em; color:#666; margin-top:10px;">You can also choose to refine it further or start a new email.</p>
+        `;
+        appendMessage(emailContentHtml, 'bot', true);
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+
+        emailDraftingState = 'none';
+        emailDetails = { to: '', subject: '', body: '' };
+        return;
+      }
+      // --- End Email Drafting Logic ---
+
+      // --- General Chatbot Logic (if not in any specific state) ---
+      chatHistory.push({ sender: 'user', text: userMessage });
+      botResponseText = await callGeminiAPI(chatHistory, selectedLanguage);
+      chatMessages.removeChild(loadingMessage);
+
+      appendMessage(botResponseText, 'bot');
+      chatHistory.push({ sender: 'bot', text: botResponseText });
+
+      const lowerCaseResponse = botResponseText.toLowerCase();
+
+      if (lowerCaseResponse.includes('home page') || lowerCaseUserMessage.includes('home')) {
+        setTimeout(() => window.location.href = 'home.html', 1500);
+      } else if (lowerCaseResponse.includes('about us page') || lowerCaseUserMessage.includes('about us')) {
+        setTimeout(() => window.location.href = 'about.html', 1500);
+      } else if (lowerCaseResponse.includes('updates page') || lowerCaseUserMessage.includes('updates')) {
+        setTimeout(() => window.location.href = 'updates.html', 1500);
+      } else if (lowerCaseResponse.includes('news page') || lowerCaseUserMessage.includes('news')) {
+        setTimeout(() => window.location.href = 'news.html', 1500);
+      } else if (lowerCaseResponse.includes('careers page') || lowerCaseUserMessage.includes('careers')) {
+        setTimeout(() => window.location.href = 'careers.html', 1500);
+      } else if (lowerCaseResponse.includes('portfolio page') || lowerCaseUserMessage.includes('portfolio')) {
+        setTimeout(() => window.location.href = 'portfolio.html', 1500);
+      } else if (lowerCaseResponse.includes('contact us') || lowerCaseUserMessage.includes('contact us') || lowerCaseUserMessage.includes('get a quote')) {
+        setTimeout(() => openServiceQuoteModal(), 1500);
+      } else if (lowerCaseResponse.includes('certificate verification') || lowerCaseUserMessage.includes('certificate verification') || lowerCaseUserMessage.includes('certificates') || lowerCaseUserMessage.includes('verify certificate')) {
+        setTimeout(() => window.location.href = 'certificate_verification.html', 1500);
+      }
+    }
+
+
+    // Event listeners
+    sendMessageBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the menu toggle button and mobile navigation elements
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      const mobileCta = document.getElementById('mobile-cta');
+
+      // Toggle mobile menu on hamburger icon click
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+          mobileNav.classList.toggle('active');
+          mobileCta.classList.toggle('active');
+          // Change icon
+          const icon = menuToggle.querySelector('i');
+          if (mobileNav.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        });
+      }
+
+      // Close mobile menu when a nav link is clicked
+      document.querySelectorAll('#mobile-nav a').forEach(item => {
+        item.addEventListener('click', () => {
+          mobileNav.classList.remove('active');
+          mobileCta.classList.remove('active');
+          menuToggle.querySelector('i').classList.remove('fa-times');
+          menuToggle.querySelector('i').classList.add('fa-bars');
+        });
+      });
+
+      // Update Contact Us button to open modal
+      const headerContactBtnDesktop = document.getElementById('headerContactBtnDesktop');
+      const headerContactBtnMobile = document.getElementById('headerContactBtnMobile');
+
+      if (headerContactBtnDesktop) {
+          headerContactBtnDesktop.addEventListener('click', function(e) {
+              e.preventDefault();
+              openServiceQuoteModal();
+          });
+      }
+      if (headerContactBtnMobile) {
+          headerContactBtnMobile.addEventListener('click', function(e) {
+              e.preventDefault();
+              openServiceQuoteModal();
+              mobileNav.classList.remove('active');
+              mobileCta.classList.remove('active');
+          });
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            if (document.getElementById('serviceQuoteModal').style.display === 'flex') {
+                closeServiceQuoteModal();
+            }
+            if (chatbotWindow.classList.contains('active')) {
+                toggleChatbot();
+            }
+        }
+      });
+
+      // Re-attaching chatbot toggle listeners in DOMContentLoaded to ensure elements exist
+      if (chatbotToggleBtn) {
+        chatbotToggleBtn.addEventListener('click', toggleChatbot);
+      }
+      if (closeChatbotBtn) {
+        closeChatbotBtn.addEventListener('click', toggleChatbot);
+      }
+    });
+  </script>
+</body>
+<footer>
+  <div class="slogan-container" style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1.2rem 0 0.7rem 0;">
+    <img class="slogan-logo" src="logo.png" alt="Vyntyra Logo" style="height: 58px;width:auto;border-radius:15px;box-shadow:0 3px 8px #007bff22;">
+    <h1 class="sloag-heading" style="font-size:1.2rem;letter-spacing:2px;color: linear-gradient(90deg, #007bff 60%, #ffb300 100%);font-family:'Poppins',sans-serif;text-shadow:0 2px 8px #007bff22;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</h1>
+  </div>
+  <!-- Creative square box around the site map section -->
+  <div style="border:2.5px dashed #29A9E1; border-radius:22px; background:linear-gradient(120deg,#f7faff 60%,#e3f0ff 100%); box-shadow:0 4px 32px #007bff18; padding:2.5rem 1.5rem 2rem 1.5rem; margin:2.5rem auto 2rem auto; max-width:1200px; position:relative; overflow:hidden;">
+    <!-- Decorative floating shapes -->
+    <div style="position:absolute;top:-30px;left:-30px;width:70px;height:70px;background:radial-gradient(circle,#29A9E1 60%,transparent 100%);opacity:0.18;z-index:0;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-30px;right:-30px;width:90px;height:90px;background:radial-gradient(circle,#ffb300 60%,transparent 100%);opacity:0.13;z-index:0;border-radius:50%;"></div>
+    <div class="site-map-section" style="position:relative;z-index:1;">
+      <div class="site-map-left-side" style="min-width:230px;">
+        <p class="site-map-para" style="font-weight:700;color:#242525;font-size:1.1rem;letter-spacing:1px;">SITE MAP</p>
+        <h6 class="site-map-heading" style="font-size:1.1rem;color:#222;margin-bottom:0.7rem;">Find all our links here</h6>
+        <p class="site-coffee-para" style="color:#d49709;font-weight:600;">MEET FOR A COLLABORATION</p>
+        <p class="footer-adress" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+      </div>
+      <div class="site-map-right-side" style="display:flex;flex-wrap:wrap;gap:2.5rem;">
+        <ul>
+          <li class="link-heading" style="color:#000000;font-weight:700;">EXPLORE</li>
+          <li><a href="/" class="nav-foot-link">Home</a></li>
+          <li><a href="/#partnerNav" class="nav-foot-link">Partner</a></li>
+          <li><a href="/#contactNav" class="nav-foot-link">Contact Us</a></li>
+          <li><a href="/#communityNav" class="nav-foot-link">Community</a></li>
+          <li><a href="certificate_verification.html" class="nav-foot-link">Certificate Reference</a></li>
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#000000;font-weight:700;">COMPANY</li>
+          <li><a class="nav-foot-link" href="/about">About Us</a></li>
+          <li><a href="/#blogNav" class="nav-foot-link">Blogs</a></li>
+          <li><a class="nav-foot-link" href="/careers.html">Career  <font style="animation: pulse 2s infinite;" ><span class="hiring-chip" style="background:#ffb300;color:#fff;padding:4px 8px;border-radius:8px;font-size:0.85em;">WE ARE HIRING INTERNS</span></font></a></li>
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#101011;font-weight:700;">USER</li>
+          <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a></li>
+          <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
+        </ul>
+        <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
+        <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+      </div>
+    </div>
+    <!-- Decorative line -->
+    <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#29A9E1,#ffb300);opacity:0.08;z-index:0;transform:translateX(-50%);"></div>
+  </div>
+  <div class="social-media-section" style="text-align:center;padding-bottom:1.2rem;">
+  <h5 class="social-media-heading" style="font-size:1.1rem;color:#5c5050;font-weight:700;letter-spacing:1px;margin-bottom:1.2rem;">
+    Find us on ❤️ social media
+  </h5>
+  <div style="display:flex;justify-content:center;">
+    <table style="margin:auto;border-collapse:separate;border-spacing:0 0.7rem;background:rgba(255,255,255,0.95);border-radius:18px;box-shadow:0 2px 16px #007bff11;">
+      <tr>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://www.linkedin.com/company/vyntyra-consultancy-services.in/" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+           LinkedIn
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="mailto:vyntyraindia@aol.com" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#141010;font-size:1.08rem;">
+            Mail
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://twitter.com/vyntyraindia" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#2e2d2d;font-size:1.08rem;">
+            Twitter
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://www.instagram.com/vyntyraindia/?hl=en" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+             Instagram
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://www.facebook.com/vyntyra-consultancy-services/?_rdr" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+             Facebook
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <span style="display:flex;align-items:center;gap:0.5em;color:#888;font-size:1.08rem;opacity:0.6;cursor:not-allowed;">
+            <p></p>With ❤️ from Vyntyra
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+  <div class="copyright-section" style="text-align:center;padding:0.7rem 0 0.2rem 0;">
+    <p class="copyright-para" style="color:#888;font-size:0.98rem;">©Vyntyra Consultancy Services 2025 · 2026</p>
+    <div class="copyright-nav-container" style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">User Agreement</a>
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">Terms and Condition</a>
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/">Privacy policy</a>
+    </div>
+  </div>
+  <div class="footer-brand-banner-section" style="text-align:center;padding:1.2rem 0 0.5rem 0;">
+    <p class="footer-slogan" style="font-size:1.1rem;color:#000000;font-weight:700;letter-spacing:2px;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</p>
+    <img src="/images/rinex_footer_banner.png" alt="" style="max-width:220px;width:100%;margin-top:0.5rem;border-radius:12px;box-shadow:0 2px 12px #007bff11;">
+  </div>
+</footer>
+</html>
+
