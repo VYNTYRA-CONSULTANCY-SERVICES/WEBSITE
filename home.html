@@ -220,7 +220,8 @@
 
     @media (max-width: 600px) {
       .hero { padding: 4rem 0.5rem 2rem 0.5rem; }
-      .hero h1 { font-size: 1.5rem; }
+      /* Further decrease h1 font size for very small screens */
+      .hero h1 { font-size: 1.25rem; line-height: 1.3; } /* Adjusted for better fit on small screens */
       .hero .paragraph { padding: 0.7rem 0.5rem; }
       .search-bar {
         max-width: 98vw;
@@ -849,14 +850,15 @@
       </form>
     </div>
     <h1>
-      <span class="highlight" id="mainText">Welcome to Vyntyra Consultancy Services</span><div>
+      <span class="highlight" id="mainText">Welcome to Vyntyra Consultancy Services</span>
+      <div>
         <span class="animated-text highlight-yellow delay-1">Innovation</span>
         <span class="animated-text highlight-red delay-2">Implementation</span>
         <span class="animated-text highlight-blue-light delay-3">Growth</span>
         <span class="animated-text highlight-green delay-4">Success</span>
         <span class="animated-text highlight-main-blue delay-5">Meets</span>
       </div>
-      <span class="highlight" id="staticText">Where Innovation, Implementation, Growth, Sucess Meets</span>
+      <!-- Removed duplicate static text as requested for mobile compactness -->
     </h1>
 
     <div class="paragraph">
@@ -1786,4 +1788,4 @@
       &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
       <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>
     </p>
-  </footer>
+  </footer>s
