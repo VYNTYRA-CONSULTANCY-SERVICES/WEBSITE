@@ -28,7 +28,7 @@
       position: relative;
     }
     .background-video-container {
-      position: fixed; 
+      position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 0;
       overflow: hidden;
@@ -64,11 +64,11 @@
       justify-content: space-between;
       padding: 1.2rem 2rem;
       background: var(--soft-card);
-      position:  relative;
+      position: fixed; /* Fixed header for consistency */
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 1;
+      z-index: 100;
       box-shadow: var(--shadow);
       border-bottom: 1px solid var(--border-color);
     }
@@ -114,13 +114,136 @@
       background: linear-gradient(90deg, #007bff, #29A9E1);
       transform: scale(1.05);
     }
+
+    /* Hamburger Menu Styles */
+    .menu-toggle {
+      display: none; /* Hidden on desktop */
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary-blue);
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 101; /* Above header elements */
+    }
+
+    /* Mobile Navigation */
+    .subnav.mobile-menu {
+      display: none; /* Hidden by default */
+      flex-direction: column;
+      position: absolute;
+      top: 100%; /* Position below header */
+      left: 0;
+      width: 100%;
+      background: var(--soft-card);
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+      z-index: 99;
+      animation: slideDown 0.3s ease-out forwards;
+    }
+
+    .subnav.mobile-menu.active {
+      display: flex; /* Show when active */
+    }
+
+    .subnav.mobile-menu ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .subnav.mobile-menu li {
+      width: 100%;
+      text-align: center;
+    }
+
+    .subnav.mobile-menu a {
+      display: block;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .subnav.mobile-menu a:hover {
+      background-color: var(--soft-bg);
+    }
+
+    .cta-buttons.mobile-cta {
+      display: none; /* Hidden on desktop */
+      text-align: center;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .cta-buttons.mobile-cta.active {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero h2 { font-size: 1.3rem; }
+      .hero .paragraph { font-size: 1rem; }
+      .hero .btn-get-started { padding: 0.7rem 1.2rem; font-size: 1rem; }
+      header { padding: 0.7rem 1rem; }
+      .subnav ul { gap: 1rem; }
+    }
+
+    @media (max-width: 768px) { /* Adjust breakpoint for mobile */
+      header {
+        justify-content: space-between; /* Space out logo and toggle */
+        flex-direction: row; /* Keep elements in a row */
+        position: fixed; /* Fix header on top for mobile */
+      }
+      .subnav#main-nav, /* Hide desktop nav */
+      .cta-buttons#desktop-cta { /* Hide desktop CTA */
+        display: none;
+      }
+      .menu-toggle {
+        display: block; /* Show hamburger icon */
+      }
+      .hero {
+        /* Adjust hero padding to account for fixed header ONLY on mobile */
+        padding-top: 8rem;
+        margin-top: 0; /* Ensure no extra margin */
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 4rem 0.5rem 2rem 0.5rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero .paragraph { padding: 0.7rem 0.5rem; }
+      .search-bar {
+        max-width: 98vw;
+        padding: 0.25rem 0.2rem 0.25rem 0.7rem;
+      }
+      .search-bar button {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+      }
+      /* Adjust scrolling placeholder on smaller screens */
+      .scrolling-placeholder-wrapper {
+        left: 2.5rem; /* Adjusted for smaller padding */
+        right: 4.5rem; /* Adjusted for smaller button and padding */
+      }
+    }
+
     .hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 6rem 2rem 3rem 2rem;
+      padding: 6rem 2rem 3rem 2rem; /* Default padding for desktop */
       margin-top: 70px;
       background: none;
       position: relative;
@@ -244,6 +367,8 @@
       max-width: 480px;
       border: 1.5px solid #e0e0e0;
       transition: box-shadow 0.2s, border 0.2s;
+      position: relative; /* Essential for absolute positioning of scrolling text */
+      overflow: hidden; /* Crucial: Added to clip scrolling text */
     }
     .search-bar:focus-within {
       box-shadow: 0 6px 32px #007bff22;
@@ -254,16 +379,57 @@
       font-size: 1.2rem;
       margin-right: 0.7rem;
     }
+
+    /* Styles for the scrolling placeholder text */
+    .scrolling-placeholder-wrapper {
+      position: absolute;
+      left: 3rem; /* Aligns with input text, accounting for icon */
+      right: 6rem; /* Accounts for the search button */
+      top: 50%;
+      transform: translateY(-50%);
+      overflow: hidden; /* Ensures text stays within bounds */
+      white-space: nowrap;
+      pointer-events: none; /* Allows clicks to pass through to the input field */
+      display: flex; /* Changed from height:100% to display:flex to better control vertical alignment */
+      align-items: center;
+      z-index: 0; /* Behind the input field */
+    }
+
+    .scrolling-text {
+      display: inline-block;
+      animation: scrollText 15s linear infinite; /* Adjust duration for speed */
+      color: #a0a0a0; /* Placeholder text color */
+      font-size: 1.08rem; /* Matches input font size */
+      font-family: 'Manrope', 'Poppins', Arial, sans-serif;
+    }
+
+    /* Keyframes for the scrolling animation */
+    @keyframes scrollText {
+      0% { transform: translateX(100%); } /* Start off-screen right */
+      100% { transform: translateX(-100%); } /* End off-screen left */
+    }
+
     .search-bar input[type="text"] {
       border: none;
       outline: none;
       font-size: 1.08rem;
       font-family: 'Manrope', 'Poppins', Arial, sans-serif;
       flex: 1;
-      background: transparent;
+      background: transparent; /* Make input background transparent */
       color: #222;
       padding: 0.7rem 0;
+      z-index: 1; /* Place input above scrolling text */
+      position: relative; /* Ensure input can receive focus/clicks */
     }
+
+    /* Hide scrolling text when input is focused or has content */
+    .search-bar input[type="text"]:focus + .scrolling-placeholder-wrapper .scrolling-text,
+    .search-bar input[type="text"]:not(:placeholder-shown) + .scrolling-placeholder-wrapper .scrolling-text {
+        opacity: 0;
+        transition: opacity 0.1s ease-out;
+    }
+
+
     .search-bar button {
       background: linear-gradient(90deg, #29A9E1, #007bff);
       color: #fff;
@@ -281,56 +447,352 @@
       background: linear-gradient(90deg, #007bff, #29A9E1);
       transform: translateY(-2px) scale(1.04);
     }
-    /* Replace the input in your search bar with the following for a scrolling effect */
-    .search-bar .scrolling-text {
-      flex: 1;
+
+    /* Styles for client logos */
+    .client-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem; /* Space between logos */
+      margin-top: 2rem;
+    }
+
+    .client-logo img {
+      max-width: 120px; /* Adjust as needed */
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .client-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Animation for the colorful text in the report section */
+    .animated-text {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInSlideUp 0.8s ease-out forwards;
+    }
+
+    .animated-text.delay-1 { animation-delay: 0.2s; }
+    .animated-text.delay-2 { animation-delay: 0.4s; }
+    .animated-text.delay-3 { animation-delay: 0.6s; }
+    .animated-text.delay-4 { animation-delay: 0.8s; }
+    .animated-text.delay-5 { animation-delay: 1.0s; }
+    .animated-text.delay-6 { animation-delay: 1.2s; }
+
+    @keyframes fadeInSlideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .highlight-yellow { color: var(--yellow-accent); font-weight: 600; }
+    .highlight-red { color: #ff4d4f; font-weight: 600; }
+    .highlight-blue-light { color: #29A9E1; font-weight: 600; }
+    .highlight-green { color: #28a745; font-weight: 600; }
+    .highlight-main-blue { color: var(--primary-blue); font-weight: 600; }
+
+    /* Chatbot styles - copied from about.html */
+    #chatbotContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    #chatbotToggleBtnGlobal {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 2.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      animation: pulse 2s infinite;
+    }
+
+    #chatbotToggleBtnGlobal:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.6);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #chatWindow {
+      display: none; /* Hidden by default */
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      height: 450px;
+      margin-bottom: 10px;
       overflow: hidden;
-      position: relative;
-      min-width: 0;
+      flex-direction: column;
+      transition: all 0.3s ease-in-out;
+      transform-origin: bottom right;
+      opacity: 0;
+      transform: scale(0.8);
+      max-width: calc(100vw - 40px); /* Responsive width */
+      max-height: calc(100vh - 80px); /* Responsive height */
     }
-    .search-bar .scrolling-text #search-marquee {
-      white-space: nowrap;
-      display: inline-block;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      animation: searchScroll 12s linear infinite;
+
+    #chatWindow.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
     }
-    @keyframes searchScroll {
-      0% { left: 100%; }
-      100% { left: -100%; }
+
+    #chatHeader {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      color: #fff;
+      padding: 12px 15px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 2.2rem; }
-      .hero h2 { font-size: 1.3rem; }
-      .hero .paragraph { font-size: 1rem; }
-      .hero .btn-get-started { padding: 0.7rem 1.2rem; font-size: 1rem; }
-      header { padding: 0.7rem 1rem; }
-      .subnav ul { gap: 1rem; }
+
+    #chatHeader .close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
-    @media (max-width: 600px) {
-      .hero { padding: 4rem 0.5rem 2rem 0.5rem; }
-      .hero h1 { font-size: 1.5rem; }
-      .hero .paragraph { padding: 0.7rem 0.5rem; }
-      header { flex-direction: column; align-items: flex-start; }
-      .subnav ul { flex-direction: column; gap: 0.7rem; }
-      .search-bar {
-        max-width: 98vw;
-        padding: 0.25rem 0.2rem 0.25rem 0.7rem;
-      }
-      .search-bar button {
-        padding: 0.5rem 1rem;
-        font-size: 0.95rem;
-      }
+
+    #chatMessages {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f0f2f5;
     }
+
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+      white-space: pre-wrap; /* Preserve whitespace and line breaks for email drafts */
+    }
+
+    .chat-message.user {
+      background-color: #dcf8c6; /* Light green for user */
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .chat-message.bot {
+      background-color: #e2e8f0; /* Light gray for bot */
+      align-self: flex-start;
+      margin-right: auto;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 10px 15px;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+      align-items: center;
+    }
+
+    .chat-input-area textarea {
+      flex-grow: 1;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-size: 0.95rem;
+      resize: none;
+      outline: none;
+      max-height: 80px; /* Limit textarea height */
+      overflow-y: auto;
+      margin-right: 10px;
+    }
+
+    .chat-input-area button {
+      background: var(--primary-blue);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.2s;
+    }
+
+    .chat-input-area button.mic-btn {
+        background-color: #FFC107; /* Yellow for microphone */
+        margin-right: 8px;
+        box-shadow: 0 2px 5px rgba(255,193,7,0.4);
+    }
+    .chat-input-area button.mic-btn.recording {
+        background-color: #dc3545; /* Red when recording */
+        animation: pulseRed 1.2s infinite;
+    }
+    @keyframes pulseRed {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220,53,69, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220,53,69, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220,53,69, 0); }
+    }
+
+
+    .chat-input-area button:hover {
+      background: #0056b3;
+    }
+    .chat-input-area button.mic-btn:hover {
+      background-color: #e0a800;
+    }
+
+
+    #languageSelect {
+      margin-left: 10px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 0.85rem;
+    }
+
+    .email-action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .email-action-buttons button {
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: 1px solid var(--primary-blue);
+        background-color: var(--primary-blue);
+        color: #fff;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    .email-action-buttons button:hover {
+        background-color: #0056b3;
+    }
+    .email-action-buttons button.copy {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .email-action-buttons button.copy:hover {
+        background-color: #218838;
+    }
+
+    /* Styles for the Service Quote Modal form elements - copied from about.html */
+    #serviceQuoteModal {
+        display:none;
+        position:fixed;
+        z-index:9999;
+        left:0;
+        top:0;
+        width:100vw;
+        height:100vh;
+        background:rgba(30,60,114,0.13);
+        align-items:center;
+        justify-content:center;
+    }
+
+    #serviceQuoteForm {
+        background:#fff;
+        color:#222;
+        border-radius:18px;
+        max-width:95vw;
+        width:370px;
+        padding:2.2rem 1.8rem 1.8rem 1.8rem !important;
+        box-shadow:0 8px 32px #0006;
+        position:relative;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.98rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select,
+    .form-group textarea {
+        width: calc(100% - 20px);
+        padding: 0.8rem 10px;
+        border-radius: 8px;
+        border: 1.5px solid var(--border-color);
+        font-size: 1rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group input[type="tel"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.2);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    #serviceQuoteForm button[type="submit"] {
+      margin-top: 1.5rem;
+      padding: 0.9rem 0;
+      font-size: 1.1rem;
+      border-radius: 28px;
+    }
+
+    #quoteSuccessMsg {
+        margin-top: 1.5rem;
+        padding: 0.8rem;
+        border-radius: 8px;
+        background-color: #e6ffed;
+        color: #28a745;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+    }
+
   </style>
 </head>
 <body>
   <div class="background-video-container">
     <video class="hero-video" autoplay loop muted playsinline>
-      <source src="https://yourdomain.com/images/herosectionbackground.mp4" type="video/mp4">
+      <source src="images/herosectionbackground.mp4" type="video/mp4">
     </video>
   </div>
   <div class="animated-bg"></div>
@@ -339,7 +801,7 @@
     <div class="logo">
       <div class="logo.png"></div>
     </div>
-    <nav class="subnav">
+    <nav class="subnav" id="main-nav">
       <ul>
         <li><a href="home.html" class="active">Home</a></li>
         <li><a href="about.html">About Us</a></li>
@@ -349,42 +811,54 @@
         <li><a href="portfolio.html">Portfolio</a></li>
       </ul>
     </nav>
-    <!-- Replace this block in your header for contact buttons -->
-<div class="cta-buttons" style="position:relative;">
-  <a href="contactus" class="btn-primary" id="mainContactBtn" style="position:relative;z-index:2;">
-    Contact Us
-  </a>
-  <div id="subContactBtns" style="display:none;flex-direction:column;gap:0.5rem;position:absolute;top:110%;right:0;z-index:3;">
-    <a href="tel:+919390515106" class="btn-primary" style="background:linear-gradient(90deg,#007bff,#29A9E1);font-size:0.98rem;">
-      <i class="fa fa-phone" style="margin-right:7px;"></i> +91 9390515106 (Mobile)
-    </a>
-    <a href="https://wa.me/919390515106" target="_blank" class="btn-primary" style="background:linear-gradient(90deg,#25d366,#128c7e);font-size:0.98rem;">
-      <i class="fa fa-whatsapp" style="margin-right:7px;"></i> +91 9390515106 (WhatsApp)
-    </a>
-    <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="background:linear-gradient(90deg,#ffb300,#ff9800);font-size:0.98rem;">
-      <i class="fa fa-envelope" style="margin-right:7px;"></i> vyntyraindia@aol.com (Email)
-    </a>
-  </div>
-</div>
-    <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
+    <div class="cta-buttons" id="desktop-cta">
+      <a href="#" id="headerContactBtnDesktop" class="btn-primary">Contact Us</a>
+    </div>
+    <!-- Hamburger menu icon -->
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
   </header>
+
+  <!-- Mobile Navigation and CTA (hidden by default) -->
+  <nav class="subnav mobile-menu" id="mobile-nav">
+    <ul>
+      <li><a href="home.html" class="active">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </nav>
+  <div class="cta-buttons mobile-cta" id="mobile-cta">
+    <a href="#" id="headerContactBtnMobile" class="btn-primary">Contact Us</a>
+  </div>
+
   <!-- Hero Section -->
   <div class="hero">
     <div class="search-bar-container">
       <form class="search-bar" autocomplete="off">
         <i class="fa fa-search"></i>
-        <div class="scrolling-text">
-          <div id="search-marquee">Search careers, News, Updates, services, or topics...</div>
-          <input type="text" placeholder="" name="search" />
+        <!-- New div for scrolling text -->
+        <div class="scrolling-placeholder-wrapper">
+          <span class="scrolling-text">Search careers, News, Updates, services, or topics...</span>
         </div>
+        <input type="text" name="search" /> <!-- Placeholder removed -->
         <button type="submit">Search</button>
       </form>
     </div>
     <h1>
-      <span class="highlight" id="mainText">Welcome </span>
-      <span class="highlight" id="staticText">to Vyntyra Consultancy Services</span>
+      <span class="highlight" id="mainText">Welcome to Vyntyra Consultancy Services</span><div>
+        <span class="animated-text highlight-yellow delay-1">Innovation</span>
+        <span class="animated-text highlight-red delay-2">Implementation</span>
+        <span class="animated-text highlight-blue-light delay-3">Growth</span>
+        <span class="animated-text highlight-green delay-4">Success</span>
+        <span class="animated-text highlight-main-blue delay-5">Meets</span>
+      </div>
+      <span class="highlight" id="staticText">Where Innovation, Implementation, Growth, Sucess Meets</span>
     </h1>
-    <h1 id="subText">Where Innovation, Implementation, Growth, Success meets</h1>
+
     <div class="paragraph">
       <p>
         <span>
@@ -513,8 +987,17 @@
         <h2 style="color:#468b97;font-family:'Poppins',Arial,sans-serif;font-size:1.7rem;margin-bottom:0;text-align:center;">
           Our Clients
         </h2>
+        <div class="client-logos">
+          <div class="client-logo">
+            <!-- Aitam Tekkali logo -->
+            <a href="http://adityatekkali.edu.in" target="_blank">
+              <img src="http://icais.in/aitamlogo1.webp" alt="Aitam Tekkali Official Logo" onerror="this.onerror=null;this.src='https://placehold.co/120x60/cccccc/000000?text=Logo+Error';">
+            </a>
+          </div>
+          <!-- Add more client logos here as needed -->
+        </div>
         <marquee behavior="scroll" direction="left" style="font-size:1.08rem;color:#374151;max-width:500px;">
-          We are undergoing client onboarding and once we perform a client project, it will be visible here.
+          We are undergoing client project for Q&A type Android application for <a href="http://adityatekkali.edu.in" target="_blank" style="color:#ffb300;font-weight:600; text-decoration: none;">Aditya Institute of Technology and Management</a>, a leading Institution in Andhra Pradesh. We are also working on a <span style="color:#29A9E1;font-weight:600;">Android & IOS application</span> for <a href="http://adityatekkali.edu.in" target="_blank" style="color:#28a745;font-weight:600; text-decoration: none;">Aditya Institute of Technology and Management</a> to enhance Student Communication Without Limitations for Guidance or Solutions
         </marquee>
       </div>
     </section>
@@ -523,130 +1006,679 @@
       <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.7rem;margin-bottom:1.2rem;text-align:center;">
         Monthly Performance Report – Success Story
       </h2>
-      <div style="font-size:1.13rem;color:#374151;text-align:center;max-width:700px;margin:0 auto;">
-        <p style="margin-bottom:1.2rem;">
-          <b>Last month</b>, our team size dropped from <span style="color:#ffb300;font-weight:600;">14</span> to <span style="color:#ff4d4f;font-weight:600;">8</span> members, and we found ourselves stuck in a single area of progress.
+      <div class="report-content-visual" style="text-align:center;max-width:700px;margin:0 auto;">
+        <p style="margin-bottom:1.2rem; font-size:1.13rem;color:#374151;">
+          <span class="animated-text delay-1">
+            <b class="highlight-blue-light">3 months before</b>, our team size dropped from <span class="highlight-yellow">14</span> to <span class="highlight-red">8</span> members, and we found ourselves stuck in a single area of progress.
+          </span>
         </p>
-        <p style="margin-bottom:1.2rem;">
-          <b>This month (June)</b> has been an <span style="color:#29A9E1;font-weight:600;">unforgettable moment</span> for us! We have grown to <span style="color:#28a745;font-weight:600;">19</span> members, and for the first time, we are receiving a surge of applications from talented individuals eager to join Vyntyra Consultancy Services.
+        <p style="margin-bottom:1.2rem; font-size:1.13rem;color:#374151;">
+          <span class="animated-text delay-2">
+            <b class="highlight-blue-light">Last previous month (June)</b> has been an <span class="highlight-blue-light">unforgettable moment</span> for us! We have grown to <span class="highlight-green">19</span> members, and for the first time, we are receiving a surge of applications from talented individuals eager to join Vyntyra Consultancy Services.
+          </span>
         </p>
-        <p style="margin-bottom:0;">
-          Our team is expanding, our momentum is building, and we are excited to welcome new faces as we continue to grow together. Thank you to everyone who believes in our vision!
+        <p style="margin-bottom:1.2rem; font-size:1.13rem;color:#374151;">
+          <span class="animated-text delay-3">
+            For <b class="highlight-main-blue">Present month (July)</b>, we achieved an impressive <span class="highlight-green">30% growth</span> from our previous standing, demonstrating significant progress and market presence. We've also successfully <b class="highlight-main-blue">competed with industry leaders</b> like <span class="highlight-main-blue">TCS</span> and other major companies.
+          </span>
+        </p>
+        <p style="margin-bottom:1.2rem; font-size:1.13rem;color:#374151;">
+          <span class="animated-text delay-4">
+            Our team is expanding, our momentum is building, and we are excited to welcome new faces as we continue to grow together.
+          </span>
+        </p>
+        <p style="margin-bottom:0; font-size:1.13rem;color:#374151;">
+          <span class="animated-text delay-5">
+            Thank you to everyone who believes in our vision!
+          </span>
+          <br>
+          <span class="animated-text delay-6" style="color: #666; font-size: 0.95em;">
+            (August report will be updated soon!)
+          </span>
         </p>
       </div>
     </section>
-    <!-- Place this section just before the Monthly Performance Report – Success Story section -->
-<section class="partner-jobportals-section" style="max-width:900px;margin:2.5rem auto 2rem auto;padding:1.5rem 1rem;background:#fffbe7;border-radius:18px;box-shadow:0 4px 24px #ffb30022;">
-  <h2 style="color:#ffb300;font-family:'Poppins',Arial,sans-serif;font-size:1.35rem;margin-bottom:1.2rem;text-align:center;">
-    Our Partner Job Posting Companies
-  </h2>
-  <marquee behavior="scroll" direction="left" scrollamount="7" style="display:flex;align-items:center;gap:2.5rem;">
-    <img src="https://yourdomain.com/LI-Logo.png" alt="LinkedIn" style="height:40px;width:auto;margin-right:2.5rem;border-radius:10px;box-shadow:0 2px 8px #0077b533;">
-    <img src="https://indeed.design/static/b8209d5d21f91c9bbb250726f0c28824/1ce40/Logo-Hero-Static.webp" alt="Indeed" style="height:54px;width:auto;margin-right:2.5rem;border-radius:10px;box-shadow:0 2px 8px #003A9B33;">
-    <img src="https://internshala.com/static/images/internshala_og_image.jpg" alt="Internshala" style="height:54px;width:auto;margin-right:2.5rem;border-radius:10px;box-shadow:0 2px 8px #29A9E133;">
-    <img src="https://www.logoshape.com/wp-content/uploads/2024/03/Naukri-vector-logo.jpg" alt="Naukri" style="height:54px;width:auto;margin-right:2.5rem;border-radius:10px;box-shadow:0 2px 8px #29A9E133;">
-    <!-- Add more partner logos here if needed -->
-  </marquee>
-</section>
-    <!-- Add this section after the Partner Job Posting Companies section and before Monthly Performance Report -->
-    <section class="msme-skill-section" style="max-width:900px;margin:2.5rem auto 2rem auto;padding:1.5rem 1rem;background:#e3f0ff;border-radius:18px;box-shadow:0 4px 24px #007bff11;display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:center;">
-      <div style="flex:1;min-width:220px;text-align:center;">
-        <h2 style="color:#007bff;font-family:'Poppins',Arial,sans-serif;font-size:1.15rem;margin-bottom:1.2rem;">
-          Registered & Recognised under MSME,<br> Skill Development of India
-        </h2>
-        <p style="color:#374151;font-size:1.08rem;margin-bottom:0;">
-          We are officially registered and recognised by the Ministry of Micro, Small & Medium Enterprises (MSME) and Skill Development of India.
-        </p>
-      </div>
-      <div style="display:flex;gap:2rem;align-items:center;justify-content:center;">
-        <img src="msme.png" alt="MSME Logo" style="height:60px;width:auto;background:#fff;border-radius:10px;box-shadow:0 2px 8px #007bff22;padding:6px;">
-        <img src="Skill India.jpg" alt="Skill India Logo" style="height:60px;width:auto;background:#fff;border-radius:10px;box-shadow:0 2px 8px #007bff22;padding:6px;">
-      </div>
-    </section>
-    <!-- Add this below the MSME/Skill India section or in your site map/footer as appropriate -->
-    <div style="text-align:center;margin:1.5rem 0 2rem 0;">
-      <span style="font-size:1.08rem;color:#007bff;font-weight:600;">
-        To verify our Udyam/MSME Registration:&nbsp;
-        <a href="https://udyamregistration.gov.in/verifyudyambarcode.aspx?verifyudrn=KcfeF3ZY5clxyRgH77x2cIIchyOdF+pNmnU49QJrDoM=" target="_blank" style="color:#ffb300;text-decoration:underline;font-weight:700;">
-          Click here to verify
-        </a>
-        <br>
-        To print the official MSME/Udyam document:&nbsp;
-        <a href="MSME CERTIFICATE.png" target="_blank" style="color:#007bff;text-decoration:underline;font-weight:700;">
-          Click here to print official document
-        </a>
-      </span>
-    </div>
   </div>
-  <!-- ...rest of your content... -->
-  <!-- Add this script just before the closing </body> tag -->
+
+  <!-- Service Quote Modal - copied from about.html -->
+  <div id="serviceQuoteModal">
+    <form id="serviceQuoteForm" action="YOUR_APPS_SCRIPT_WEB_APP_URL_HERE" method="POST">
+      <button type="button" onclick="closeServiceQuoteModal()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.3rem;color:#e53935;cursor:pointer;">&times;</button>
+      <h2 style="text-align:center;color:#2a5298;margin-bottom:1.2rem;font-size:1.35rem;">Request a Service Quote</h2>
+      <div class="form-group">
+        <label for="quoteName">Your Name</label>
+        <input id="quoteName" name="name" type="text" required>
+      </div>
+      <div class="form-group">
+        <label for="quoteEmail">Email</label>
+        <input id="quoteEmail" name="email" type="email" required>
+      </div>
+      <div class="form-group">
+        <label for="quotePhone">Phone</label>
+        <input id="quotePhone" name="phone" type="tel" pattern="[0-9+\-\s]{7,}" required>
+      </div>
+      <div class="form-group">
+        <label for="quoteService">Service Interested In</label>
+        <select id="quoteService" name="service" required>
+          <option value="">Select a Service</option>
+          <option>IT Consultancy</option>
+          <option>Software Solutions</option>
+          <option>Web Development</option>
+          <option>Hiring & Recruitment</option>
+          <option>Branding & Marketing</option>
+          <option>E-Learning & Training</option>
+          <option>Resume Building</option>
+          <option>Research & Development</option>
+          <option>Cybersecurity</option>
+          <option>Business Analytics</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="quoteDetails">Project Details / Requirements</label>
+        <textarea id="quoteDetails" name="details" rows="3" required></textarea>
+      </div>
+      <button type="submit">
+        Submit Request
+      </button>
+      <div id="quoteSuccessMsg"></div>
+    </form>
+  </div>
+
+  <!-- Chatbot Container - copied from about.html -->
+  <div id="chatbotContainer">
+    <div id="chatWindow">
+      <div id="chatHeader">
+        <span>Vyntyra Chatbot <i class="fas fa-robot"></i></span>
+        <select id="languageSelect">
+          <option value="en-US">English</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="te-IN">Telugu</option>
+          <option value="ar-EG">Arabic</option>
+          <option value="de-DE">German</option>
+          <option value="es-US">Spanish</option>
+          <option value="fr-FR">French</option>
+          <option value="id-ID">Indonesian</option>
+          <option value="it-IT">Italian</option>
+          <option value="ja-JP">Japanese</option>
+          <option value="ko-KR">Korean</option>
+          <option value="pt-BR">Portuguese (Brazil)</option>
+          <option value="ru-RU">Russian</option>
+          <option value="nl-NL">Dutch</option>
+          <option value="pl-PL">Polish</option>
+          <option value="th-TH">Thai</option>
+          <option value="tr-TR">Turkish</option>
+          <option value="vi-VN">Vietnamese</option>
+          <option value="ro-RO">Romanian</option>
+          <option value="uk-UA">Ukrainian</option>
+          <option value="bn-BD">Bengali</option>
+          <option value="en-IN">English (India)</option>
+          <option value="mr-IN">Marathi</option>
+          <option value="ta-IN">Tamil</option>
+        </select>
+        <button id="closeChatbotBtn" class="close-btn">&#x2715;</button>
+      </div>
+      <div id="chatMessages">
+        <!-- Chat messages will be appended here -->
+      </div>
+      <div class="chat-input-area">
+        <button id="micBtn" class="mic-btn"><i class="fas fa-microphone"></i></button>
+        <textarea id="chatInput" placeholder="Type your message..."></textarea>
+        <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    <button id="chatbotToggleBtnGlobal">
+      <i class="fas fa-robot"></i>
+    </button>
+  </div>
+
   <script>
-  // Search bar navigation
-  document.querySelector('.search-bar').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
-    if (val.match(/^(about|about us|abou)$/)) {
-      window.location.href = 'about.html';
-    } else if (val.match(/^(updates?|update)$/)) {
-      window.location.href = 'updates.html';
-    } else if (val.match(/^(news)$/)) {
-      window.location.href = 'news.html';
-    } else if (val.match(/^(careers?|career)$/)) {
-      window.location.href = 'careers.html';
+    // Global functions (for onclick attributes)
+    function openServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'flex';
+      document.getElementById('serviceQuoteForm').reset();
+      document.getElementById('quoteSuccessMsg').style.display = 'none';
     }
-  });
 
-  // Forward to careers.html when clicking "Career" in the footer or header
-  document.addEventListener('DOMContentLoaded', function() {
-    // Header nav
-    document.querySelectorAll('a[href="careers.html"], a[href="/career"], a[href="career"], a[href="careers"]').forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = 'careers.html';
-      });
-    });
-    // Footer nav
-    document.querySelectorAll('a[href="/career"]').forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = 'careers.html';
-      });
-    });
-  });
-
-// filepath: c:\Users\Jamia\OneDrive\Desktop\website\home.html
-// Place after your header or at the end of the body
-document.addEventListener('DOMContentLoaded', function() {
-  const mainBtn = document.getElementById('mainContactBtn');
-  const subBtns = document.getElementById('subContactBtns');
-  let hideTimeout;
-
-  function showSubBtns() {
-    clearTimeout(hideTimeout);
-    subBtns.style.display = 'flex';
-  }
-  function hideSubBtns() {
-    hideTimeout = setTimeout(() => {
-      subBtns.style.display = 'none';
-    }, 300);
-  }
-
-  mainBtn.addEventListener('mouseenter', showSubBtns);
-  mainBtn.addEventListener('focus', showSubBtns);
-  mainBtn.addEventListener('mouseleave', hideSubBtns);
-  subBtns.addEventListener('mouseenter', showSubBtns);
-  subBtns.addEventListener('mouseleave', hideSubBtns);
-
-  // For mobile: toggle on click
-  mainBtn.addEventListener('click', function(e) {
-    if (window.innerWidth < 900) {
-      e.preventDefault();
-      subBtns.style.display = subBtns.style.display === 'flex' ? 'none' : 'flex';
+    function closeServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'none';
     }
-  });
-});
+
+    // Login modal functions (if needed - placeholder, not active in this code)
+    function openAuthModal() {
+      document.getElementById('authModal').style.display = 'flex';
+      showAuthStep(1);
+    }
+    function closeAuthModal() {
+      document.getElementById('authModal').style.display = 'none';
+    }
+    function showAuthStep(step) { /* ... */ }
+    function showLoginOptions() { /* ... */ }
+    function showLoginProviders(role) { /* ... */ }
+    function showRegisterRole() { /* ... */ }
+    function showRegisterProviders(role) { /* ... */ }
+
+    // Chatbot specific global variables and functions
+    const chatbotWindow = document.getElementById('chatWindow');
+    const chatbotToggleBtn = document.getElementById('chatbotToggleBtnGlobal');
+    const closeChatbotBtn = document.getElementById('closeChatbotBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const languageSelect = document.getElementById('languageSelect');
+    const micBtn = document.getElementById('micBtn');
+
+    // Store chat history for conversational context
+    let chatHistory = [];
+
+    // State for email drafting process
+    let emailDraftingState = 'none'; // 'none', 'awaiting_recipient', 'awaiting_subject', 'awaiting_body', 'draft_ready'
+    let emailDetails = {
+      to: '',
+      subject: '',
+      body: ''
+    };
+    const OFFICIAL_EMAIL = 'enquiries.vyntyraconsultancyservices@outlook.com';
+
+    // Speech Recognition setup
+    let recognition;
+    let isRecording = false;
+
+    // Function to toggle chatbot visibility
+    function toggleChatbot() {
+      chatbotWindow.classList.toggle('active');
+      if (chatbotWindow.classList.contains('active')) {
+        if (chatHistory.length === 0) {
+          // Initial bot message when chatbot is opened for the first time
+          appendMessage("Hello! I'm Vyntyra's AI assistant. I can help you with information about our services, team, locations, and more from both our Home and About Us pages! ✨ I can also help you draft professional emails! Just type or say 'write an email'.", 'bot');
+        }
+        // Ensure input is focused when chat opens
+        chatInput.focus();
+      } else {
+        // Stop recording if chat window is closed while recording
+        if (isRecording) {
+            recognition.stop();
+        }
+      }
+    }
+
+    // Check if Web Speech API is supported
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.interimResults = false; // Only return final results
+        recognition.lang = languageSelect.value; // Set initial language
+
+        recognition.onstart = () => {
+            console.log('Voice recognition started.');
+            micBtn.classList.add('recording');
+            appendMessage('Listening... Please speak now.', 'bot');
+            isRecording = true;
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            console.log('Speech recognized:', transcript);
+            chatInput.value = transcript;
+            sendMessage(); // Send the recognized text as a message
+            micBtn.classList.remove('recording');
+            isRecording = false;
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            micBtn.classList.remove('recording');
+            isRecording = false;
+            let errorMessage = "Sorry, I couldn't understand that. Please try typing.";
+            if (event.error === 'not-allowed' || event.error === 'denied') {
+                errorMessage = "Microphone access denied. Please enable microphone permissions in your browser settings to use voice input.";
+            } else if (event.error === 'no-speech') {
+                errorMessage = "No speech detected. Please try again.";
+            } else if (event.error === 'audio-capture') {
+                errorMessage = "Could not access microphone. Please ensure it's connected and not in use by another application.";
+            }
+            appendMessage(errorMessage, 'bot');
+        };
+
+        recognition.onend = () => {
+            console.log('Voice recognition ended.');
+            micBtn.classList.remove('recording');
+            isRecording = false;
+        };
+
+        micBtn.addEventListener('click', () => {
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.lang = languageSelect.value; // Update language before starting
+                recognition.start();
+            }
+        });
+
+        // Update recognition language when the select box changes
+        languageSelect.addEventListener('change', () => {
+            if (recognition) {
+                recognition.lang = languageSelect.value;
+                appendMessage(`Language set to ${languageSelect.options[languageSelect.selectedIndex].text}.`, 'bot');
+            }
+        });
+
+    } else {
+        micBtn.style.display = 'none'; // Hide microphone button if API is not supported
+        console.warn('Web Speech API is not supported in this browser.');
+    }
+
+
+    const PAGE_CONTEXT = `
+      You are an AI assistant for Vyntyra Consultancy Services.
+      This context includes information from both the Home and About Us pages.
+
+      **Vyntyra Consultancy Services Overview (from Home Page):**
+      Vyntyra Consultancy Services is an innovation-driven firm providing tailored IT Consultancy, Hiring and Recruiting services, Branding, E-learning, Marketing, and Research & Development.
+      We connect talent with opportunities and elevate brand identities with strategic creativity. Our transformative digital education, smart marketing strategies, and innovative research ensure that our solutions make a meaningful impact.
+      Vyntyra has collaborated with 4+ companies.
+      **Internship Benefits (from Home Page):**
+      Vyntyra offers internships designed to provide invaluable experience.
+      What sets our internships apart:
+      - Real-World Projects: Dive into live projects that directly impact clients.
+      - Hands-On Learning: Apply theoretical knowledge to real-world situations.
+      - Global Collaboration: Work with diverse teams from around the world.
+      - True Teamwork: Contribute to a team and leverage collective strengths.
+      - Measurable Impact: See direct results of your work.
+      What you get:
+      - Letter of Recommendation (LOR)
+      - Internship Certificate
+      - Personalized Career Guidance
+      - Resume Enhancement
+      - Social Media Profile Boosting
+      - And many more exciting offers!
+      Opportunity for permanent position: Upon successful completion, if work and performance impress, a permanent opportunity at Vyntyra may be offered.
+      **Monthly Performance Report (from Home Page):**
+      3 months before, team size dropped from 14 to 8 members, and progress was stuck in a single area.
+      Last previous month (June) has been an unforgettable moment for us! We have grown to 19 members, and for the first time, we are receiving a surge of applications from talented individuals eager to join Vyntyra Consultancy Services.
+      For Present month (July), we achieved an impressive 30% growth from our previous standing, demonstrating significant progress and market presence. We've also successfully competed with industry leaders like TCS and other major companies.
+      Our team is expanding, our momentum is building, and we are excited to welcome new faces as we continue to grow together. Thank you to everyone who believes in our vision! (August report will be updated soon!)
+      **Our Clients (from Home Page):**
+      Vyntyra is undergoing client project for Q&A type Android application for Aditya Institute of Technology and Management, a leading Institution in Andhra Pradesh. We are also working on an Android & IOS application for Aditya Institute of Technology and Management to enhance Student Communication Without Limitations for Guidance or Solutions.
+
+      **Vyntyra Consultancy Services detailed offerings (from About Us Page):**
+      Vyntyra Consultancy Services offers the following key services:
+      - IT Consultancy: Tailored IT solutions, digital transformation, technology integration, and process optimization. You can ask for more details on any of these.
+        - Technology assessment & strategy: Helps businesses evaluate current tech and plan for future needs.
+        - Process automation: Streamlines operations by automating repetitive tasks.
+        - Cloud & infrastructure consulting: Assists with cloud migration, setup, and optimization of IT infrastructure.
+      - Software Solutions: Provides custom software development to streamline business operations and drive innovation. This includes enterprise applications, automation tools, and ongoing maintenance & support.
+      - Web Development: Creates modern, responsive websites and web applications to enhance digital presence. Services cover corporate websites, portfolios, e-commerce solutions, and UI/UX design.
+      - Hiring & Recruitment: Focuses on connecting talent with opportunity through strategic hiring and recruitment services. This encompasses campus & lateral hiring, talent assessment, and HR consulting.
+      - Branding & Marketing: Aims to elevate your brand with strategic creativity and smart marketing solutions. Offers brand identity & design, digital & social media marketing, and content creation.
+      - E-Learning & Training: Delivers transformative digital education and professional training programs for upskilling. Includes online courses & workshops, corporate training, and skill development initiatives.
+      - Resume Building: Provides professional resume services to help individuals stand out in the job market. This covers resume writing & design, LinkedIn profile optimization, and interview preparation.
+      - Research & Development: Conducts innovative research to ensure solutions make a meaningful impact. Key areas are market & industry research, product & process innovation, and data analytics.
+      - Cybersecurity: Protects businesses with advanced security solutions and audits.
+      - Business Analytics: Offers data-driven insights and analytics for smarter decision-making.
+
+      **Founder and Team (from About Us Page):**
+      The founder is Jami Eswar Anil Kumar. His message is: "At Vyntyra, we believe that true progress is achieved when innovation meets execution. Our mission is to empower businesses and individuals to reach their highest potential through technology, creativity, and collaboration. Thank you for being a part of our journey.”
+
+      Team members are:
+      - Anu Sri Metta: Research and Development Manager (Specializes in Full Stack & Cloud Solutions)
+      - Harshitha Patnana: IT- Consultant (Specializes in User Experience & Branding)
+      - Seera Sowjanya: HR Manager (Specializes in Agile & Delivery Excellence)
+      - Monika Lade: Marketing Head (Specializes in Digital & Content Strategy)
+      - Jeevanasri Maddi: Client Services (Specializes in Talent Acquisition & Culture)
+      - Lohitha Vana: Customer Support (Specializes in Customer Relations)
+
+      **Locations (from About Us Page):**
+      Vyntyra Consultancy Services has a physical location at:
+      - Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016.
+      Virtual locations are established in:
+      - Bangalore
+      - Hyderabad
+      - Uttar Pradesh
+
+      **Important Links:**
+      - Home: home.html
+      - About Us: about.html
+      - Updates: updates.html
+      - News: news.html
+      - Careers: careers.html (Also the page for internship applications)
+      - Portfolio: portfolio.html
+      - User Agreement, Terms and Condition, Privacy policy: https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/ and https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/
+      - Contact Us: Can be initiated via the "Get a Quote for Service" form (which is linked to from the header Contact Us button).
+
+      You should answer questions based on this information. If a user asks a question not covered by this information, inform them that you do not have that information.
+      If a user asks about a page like "Home", "About Us", "Updates", "News", "Careers", "Portfolio", or "Contact Us", you can suggest they visit that page and provide the corresponding HTML file name or action. For "Contact Us", direct them to the "Get a Quote for Service" form.
+      Always respond in the language specified by the user in their prompt or chosen in the language selector.
+      When asked about a specific service, provide a detailed explanation of what Vyntyra offers under that service, drawing from the provided context. If asked to summarize Vyntyra's mission or values, provide a concise summary based on the founder's message.
+      When asked about internships, explain the benefits, what one gets, and the opportunity for a permanent position.
+      When asked about client details, state that Vyntyra is undergoing client onboarding and projects will be visible once performed, and specifically mention the projects with Aditya Institute of Technology and Management if asked about current projects.
+      When asked about recent performance or growth, refer to the Monthly Performance Report and highlight the growth percentage and competition with industry leaders.
+    `;
+
+    function appendMessage(text, sender, isHtml = false) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('chat-message', sender);
+      if (isHtml) {
+        messageElement.innerHTML = text;
+      } else {
+        messageElement.textContent = text;
+      }
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+    }
+
+    async function callGeminiAPI(history, targetLanguage) {
+      const apiKey = ""; // Canvas will automatically provide this at runtime
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+      const conversation = history.map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      }));
+
+      // Add system instruction for context and language
+      const systemInstruction = PAGE_CONTEXT + `\n\n Respond in ${targetLanguage}.`;
+      const fullConversation = [{
+        role: "user",
+        parts: [{ text: systemInstruction }]
+      },
+      {
+        role: "model",
+        parts: [{ text: "Okay, I understand." }]
+      },
+      ...conversation];
+
+
+      const payload = {
+        contents: fullConversation,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 500,
+        },
+      };
+
+      let retries = 0;
+      const maxRetries = 5;
+      const baseDelay = 1000; // 1 second
+
+      while (retries < maxRetries) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            if (response.status === 429) { // Too Many Requests
+              const delay = baseDelay * Math.pow(2, retries);
+              retries++;
+              await new Promise(res => setTimeout(res, delay));
+              continue; // Retry the request
+            }
+            throw new Error(`API error: ${response.statusText}`);
+          }
+
+          const result = await response.json();
+
+          // Check for empty candidates array or specific finish reasons
+          if (result.candidates && result.candidates.length > 0) {
+              const firstCandidate = result.candidates[0];
+              if (firstCandidate.finishReason === "SAFETY") {
+                  console.warn("Gemini API response blocked due to safety reasons:", result);
+                  return "I'm sorry, I cannot generate a response for that request due to safety concerns. Please try rephrasing.";
+              }
+              if (firstCandidate.content && firstCandidate.content.parts && firstCandidate.content.parts.length > 0) {
+                  return firstCandidate.content.parts[0].text;
+              }
+          }
+
+          // Fallback for unexpected structure or no content generated
+          console.error("Unexpected API response structure or no content generated:", result);
+          return "I'm sorry, I couldn't generate a response for that. Could you please try asking something else or rephrase your request?";
+
+        } catch (error) {
+          console.error("Error calling Gemini API:", error);
+          return "I'm having trouble connecting right now. Please try again later.";
+        }
+      }
+      return "I'm currently overloaded. Please try again in a few moments.";
+    }
+
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            appendMessage('Email copied to clipboard! ✅', 'bot');
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            appendMessage('Failed to copy email to clipboard. Please copy manually.', 'bot');
+        }
+        document.body.removeChild(textarea);
+    }
+
+    async function sendMessage() {
+      const userMessage = chatInput.value.trim();
+      if (userMessage === '') return;
+
+      appendMessage(userMessage, 'user');
+      chatInput.value = ''; // Clear input immediately
+
+      // Add a loading indicator
+      const loadingMessage = document.createElement('div');
+      loadingMessage.classList.add('chat-message', 'bot', 'loading');
+      loadingMessage.innerHTML = 'Thinking... <i class="fas fa-spinner fa-spin"></i>';
+      chatMessages.appendChild(loadingMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      const selectedLanguage = languageSelect.value;
+      let botResponseText;
+
+      // --- Email Drafting Logic ---
+      if (emailDraftingState === 'none' && (userMessage.toLowerCase().includes('write an email') || userMessage.toLowerCase().includes('compose an email'))) {
+        emailDraftingState = 'awaiting_recipient';
+        botResponseText = "Certainly! I can help you draft a professional email. To whom should this email be addressed (e.g., 'our sales team', 'Mr. Smith', 'info@example.com')?";
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage); // Remove loading for the immediate next question
+        return;
+      } else if (emailDraftingState === 'awaiting_recipient') {
+        emailDetails.to = userMessage;
+        emailDraftingState = 'awaiting_subject';
+        botResponseText = `Got it. The recipient is "${emailDetails.to}". What would be the subject line of the email?`;
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_subject') {
+        emailDetails.subject = userMessage;
+        emailDraftingState = 'awaiting_body';
+        botResponseText = `Okay, the subject is "${emailDetails.subject}". Please tell me the main points or purpose you want to convey in the email body.`;
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_body') {
+        emailDetails.body = userMessage;
+        emailDraftingState = 'draft_ready';
+
+        const emailPrompt = `Draft a professional email with the following details, using clear and concise language. Ensure the tone is appropriate for a business communication.
+        Recipient: ${emailDetails.to}
+        Subject: ${emailDetails.subject}
+        Main Content/Purpose: ${emailDetails.body}
+        `;
+        botResponseText = await callGeminiAPI([{ sender: 'user', text: emailPrompt }], selectedLanguage);
+
+        chatMessages.removeChild(loadingMessage); // Remove loading before showing final draft
+
+        const emailContentHtml = `
+            <p>Here's your drafted email:</p>
+            <div style="background:#f9f9f9; padding:15px; border-radius:8px; border:1px solid #eee; margin-bottom:10px;">
+                <p><strong>To:</strong> ${emailDetails.to}</p>
+                <p><strong>Subject:</strong> ${emailDetails.subject}</p>
+                <hr style="border:0; border-top:1px dashed #ddd;">
+                <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: 'Manrope', 'Poppins', sans-serif; font-size: 0.95rem; color: #333;">${botResponseText}</pre>
+            </div>
+            <div class="email-action-buttons">
+                <button onclick="copyToClipboard('${botResponseText.replace(/'/g, "\\'")}')">Copy Email</button>
+                <a href="mailto:${encodeURIComponent(emailDetails.to)}?subject=${encodeURIComponent(emailDetails.subject)}&body=${encodeURIComponent(botResponseText)}" target="_blank" style="text-decoration: none;">
+                    <button>Send via Email Client</button>
+                </a>
+            </div>
+            <p style="font-size:0.85em; color:#666; margin-top:10px;">You can also choose to refine it further or start a new email.</p>
+        `;
+        appendMessage(emailContentHtml, 'bot', true);
+        chatHistory.push({ sender: 'bot', text: botResponseText }); // Store raw text in history
+
+        // Reset email drafting state for next interaction
+        emailDraftingState = 'none';
+        emailDetails = { to: '', subject: '', body: '' };
+        return;
+      }
+      // --- End Email Drafting Logic ---
+
+      // --- Regular Chatbot Logic (if not in email drafting state) ---
+      // Add user message to chat history only for regular interactions to maintain context for LLM
+      chatHistory.push({ sender: 'user', text: userMessage });
+      
+      botResponseText = await callGeminiAPI(chatHistory, selectedLanguage);
+      chatMessages.removeChild(loadingMessage);
+
+      appendMessage(botResponseText, 'bot');
+      chatHistory.push({ sender: 'bot', text: botResponseText });
+
+      // Basic navigation logic
+      const lowerCaseResponse = botResponseText.toLowerCase();
+      const lowerCaseUserMessage = userMessage.toLowerCase();
+
+      if (lowerCaseResponse.includes('home page') || lowerCaseUserMessage.includes('home')) {
+        setTimeout(() => window.location.href = 'home.html', 1500);
+      } else if (lowerCaseResponse.includes('about us page') || lowerCaseUserMessage.includes('about us')) {
+        setTimeout(() => window.location.href = 'about.html', 1500);
+      } else if (lowerCaseResponse.includes('updates page') || lowerCaseUserMessage.includes('updates')) {
+        setTimeout(() => window.location.href = 'updates.html', 1500);
+      } else if (lowerCaseResponse.includes('news page') || lowerCaseUserMessage.includes('news')) {
+        setTimeout(() => window.location.href = 'news.html', 1500);
+      } else if (lowerCaseResponse.includes('careers page') || lowerCaseUserMessage.includes('careers')) {
+        setTimeout(() => window.location.href = 'careers.html', 1500);
+      } else if (lowerCaseResponse.includes('portfolio page') || lowerCaseUserMessage.includes('portfolio')) {
+        setTimeout(() => window.location.href = 'portfolio.html', 1500);
+      } else if (lowerCaseResponse.includes('contact us') || lowerCaseUserMessage.includes('contact us') || lowerCaseResponse.includes('get a quote')) {
+        setTimeout(() => openServiceQuoteModal(), 1500);
+      }
+    }
+
+    // Event listeners
+    sendMessageBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { // Send on Enter, allow Shift+Enter for newline
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the menu toggle button and mobile navigation elements
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      const mobileCta = document.getElementById('mobile-cta');
+
+      // Toggle mobile menu on hamburger icon click
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+          mobileNav.classList.toggle('active');
+          mobileCta.classList.toggle('active');
+          // Change icon
+          const icon = menuToggle.querySelector('i');
+          if (mobileNav.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times'); // 'x' icon
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars'); // Hamburger icon
+          }
+        });
+      }
+
+      // Close mobile menu when a nav link is clicked
+      document.querySelectorAll('#mobile-nav a').forEach(item => {
+        item.addEventListener('click', () => {
+          mobileNav.classList.remove('active');
+          mobileCta.classList.remove('active');
+          menuToggle.querySelector('i').classList.remove('fa-times');
+          menuToggle.querySelector('i').classList.add('fa-bars');
+        });
+      });
+
+      // Update Contact Us button to open modal
+      const headerContactBtnDesktop = document.getElementById('headerContactBtnDesktop');
+      const headerContactBtnMobile = document.getElementById('headerContactBtnMobile');
+
+      if (headerContactBtnDesktop) {
+          headerContactBtnDesktop.addEventListener('click', function(e) {
+              e.preventDefault();
+              openServiceQuoteModal();
+          });
+      }
+      if (headerContactBtnMobile) {
+          headerContactBtnMobile.addEventListener('click', function(e) {
+              e.preventDefault();
+              openServiceQuoteModal();
+              // Also close mobile menu after clicking contact on mobile
+              mobileNav.classList.remove('active');
+              mobileCta.classList.remove('active');
+          });
+      }
+
+
+      // Original script logic (already present or modified as requested)
+      document.addEventListener('click', function(event) {
+        var instaDropdown = document.getElementById('instaDropdown');
+        if (instaDropdown && !instaDropdown.contains(event.target) && !event.target.closest('.fab.fa-instagram')) {
+          instaDropdown.style.display = 'none';
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            if (document.getElementById('serviceQuoteModal').style.display === 'flex') {
+                closeServiceQuoteModal();
+            }
+            if (document.getElementById('authModal') && document.getElementById('authModal').style.display === 'flex') { // Check if authModal exists
+                closeAuthModal();
+            }
+            if (chatbotWindow.classList.contains('active')) { // Close chatbot on ESC
+                toggleChatbot();
+            }
+        }
+      });
+
+      document.querySelector('.search-bar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
+        if (val.match(/^(about|about us|abou)$/)) {
+          window.location.href = 'about.html';
+        } else if (val.match(/^(updates?|update)$/)) {
+          window.location.href = 'updates.html';
+        } else if (val.match(/^(news)$/)) {
+          window.location.href = 'news.html';
+        } else if (val.match(/^(careers?|career)$/)) {
+          window.location.href = 'careers.html';
+        }
+      });
+
+      // Re-attaching chatbot toggle listeners in DOMContentLoaded to ensure elements exist
+      if (chatbotToggleBtn) {
+        chatbotToggleBtn.addEventListener('click', toggleChatbot);
+      }
+      if (closeChatbotBtn) {
+        closeChatbotBtn.addEventListener('click', toggleChatbot);
+      }
+    });
   </script>
-<!-- Place this just before the closing </body> tag -->
+</body>
 <footer>
   <div class="slogan-container" style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1.2rem 0 0.7rem 0;">
     <img class="slogan-logo" src="logo.png" alt="Vyntyra Logo" style="height: 58px;width:auto;border-radius:15px;box-shadow:0 3px 8px #007bff22;">
@@ -662,39 +1694,27 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="site-map-para" style="font-weight:700;color:#242525;font-size:1.1rem;letter-spacing:1px;">SITE MAP</p>
         <h6 class="site-map-heading" style="font-size:1.1rem;color:#222;margin-bottom:0.7rem;">Find all our links here</h6>
         <p class="site-coffee-para" style="color:#d49709;font-weight:600;">MEET FOR A COLLABORATION</p>
-        <p class="footer-adress" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016. 
-          <br>
-          Udyam Registration No: UDYAM-AP-09-0051886</p>
+        <p class="footer-adress" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
       </div>
       <div class="site-map-right-side" style="display:flex;flex-wrap:wrap;gap:2.5rem;">
         <ul>
           <li class="link-heading" style="color:#000000;font-weight:700;">EXPLORE</li>
-          <li><a href="home.html" class="nav-foot-link">Home</a></li>
-          <li><a href="about.html" class="nav-foot-link">About Us</a></li>
-          <li><a href="updates.html" class="nav-foot-link">Updates</a></li>
-          <li><a href="news.html" class="nav-foot-link">News</a></li>
-          <li><a href="careers.html" class="nav-foot-link">Careers</a></li>
-          <li><a href="portfolio.html" class="nav-foot-link">Portfolio</a></li>
-          <li><a href="verify.html" class="nav-foot-link">Certificate Verification</a></li>
-          <li style="margin-top:0.7rem;">
-    <span style="display:flex;flex-direction:column;gap:0.5rem;">
-      <a href="mailto:vyntyraindia@aol.com" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#007bff;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email" style="height:22px;width:22px;"> vyntyraindia@aol.com
-      </a>
-      <a href="tel:+919390515106" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#28a745;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Phone_font_awesome.svg" alt="Phone" style="height:22px;width:22px;"> +91 9390515106
-      </a>
-      <a href="https://wa.me/919390515106" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#25d366;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="height:22px;width:22px;"> WhatsApp
-      </a>
-    </span>
-  </li>
+          <li><a href="/" class="nav-foot-link">Home</a></li>
+          <li><a href="/#partnerNav" class="nav-foot-link">Partner</a></li>
+          <li><a href="/#contactNav" class="nav-foot-link">Contact Us</a></li>
+          <li><a href="/#communityNav" class="nav-foot-link">Community</a></li>
+        
         </ul>
         <ul>
           <li class="link-heading" style="color:#000000;font-weight:700;">COMPANY</li>
           <li><a class="nav-foot-link" href="/about">About Us</a></li>
-          <li><a href="/blogNav" class="nav-foot-link">Blogs</a></li>
-          <li><a href="/careers.html">Career  <font style="animation: pulse 2s infinite;" ><span class="hiring-chip" style="background:#ffb300;color:#fff;padding:4px 8px;border-radius:8px;font-size:0.85em;">WE ARE HIRING INTERNS</span></font></a></li>
+          <li><a href="/#blogNav" class="nav-foot-link">Blogs</a></li>
+          <li><a class="nav-foot-link" href="/careers.html">Career  <font style="animation: pulse 2s infinite;" ><span class="hiring-chip" style="background:#ffb300;color:#fff;padding:4px 8px;border-radius:8px;font-size:0.85em;">WE ARE HIRING INTERNS</span></font></a></li>
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#101011;font-weight:700;">USER</li>
+          <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a></li>
+          <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
         </ul>
         <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
         <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
@@ -711,7 +1731,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <table style="margin:auto;border-collapse:separate;border-spacing:0 0.7rem;background:rgba(255,255,255,0.95);border-radius:18px;box-shadow:0 2px 16px #007bff11;">
       <tr>
         <td style="padding:0.7rem 1.5rem;">
-          <a href="https://www.linkedin.com/company/vyntyra-consultancy-services/" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+          <a href="https://www.linkedin.com/company/vyntyra-consultancy-services.in/" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
            LinkedIn
           </a>
         </td>
@@ -754,10 +1774,14 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/">Privacy policy</a>
     </div>
   </div>
-</body>
+  <div class="footer-brand-banner-section" style="text-align:center;padding:1.2rem 0 0.5rem 0;">
+    <p class="footer-slogan" style="font-size:1.1rem;color:#000000;font-weight:700;letter-spacing:2px;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</p>
+    <img src="/images/rinex_footer_banner.png" alt="" style="max-width:220px;width:100%;margin-top:0.5rem;border-radius:12px;box-shadow:0 2px 12px #007bff11;">
+  </div>
+</footer>
 </html>
 <!-- Footer (Optional) -->
-  <footer style="background:#cde4ff;color:#fff;padding:2rem 0;text-align:center;">
+  <footer style="background:#cde4ff;color:#000000;padding:2rem 0;text-align:center;">
     <p style="margin:0;font-size:0.9rem;">
       &copy; 2025 Vyntyra Consultancy Services. All rights reserved. 
       <P>Designed and Developed by JAMI ESWAR ANIL KUMAR</P>

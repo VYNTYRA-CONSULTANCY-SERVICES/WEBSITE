@@ -64,17 +64,17 @@
       justify-content: space-between;
       padding: 1.2rem 2rem;
       background: var(--soft-card);
-      position: relative;
+      position: relative; /* Default for desktop */
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 10;
+      z-index: 100;
       box-shadow: var(--shadow);
       border-bottom: 1px solid var(--border-color);
     }
     .logo .logo\.png {
-      width: 48px;
-      height: 48px;
+      width: 78px;
+      height: 50px;
       background: url('logo.png') no-repeat center center/contain;
       border-radius: 8px;
     }
@@ -114,14 +114,178 @@
       background: linear-gradient(90deg, #007bff, #29A9E1);
       transform: scale(1.05);
     }
+
+    /* Hamburger Menu Styles */
+    .menu-toggle {
+      display: none; /* Hidden on desktop */
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary-blue);
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 101; /* Above header elements */
+    }
+
+    /* Mobile Navigation */
+    .subnav.mobile-menu {
+      display: none; /* Hidden by default */
+      flex-direction: column;
+      position: absolute;
+      top: 100%; /* Position below header */
+      left: 0;
+      width: 100%;
+      background: var(--soft-card);
+      box-shadow: var(--shadow);
+      padding: 1rem 0;
+      z-index: 99;
+      animation: slideDown 0.3s ease-out forwards;
+    }
+
+    .subnav.mobile-menu.active {
+      display: flex; /* Show when active */
+    }
+
+    .subnav.mobile-menu ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .subnav.mobile-menu li {
+      width: 100%;
+      text-align: center;
+    }
+
+    .subnav.mobile-menu a {
+      display: block;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .subnav.mobile-menu a:hover {
+      background-color: var(--soft-bg);
+    }
+
+    .cta-buttons.mobile-cta {
+      display: none; /* Hidden on desktop */
+      text-align: center;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .cta-buttons.mobile-cta.active {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+
+    /* Responsive adjustments for smaller screens */
     @media (max-width: 900px) {
       header { padding: 0.7rem 1rem; }
       .subnav ul { gap: 1rem; }
     }
-    @media (max-width: 600px) {
-      header { flex-direction: column; align-items: flex-start; }
-      .subnav ul { flex-direction: column; gap: 0.7rem; }
+
+    @media (max-width: 768px) { /* Adjust breakpoint for mobile */
+      header {
+        justify-content: space-between; /* Space out logo and toggle */
+        flex-direction: row; /* Keep elements in a row */
+        position: fixed; /* Fix header on top for mobile */
+      }
+      .subnav#main-nav, /* Hide desktop nav */
+      .cta-buttons#desktop-cta { /* Hide desktop CTA */
+        display: none;
+      }
+      .menu-toggle {
+        display: block; /* Show hamburger icon */
+      }
+      /* Adjust content padding to account for fixed header ONLY on mobile */
+      .about-section, .search-bar-container {
+        padding-top: 8rem; /* Adjust this value based on your fixed header height */
+        margin-top: 0; /* Ensure no extra margin */
+      }
     }
+
+    @media (max-width: 600px) {
+      .about-section {
+        padding: 1.2rem 0.5rem;
+      }
+      .search-bar {
+        max-width: 98vw;
+        padding: 0.25rem 0.2rem 0.25rem 0.7rem;
+      }
+      .search-bar button {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+      }
+      /* Adjusted scrolling placeholder on smaller screens */
+      .scrolling-placeholder-wrapper {
+        left: 2.5rem; /* Adjusted for smaller padding */
+        right: 4.5rem; /* Adjusted for smaller button and padding */
+      }
+    }
+
+    /* Styles for the scrolling placeholder text */
+    .scrolling-placeholder-wrapper {
+      position: absolute;
+      left: 3rem; /* Aligns with input text, accounting for icon */
+      right: 6rem; /* Accounts for the search button */
+      top: 50%;
+      transform: translateY(-50%);
+      overflow: hidden; /* Ensures text stays within bounds */
+      white-space: nowrap;
+      pointer-events: none; /* Allows clicks to pass through to the input field */
+      display: flex;
+      align-items: center;
+      z-index: 0; /* Behind the input field */
+    }
+
+    .scrolling-text {
+      display: inline-block;
+      animation: scrollText 15s linear infinite; /* Adjust duration for speed */
+      color: #a0a0a0; /* Placeholder text color */
+      font-size: 1.08rem; /* Matches input font size */
+      font-family: 'Manrope', 'Poppins', Arial, sans-serif;
+    }
+
+    /* Keyframes for the scrolling animation */
+    @keyframes scrollText {
+      0% { transform: translateX(100%); } /* Start off-screen right */
+      100% { transform: translateX(-100%); } /* End off-screen left */
+    }
+
+    /* Hide scrolling text when input is focused or has content */
+    .search-bar input[type="text"]:focus + .scrolling-placeholder-wrapper .scrolling-text,
+    .search-bar input[type="text"]:not(:placeholder-shown) + .scrolling-placeholder-wrapper .scrolling-text {
+        opacity: 0;
+        transition: opacity 0.1s ease-out;
+    }
+
+    /* Crucial: Ensure the search-bar itself clips overflowing content */
+    .search-bar {
+      overflow: hidden; /* Added to clip scrolling text */
+      /* Existing styles remain */
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 32px;
+      box-shadow: 0 4px 24px #007bff12;
+      padding: 0.25rem 0.5rem 0.25rem 1.2rem;
+      width: 100%;
+      max-width: 480px;
+      border: 1.5px solid #e0e0e0;
+      transition: box-shadow 0.2s, border 0.2s;
+      position: relative;
+    }
+
     .about-section {
       margin: 3rem auto 2.5rem auto;
       max-width: 900px;
@@ -261,224 +425,277 @@
       transform: translateY(-8px) scale(1.03);
       box-shadow: 0 6px 24px #6dd5ed44;
     }
-    /* Responsive */
-    @media (max-width: 600px) {
-      .about-section h1, .about-section h2 {
-        font-size: 1.3rem;
-      }
+
+    /* Styles for the Service Quote Modal form elements */
+    #serviceQuoteForm {
+        padding: 2.2rem 1.8rem 1.8rem 1.8rem !important; /* Adjusted padding for better internal spacing */
     }
-    .navbar {
-      width: 100%;
+
+    .form-group {
+        margin-bottom: 1.2rem; /* Consistent spacing between form fields */
+        text-align: left; /* Align labels and inputs to the left */
+    }
+
+    .form-group label {
+        display: block; /* Ensures label is on its own line */
+        margin-bottom: 0.5rem; /* Space between label and input */
+        font-weight: 600;
+        color: #374151; /* Darker color for labels */
+        font-size: 0.98rem; /* Slightly smaller for cleaner look */
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select,
+    .form-group textarea {
+        width: calc(100% - 20px); /* Full width minus padding for box-sizing */
+        padding: 0.8rem 10px; /* Increased vertical padding for taller boxes */
+        border-radius: 8px;
+        border: 1.5px solid var(--border-color);
+        font-size: 1rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group input[type="tel"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 132, 255, 0.2); /* Subtle blue glow on focus */
+    }
+
+    .form-group textarea {
+        resize: vertical; /* Allow only vertical resizing */
+        min-height: 80px; /* Ensure a minimum height for textarea */
+    }
+
+    #serviceQuoteForm button[type="submit"] {
+      margin-top: 1.5rem; /* More space above the submit button */
+      padding: 0.9rem 0; /* Taller submit button */
+      font-size: 1.1rem; /* Slightly larger text for submit button */
+      border-radius: 28px; /* More rounded button */
+    }
+
+    #quoteSuccessMsg {
+        margin-top: 1.5rem; /* Adjusted margin */
+        padding: 0.8rem; /* Added padding */
+        border-radius: 8px;
+        background-color: #e6ffed; /* Light green background for success message */
+        color: #28a745; /* Green text for success message */
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+    }
+
+    /* Chatbot styles */
+    #chatbotContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    #chatbotToggleBtnGlobal { /* Renamed ID */
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 2.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      animation: pulse 2s infinite;
+    }
+
+    #chatbotToggleBtnGlobal:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.6);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #chatWindow {
+      display: none; /* Hidden by default */
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      height: 450px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      flex-direction: column;
+      transition: all 0.3s ease-in-out;
+      transform-origin: bottom right;
+      opacity: 0;
+      transform: scale(0.8);
+      max-width: calc(100vw - 40px); /* Responsive width */
+      max-height: calc(100vh - 80px); /* Responsive height */
+    }
+
+    #chatWindow.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #chatHeader {
+      background: linear-gradient(90deg, #007bff, #29A9E1);
+      color: #fff;
+      padding: 12px 15px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 2rem;
-      background: rgba(30,60,114,0.7);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      box-shadow: 0 2px 12px rgba(30,60,114,0.15);
-      animation: fadeInDown 1s;
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-40px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    .navbar .brand {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #fff;
-      text-shadow: 0 2px 8px #0002;
-      display: flex;
-      align-items: center;
-    }
-    .navbar .nav-center {
-      display: flex;
-      flex: 1;
-      justify-content: center;
-      align-items: center;
-    }
-    .navbar .nav-links {
-      display: flex;
-      gap: 22px;
-    }
-    .navbar .nav-links a {
-      color: #fff !important;
       font-weight: 600;
-      text-decoration: none;
-      font-size: 1.08rem;
-      transition: color 0.2s;
+      font-size: 1.1rem;
     }
-    .navbar .nav-links a:hover {
-      color: #6dd5ed !important;
-    }
-    .navbar .social-links {
-      display: flex;
-      gap: 24px;
-      margin-right: 36px;
-    }
-    .navbar .social-links a,
-    .navbar .social-links .dropdown > a {
+
+    #chatHeader .close-btn {
+      background: none;
+      border: none;
       color: #fff;
-      font-size: 1.4rem;
-      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-      background: linear-gradient(90deg, #6dd5ed 0%, #2a5298 100%);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #chatMessages {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f0f2f5;
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+      white-space: pre-wrap; /* Preserve whitespace and line breaks for email drafts */
+    }
+
+    .chat-message.user {
+      background-color: #dcf8c6; /* Light green for user */
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .chat-message.bot {
+      background-color: #e2e8f0; /* Light gray for bot */
+      align-self: flex-start;
+      margin-right: auto;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 10px 15px;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+      align-items: center;
+    }
+
+    .chat-input-area textarea {
+      flex-grow: 1;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 15px;
+      font-size: 0.95rem;
+      resize: none;
+      outline: none;
+      max-height: 80px; /* Limit textarea height */
+      overflow-y: auto;
+      margin-right: 10px;
+    }
+
+    .chat-input-area button {
+      background: var(--primary-blue);
+      color: #fff;
+      border: none;
       border-radius: 50%;
-      padding: 0.5rem;
-      margin: 0 2px;
-      box-shadow: 0 2px 8px #0002;
-      animation: pulse 2s infinite;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .navbar .social-links a:hover,
-    .navbar .social-links .dropdown > a:hover {
-      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
-      color: #fff;
-      transform: scale(1.08);
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 #6dd5ed44; }
-      50% { box-shadow: 0 0 16px 8px #6dd5ed44; }
-    }
-    .about-section {
-      max-width: 900px;
-      margin: 130px auto 2.5rem auto;
-      background: rgba(255,255,255,0.10);
-      border-radius: 22px;
-      box-shadow: 0 4px 24px #0003;
-      padding: 2.5rem 2rem 2rem 2rem;
-      position: relative;
-      overflow: hidden;
-      animation: fadeIn 1.2s;
-    }
-    .about-section h1 {
-      color: #ffb300;
-      text-align: center;
-      font-family: 'Pacifico', cursive;
-      font-size: 2.2rem;
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 8px #0002;
-    }
-    .about-section h2 {
-      color: #6dd5ed;
-      font-size: 1.3rem;
-      margin-top: 2rem;
-      margin-bottom: 0.7rem;
-      font-family: 'Montserrat', Arial, sans-serif;
-      letter-spacing: 1px;
-    }
-    .about-section p, .about-section ul {
-      color: #374151;
-      font-size: 1.08rem;
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-      font-family: 'Roboto', Arial, sans-serif;
-    }
-    .about-section ul {
-      padding-left: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-    .about-section ul li {
-      margin-bottom: 0.4rem;
-      line-height: 1.6;
-    }
-    .about-highlight {
-      color: #ffb300;
-      font-weight: bold;
-      font-size: 1.15rem;
-      text-align: center;
-      margin-top: 2rem;
-      font-family: 'Montserrat', Arial, sans-serif;
-      display: block;
-      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    @media (max-width: 600px) {
-      .about-section {
-        padding: 1.2rem 0.5rem;
-      }
-    }
-    .know-more-btn {
-      margin-top: 1rem;
-      padding: 0.6rem 1.5rem;
-      border: none;
-      border-radius: 24px;
-      background: linear-gradient(90deg, #ffb300 0%, #e53935 50%, #6dd5ed 100%);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px #0002;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .know-more-btn:hover {
-      background: linear-gradient(90deg, #76a0aaa4 0%, #e5383525 50%, #8b6e2a8c 100%);
-      transform: scale(1.05);
-    }
-    .auth-action-btn, .auth-role-btn {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.7rem 0;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #4ea0b3a2 0%, #385b969d 100%);
-      color: #fff;
-      font-size: 1.08rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .auth-action-btn:hover, .auth-role-btn:hover {
-      background: linear-gradient(90deg, #2a5298 0%, #6dd5ed 100%);
-      transform: scale(1.04);
-    }
-    .auth-provider-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-    .auth-provider-btn {
-      flex: 1 1 45%;
-      min-width: 120px;
-      margin-bottom: 0.5rem;
-      padding: 0.6rem 0.5rem;
-      border: none;
-      border-radius: 8px;
-      background: #f5f5f5;
-      color: #222;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
+      width: 38px;
+      height: 38px;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
       justify-content: center;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.2s;
     }
-    .auth-provider-btn.google { color: #333; }
-    .auth-provider-btn.microsoft { color: #333; }
-    .auth-provider-btn.twitter { color: #333; }
-    .auth-provider-btn.github { color: #333; }
-    .auth-provider-btn.email { color: #333; }
-    .auth-provider-btn.phone { color: #333; }
-    .auth-provider-btn:hover {
-      background: #e3f2fd;
-      transform: scale(1.05);
+
+    .chat-input-area button.mic-btn {
+        background-color: #FFC107; /* Yellow for microphone */
+        margin-right: 8px;
+        box-shadow: 0 2px 5px rgba(255,193,7,0.4);
     }
-    @media (max-width: 500px) {
-      .auth-provider-btn { min-width: 90px; font-size: 0.95rem; }
-      .auth-provider-list { gap: 0.4rem; }
+    .chat-input-area button.mic-btn.recording {
+        background-color: #dc3545; /* Red when recording */
+        animation: pulseRed 1.2s infinite;
+    }
+    @keyframes pulseRed {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220,53,69, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(220,53,69, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220,53,69, 0); }
+    }
+
+
+    .chat-input-area button:hover {
+      background: #0056b3;
+    }
+    .chat-input-area button.mic-btn:hover {
+      background-color: #e0a800;
+    }
+
+
+    #languageSelect {
+      margin-left: 10px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 0.85rem;
+    }
+
+    .email-action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .email-action-buttons button {
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: 1px solid var(--primary-blue);
+        background-color: var(--primary-blue);
+        color: #fff;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    .email-action-buttons button:hover {
+        background-color: #0056b3;
+    }
+    .email-action-buttons button.copy {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .email-action-buttons button.copy:hover {
+        background-color: #218838;
     }
   </style>
 </head>
@@ -489,53 +706,55 @@
     </video>
   </div>
   <div class="animated-bg"></div>
+  <!-- Header -->
   <header>
     <div class="logo">
-      <a href="home.html" style="display:inline-block;"><div class="logo.png"></div></a>
+      <div class="logo.png"></div>
     </div>
-    <nav class="subnav">
+    <nav class="subnav" id="main-nav">
       <ul>
         <li><a href="home.html">Home</a></li>
         <li><a href="about.html" class="active">About Us</a></li>
         <li><a href="updates.html">Updates</a></li>
         <li><a href="news.html">News</a></li>
         <li><a href="careers.html">Careers</a></li>
-         <li><a href="verify.html" class="nav-foot-link">Certificate Verification</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
       </ul>
     </nav>
-    <div class="cta-buttons" style="position:relative;">
-      <button id="contactUsBtn" class="btn-primary" type="button" style="position:relative;z-index:11;">
-        Contact Us <i class="fa fa-caret-down"></i>
-      </button>
-      <div id="contactSubButtons" style="display:none; position:absolute; right:0; top:110%; background:#fff; border-radius:12px; box-shadow:0 4px 24px #007bff22; min-width:220px; padding:0.7rem 0; z-index:12;">
-        <a href="tel:+919390515106" class="btn-primary" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#007bff; border-radius:8px; text-align:left; font-weight:600;"><i class="fa fa-phone"></i> +91 9390515106</a>
-        <a href="mailto:vyntyraindia@aol.com" class="btn-primary" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#007bff; border-radius:8px; text-align:left; font-weight:600;"><i class="fa fa-envelope"></i> vyntyraindia@aol.com</a>
-        <a href="https://api.whatsapp.com/send/?phone=919390515106&text&type=phone_number&app_absent=0" class="btn-primary" target="_blank" style="display:block; margin:0.3rem 1rem; background:#f7faff; color:#25d366; border-radius:8px; text-align:left; font-weight:600;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-      </div>
+    <div class="cta-buttons" id="desktop-cta">
+      <a href="#contactus" class="btn-primary">Contact Us</a>
     </div>
-    <span class="bars threebars"><i class="fa-solid fa-bars"></i></span>
+    <!-- Hamburger menu icon -->
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
   </header>
 
-  <!-- Add this search bar just after the header -->
-  <div class="search-bar-container" style="margin-top:110px; display:flex; justify-content:center; z-index:2; position:relative;">
-    <form class="search-bar" autocomplete="off" style="display:flex;align-items:center;background:#fff;border-radius:32px;box-shadow:0 4px 24px #007bff12;padding:0.25rem 0.5rem 0.25rem 1.2rem;width:100%;max-width:480px;border:1.5px solid #e0e0e0;transition:box-shadow 0.2s,border 0.2s;">
-      <i class="fa fa-search" style="color:#007bff;font-size:1.2rem;margin-right:0.7rem;"></i>
-      <div style="flex:1;overflow:hidden;position:relative;min-width:0;">
-        <div id="search-marquee" style="white-space:nowrap;display:inline-block;position:absolute;left:0;top:50%;transform:translateY(-50%);animation:searchScroll 12s linear infinite;">
-          Search careers, News, Updates, services, or topics...
-        </div>
-        <input type="text" placeholder="" name="search" style="background:transparent;border:none;outline:none;width:100%;height:100%;position:relative;z-index:1;font-size:1.08rem;font-family:'Manrope','Poppins',Arial,sans-serif;color:#222;padding:0.7rem 0;" />
+  <!-- Mobile Navigation and CTA (hidden by default) -->
+  <nav class="subnav mobile-menu" id="mobile-nav">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+  </nav>
+  <div class="cta-buttons mobile-cta" id="mobile-cta">
+    <a href="#contactus" class="btn-primary">Contact Us</a>
+  </div>
+
+  <!-- Search bar -->
+  <div class="search-bar-container" style="margin-top: 110px; display:flex; justify-content:center; z-index:2; position:relative;">
+    <form class="search-bar" autocomplete="off">
+      <i class="fa fa-search" style="color:#007bff;margin-right:0.7rem;"></i>
+      <!-- New div for scrolling text -->
+      <div class="scrolling-placeholder-wrapper">
+        <span class="scrolling-text">Search courses, services, or topics...</span>
       </div>
+      <input type="text" name="search" style="border:none;outline:none;flex:1;background:transparent;color:#222;padding:0.7rem 0;">
       <button type="submit" style="background:linear-gradient(90deg,#29A9E1,#007bff);color:#fff;border:none;border-radius:24px;font-weight:600;font-size:1rem;padding:0.6rem 1.5rem;margin-left:0.8rem;cursor:pointer;transition:background 0.2s,transform 0.2s;box-shadow:0 2px 8px #007bff22;">Search</button>
     </form>
   </div>
-  <style>
-    @keyframes searchScroll {
-      0% { left: 100%; }
-      100% { left: -100%; }
-    }
-  </style>
 
   <section class="about-section">
     <h1>About Vyntyra Consultancy Services</h1>
@@ -639,7 +858,7 @@
     </div>
     <hr style="border:0; border-top:2px solid #ffb300; margin:2.5rem 0 1.5rem 0; opacity:0.7;">
     <span class="about-highlight" style="
-      background: linear-gradient(90deg, #ffb300 0%, #ff9800 100%);
+      background: linear-gradient(90deg, #007bff 0%, #ffb300 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -654,10 +873,7 @@
     <div class="founder-message-section" style="max-width:700px;margin:2.5rem auto 2rem auto;padding:1.7rem 1.3rem;background:#fffbe7;border-radius:18px;box-shadow:0 4px 24px #ffb30022;text-align:center;">
       <img src="founder.jpg" alt="Founder" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid #ffb300;margin-bottom:0.7rem;">
       <h2 style="color:#5aa7a0;font-size:1.18rem;margin-bottom:0.5rem;font-family:'Montserrat',Arial,sans-serif;">Message from Our Founder</h2>
-      <p style="color:#616872;font-size:1.18rem;line-height:1.7;margin:0 auto 0.7rem auto;max-width:650px;">
-        JAMI ESWAR ANIL KUMAR<br>
-        <span style="color:#007bff;font-size:1rem;font-weight:600;">Front End Developer</span>
-      </p>
+      <p style="color:#616872;font-size:1.18rem;line-height:1.7;margin:0 auto 0.7rem auto;max-width:650px;">JAMI ESWAR ANIL KUMAR</p>
       <div style="text-align:justify;max-width:650px;margin:0 auto;">
         <span style="font-weight:600;color:#ffb300;"> “At Vyntyra, we believe that true progress is achieved when innovation meets execution. Our mission is to empower businesses and individuals to reach their highest potential through technology, creativity, and collaboration. Thank you for being a part of our journey.”
 </span>
@@ -690,13 +906,6 @@
         <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">HR Manager</div>
         <div style="color:#801148; font-size:0.93rem;">Agile & Delivery Excellence</div>
       </div>
-      <!-- Team Member 4 -->
-      <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-        <img src="Team Member 4.jpg" alt="Team Member 4" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
-        <div style="font-weight:700; color:#6dd5ed; font-size:1.08rem;">Monika Lade</div>
-        <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Marketing Head</div>
-        <div style="color:#801148; font-size:0.93rem;">Digital & Content Strategy</div>
-      </div>
       <!-- Team Member 5 -->
       <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #0002; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
         <img src="Team Member 5.jpg" alt="Team Member 5" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #801148; margin-bottom:0.7rem;">
@@ -713,63 +922,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Add this after "My Team Behind Success" section in about.html -->
-  <h2 style="color:#007bff; text-align:center; margin-top:2.5rem; margin-bottom:1.2rem; font-family:'Montserrat',Arial,sans-serif; letter-spacing:1px;">
-    Our Top Performers - Interns
-  </h2>
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-bottom:2.5rem;">
-    <!-- Top Performer 1 -->
-    <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_1.jpg" alt="Top Intern 1" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Siddhi Aggarwal</div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Financial Strategy Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;">Outstanding Performance</div>
-    </div>
-    <!-- Top Performer 2 -->
-    <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_2.jpg" alt="Top Intern 2" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Abhishek Pandey</div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Front End Developer Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;">Team Lead Creative Excellence</div>
-    </div>
-    <!-- Top Performer 3 -->
-    <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_3.jpg" alt="Top Intern 3" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Neviditha </div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Web Development Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;">Technical Excellence, Collaborative Expertie</div>
-    </div>
-    <!-- Top Performer 4 -->
-    <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_3.jpg" alt="Top Intern 3" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Vivek Jaiswal </div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Web Development Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;"></div>
-    </div>
-    <!-- Top Performer 5 -->
-    <div style="background:rgba(255,255,255,0.13);    border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_4.jpg" alt="Top Intern 4" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Tanmayi</div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Backend Developer Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;"></div>
-    </div>
-    <!-- Top Performer 6 -->
-    <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_5.jpg" alt="Top Intern 5" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Satya Vardhan</div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Front End Developer Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;"></div>
-    </div>  
-    <!-- Top Performer 7 -->
-    <div style="background:rgba(255,255,255,0.13); border-radius:16px; box-shadow:0 2px 12px #007bff22; padding:1.2rem 1rem; min-width:180px; max-width:220px; text-align:center;">
-      <img src="top_intern_6.jpg" alt="Top Intern 6" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #007bff; margin-bottom:0.7rem;">
-      <div style="font-weight:700; color:#007bff; font-size:1.08rem;">Udit Prathap</div>
-      <div style="color:#374151; font-size:0.97rem; margin-bottom:0.3rem;">Front End Developer Intern</div>
-      <div style="color:#007bff; font-size:0.93rem;"></div>
-    </div>  
-    <!-- Add more top performers as needed -->
-  </div>
 
   <!-- Services Slide Section Start -->
   <section id="services-slide" style="max-width:950px;margin:0 auto 3rem auto;position:relative;z-index:1;">
@@ -872,36 +1024,34 @@
           <button class="auth-provider-btn google"><i class="fab fa-google"></i> Google</button>
           <button class="auth-provider-btn microsoft"><i class="fab fa-microsoft"></i> Microsoft</button>
           <button class="auth-provider-btn twitter"><i class="fab fa-twitter"></i> Twitter</button>
-          <button class="auth-provider-btn github"><i class="fab fa-github"></i> GitHub</button>
+          <button class="fab fa-github"></i> GitHub</button>
           <button class="auth-provider-btn email"><i class="fa fa-envelope"></i> Email</button>
           <button class="auth-provider-btn phone"><i class="fa fa-phone"></i> Phone</button>
         </div>
-        <!-- Example registration form (show only for email/phone if needed) -->
-        <!-- You can expand this as needed -->
       </div>
     </div>
   </div>
 
   <!-- Service Quote Modal -->
   <div id="serviceQuoteModal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(30,60,114,0.13);align-items:center;justify-content:center;">
-    <form id="serviceQuoteForm" style="background:#fff;color:#222;border-radius:18px;max-width:95vw;width:370px;padding:2.2rem 1.5rem 1.5rem 1.5rem;box-shadow:0 8px 32px #0006;position:relative;">
+    <form id="serviceQuoteForm" action="YOUR_APPS_SCRIPT_WEB_APP_URL_HERE" method="POST" style="background:#fff;color:#222;border-radius:18px;max-width:95vw;width:370px;padding:2.2rem 1.8rem 1.8rem 1.8rem;box-shadow:0 8px 32px #0006;position:relative;">
       <button type="button" onclick="closeServiceQuoteModal()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.3rem;color:#e53935;cursor:pointer;">&times;</button>
       <h2 style="text-align:center;color:#2a5298;margin-bottom:1.2rem;font-size:1.35rem;">Request a Service Quote</h2>
-      <div style="margin-bottom:1rem;">
-        <label for="quoteName" style="font-weight:600;display:block;margin-bottom:0.3rem;">Your Name</label>
-        <input id="quoteName" name="name" type="text" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      <div class="form-group">
+        <label for="quoteName">Your Name</label>
+        <input id="quoteName" name="name" type="text" required>
       </div>
-      <div style="margin-bottom:1rem;">
-        <label for="quoteEmail" style="font-weight:600;display:block;margin-bottom:0.3rem;">Email</label>
-        <input id="quoteEmail" name="email" type="email" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      <div class="form-group">
+        <label for="quoteEmail">Email</label>
+        <input id="quoteEmail" name="email" type="email" required>
       </div>
-      <div style="margin-bottom:1rem;">
-        <label for="quotePhone" style="font-weight:600;display:block;margin-bottom:0.3rem;">Phone</label>
-        <input id="quotePhone" name="phone" type="tel" pattern="[0-9+\-\s]{7,}" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      <div class="form-group">
+        <label for="quotePhone">Phone</label>
+        <input id="quotePhone" name="phone" type="tel" pattern="[0-9+\-\s]{7,}" required>
       </div>
-      <div style="margin-bottom:1rem;">
-        <label for="quoteService" style="font-weight:600;display:block;margin-bottom:0.3rem;">Service Interested In</label>
-        <select id="quoteService" name="service" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;">
+      <div class="form-group">
+        <label for="quoteService">Service Interested In</label>
+        <select id="quoteService" name="service" required>
           <option value="">Select a Service</option>
           <option>IT Consultancy</option>
           <option>Software Solutions</option>
@@ -915,9 +1065,9 @@
           <option>Business Analytics</option>
         </select>
       </div>
-      <div style="margin-bottom:1.2rem;">
-        <label for="quoteDetails" style="font-weight:600;display:block;margin-bottom:0.3rem;">Project Details / Requirements</label>
-        <textarea id="quoteDetails" name="details" rows="3" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid #e0e0e0;font-size:1rem;resize:vertical;"></textarea>
+      <div class="form-group">
+        <label for="quoteDetails">Project Details / Requirements</label>
+        <textarea id="quoteDetails" name="details" rows="3" required></textarea>
       </div>
       <button type="submit" style="width:100%;padding:0.7rem 0;font-size:1.08rem;font-weight:700;color:#fff;background:linear-gradient(90deg,#007bff 0%,#ffb300 100%);border:none;border-radius:24px;box-shadow:0 2px 8px #007bff22;cursor:pointer;transition:background 0.2s,transform 0.2s;">
         Submit Request
@@ -926,14 +1076,65 @@
     </form>
   </div>
 
+  <!-- Chatbot Container -->
+  <div id="chatbotContainer">
+    <div id="chatWindow">
+      <div id="chatHeader">
+        <span>Vyntyra Chatbot <i class="fas fa-robot"></i></span>
+        <select id="languageSelect">
+          <option value="en-US">English</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="te-IN">Telugu</option>
+          <option value="ar-EG">Arabic</option>
+          <option value="de-DE">German</option>
+          <option value="es-US">Spanish</option>
+          <option value="fr-FR">French</option>
+          <option value="id-ID">Indonesian</option>
+          <option value="it-IT">Italian</option>
+          <option value="ja-JP">Japanese</option>
+          <option value="ko-KR">Korean</option>
+          <option value="pt-BR">Portuguese (Brazil)</option>
+          <option value="ru-RU">Russian</option>
+          <option value="nl-NL">Dutch</option>
+          <option value="pl-PL">Polish</option>
+          <option value="th-TH">Thai</option>
+          <option value="tr-TR">Turkish</option>
+          <option value="vi-VN">Vietnamese</option>
+          <option value="ro-RO">Romanian</option>
+          <option value="uk-UA">Ukrainian</option>
+          <option value="bn-BD">Bengali</option>
+          <option value="en-IN">English (India)</option>
+          <option value="mr-IN">Marathi</option>
+          <option value="ta-IN">Tamil</option>
+        </select>
+        <button id="closeChatbotBtn" class="close-btn">&#x2715;</button>
+      </div>
+      <div id="chatMessages">
+        <!-- Chat messages will be appended here -->
+      </div>
+      <div class="chat-input-area">
+        <button id="micBtn" class="mic-btn"><i class="fas fa-microphone"></i></button>
+        <textarea id="chatInput" placeholder="Type your message..."></textarea>
+        <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    <button id="chatbotToggleBtnGlobal">
+      <i class="fas fa-robot"></i>
+    </button>
+  </div>
+
   <script>
-    // Hide Instagram dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-      var instaDropdown = document.getElementById('instaDropdown');
-      if (instaDropdown && !instaDropdown.contains(event.target) && !event.target.closest('.fab.fa-instagram')) {
-        instaDropdown.style.display = 'none';
-      }
-    });
+    // Global functions (for onclick attributes)
+    function openServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'flex';
+      document.getElementById('serviceQuoteForm').reset();
+      document.getElementById('quoteSuccessMsg').style.display = 'none';
+    }
+
+    function closeServiceQuoteModal() {
+      document.getElementById('serviceQuoteModal').style.display = 'none';
+    }
+
     // Login modal functions (if needed)
     function openAuthModal() {
       document.getElementById('authModal').style.display = 'flex';
@@ -959,43 +1160,457 @@
     function showRegisterProviders(role) {
       showAuthStep(5);
     }
-    // Optional: Close modal on ESC
-    document.addEventListener('keydown', function(e) {
-      if (e.key === "Escape") closeAuthModal();
-    });
 
-    document.querySelector('.search-bar').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
-      if (val.match(/^(about|about us|abou)$/)) {
-        window.location.href = 'about.html';
-      } else if (val.match(/^(updates?|update)$/)) {
-        window.location.href = 'updates.html';
-      } else if (val.match(/^(news)$/)) {
-        window.location.href = 'news.html';
-      } else if (val.match(/^(careers?|career)$/)) {
-        window.location.href = 'careers.html';
+    // Chatbot specific global variables and functions
+    const chatbotWindow = document.getElementById('chatWindow');
+    const chatbotToggleBtn = document.getElementById('chatbotToggleBtnGlobal'); // Renamed ID to avoid conflict with function name
+    const closeChatbotBtn = document.getElementById('closeChatbotBtn'); // Get the close button
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const languageSelect = document.getElementById('languageSelect');
+    const micBtn = document.getElementById('micBtn');
+
+    // Store chat history for conversational context
+    let chatHistory = [];
+
+    // State for email drafting process
+    let emailDraftingState = 'none'; // 'none', 'awaiting_recipient', 'awaiting_subject', 'awaiting_body', 'draft_ready'
+    let emailDetails = {
+      to: '',
+      subject: '',
+      body: ''
+    };
+    const OFFICIAL_EMAIL = 'enquiries.vyntyraconsultancyservices@outlook.com';
+
+    // Speech Recognition setup
+    let recognition;
+    let isRecording = false;
+
+    // Function to toggle chatbot visibility
+    function toggleChatbot() {
+      chatbotWindow.classList.toggle('active');
+      if (chatbotWindow.classList.contains('active')) {
+        if (chatHistory.length === 0) {
+          // Initial bot message when chatbot is opened for the first time
+          appendMessage("Hello! I'm Vyntyra's AI assistant. I can help you with information about our services, team, and locations. Try asking me about 'IT Consultancy' or 'Who is the founder?'. ✨ I can also help you draft professional emails! Just type or say 'write an email'.", 'bot');
+        }
+        // Ensure input is focused when chat opens
+        chatInput.focus();
+      } else {
+        // Stop recording if chat window is closed while recording
+        if (isRecording) {
+            recognition.stop();
+        }
+      }
+    }
+
+    // Check if Web Speech API is supported
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.interimResults = false; // Only return final results
+        recognition.lang = languageSelect.value; // Set initial language
+
+        recognition.onstart = () => {
+            console.log('Voice recognition started.');
+            micBtn.classList.add('recording');
+            appendMessage('Listening... Please speak now.', 'bot');
+            isRecording = true;
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            console.log('Speech recognized:', transcript);
+            chatInput.value = transcript;
+            sendMessage(); // Send the recognized text as a message
+            micBtn.classList.remove('recording');
+            isRecording = false;
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            micBtn.classList.remove('recording');
+            isRecording = false;
+            let errorMessage = "Sorry, I couldn't understand that. Please try typing.";
+            if (event.error === 'not-allowed' || event.error === 'denied') {
+                errorMessage = "Microphone access denied. Please enable microphone permissions in your browser settings to use voice input.";
+            } else if (event.error === 'no-speech') {
+                errorMessage = "No speech detected. Please try again.";
+            } else if (event.error === 'audio-capture') {
+                errorMessage = "Could not access microphone. Please ensure it's connected and not in use by another application.";
+            }
+            appendMessage(errorMessage, 'bot');
+        };
+
+        recognition.onend = () => {
+            console.log('Voice recognition ended.');
+            micBtn.classList.remove('recording');
+            isRecording = false;
+        };
+
+        micBtn.addEventListener('click', () => {
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.lang = languageSelect.value; // Update language before starting
+                recognition.start();
+            }
+        });
+
+        // Update recognition language when the select box changes
+        languageSelect.addEventListener('change', () => {
+            if (recognition) {
+                recognition.lang = languageSelect.value;
+                appendMessage(`Language set to ${languageSelect.options[languageSelect.selectedIndex].text}.`, 'bot');
+            }
+        });
+
+    } else {
+        micBtn.style.display = 'none'; // Hide microphone button if API is not supported
+        console.warn('Web Speech API is not supported in this browser.');
+    }
+
+
+    const PAGE_CONTEXT = `
+      You are an AI assistant for Vyntyra Consultancy Services.
+      Vyntyra Consultancy Services offers the following key services:
+      - IT Consultancy: Tailored IT solutions, digital transformation, technology integration, and process optimization. You can ask for more details on any of these.
+        - Technology assessment & strategy: Helps businesses evaluate current tech and plan for future needs.
+        - Process automation: Streamlines operations by automating repetitive tasks.
+        - Cloud & infrastructure consulting: Assists with cloud migration, setup, and optimization of IT infrastructure.
+      - Software Solutions: Provides custom software development to streamline business operations and drive innovation. This includes enterprise applications, automation tools, and ongoing maintenance & support.
+      - Web Development: Creates modern, responsive websites and web applications to enhance digital presence. Services cover corporate websites, portfolios, e-commerce solutions, and UI/UX design.
+      - Hiring & Recruitment: Focuses on connecting talent with opportunity through strategic hiring and recruitment services. This encompasses campus & lateral hiring, talent assessment, and HR consulting.
+      - Branding & Marketing: Aims to elevate your brand with strategic creativity and smart marketing solutions. Offers brand identity & design, digital & social media marketing, and content creation.
+      - E-Learning & Training: Delivers transformative digital education and professional training programs for upskilling. Includes online courses & workshops, corporate training, and skill development initiatives.
+      - Resume Building: Provides professional resume services to help individuals stand out in the job market. This covers resume writing & design, LinkedIn profile optimization, and interview preparation.
+      - Research & Development: Conducts innovative research to ensure solutions make a meaningful impact. Key areas are market & industry research, product & process innovation, and data analytics.
+      - Cybersecurity: Protects businesses with advanced security solutions and audits.
+      - Business Analytics: Offers data-driven insights and analytics for smarter decision-making.
+
+      The founder is Jami Eswar Anil Kumar. His message is: "At Vyntyra, we believe that true progress is achieved when innovation meets execution. Our mission is to empower businesses and individuals to reach their highest potential through technology, creativity, and collaboration. Thank you for being a part of our journey.”
+
+      Team members are:
+      - Anu Sri Metta: Research and Development Manager (Specializes in Full Stack & Cloud Solutions)
+      - Harshitha Patnana: IT- Consultant (Specializes in User Experience & Branding)
+      - Seera Sowjanya: HR Manager (Specializes in Agile & Delivery Excellence)
+      - Monika Lade: Marketing Head (Specializes in Digital & Content Strategy)
+      - Jeevanasri Maddi: Client Services (Specializes in Talent Acquisition & Culture)
+      - Lohitha Vana: Customer Support (Specializes in Customer Relations)
+
+      Vyntyra Consultancy Services has a physical location at:
+      - Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016.
+
+      Virtual locations are established in:
+      - Bangalore
+      - Hyderabad
+      - Uttar Pradesh
+
+      Other important links are:
+      - Home: home.html
+      - About Us: about.html
+      - Updates: updates.html
+      - News: news.html
+      - Careers: careers.html
+      - Portfolio: portfolio.html
+      - User Agreement, Terms and Condition, Privacy policy: https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/ and https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/
+      - Contact Us: Linked to a form.
+
+      You can also help users draft professional emails. If a user asks to draft an email, guide them through providing the recipient, subject, and then the main content/purpose of the email.
+      Once an email draft is generated, provide the user with options to:
+      1. Copy the email to their clipboard.
+      2. Open the email in their default email client, pre-filling the recipient and subject.
+      The main email address for Vyntyra is ${OFFICIAL_EMAIL}. If a user wants to send an email to Vyntyra, suggest this email address.
+
+      You should answer questions based on this information. If a user asks a question not covered by this information, inform them that you do not have that information.
+      If a user asks about a page like "Home", "About Us", "Updates", "News", "Careers", "Portfolio", or "Contact Us", you can suggest they visit that page and provide the corresponding HTML file name or action. For "Contact Us", direct them to the "Get a Quote for Service" form.
+      Always respond in the language specified by the user in their prompt or chosen in the language selector.
+      When asked about a specific service, provide a detailed explanation of what Vyntyra offers under that service, drawing from the provided context. If asked to summarize Vyntyra's mission or values, provide a concise summary based on the founder's message.
+    `;
+
+    function appendMessage(text, sender, isHtml = false) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('chat-message', sender);
+      if (isHtml) {
+        messageElement.innerHTML = text;
+      } else {
+        messageElement.textContent = text;
+      }
+      chatMessages.appendChild(messageElement);
+      chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+    }
+
+    async function callGeminiAPI(history, targetLanguage) {
+      const apiKey = ""; // Canvas will automatically provide this at runtime
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+      const conversation = history.map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      }));
+
+      // Add system instruction for context and language
+      // The system instruction is crucial and should be at the very beginning or prepended to the user's initial prompt
+      const systemInstruction = PAGE_CONTEXT + `\n\n Respond in ${targetLanguage}.`;
+      const fullConversation = [{
+        role: "user",
+        parts: [{ text: systemInstruction }]
+      },
+      {
+        role: "model",
+        parts: [{ text: "Okay, I understand." }]
+      },
+      ...conversation];
+
+
+      const payload = {
+        contents: fullConversation,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 500,
+        },
+      };
+
+      let retries = 0;
+      const maxRetries = 5;
+      const baseDelay = 1000; // 1 second
+
+      while (retries < maxRetries) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            if (response.status === 429) { // Too Many Requests
+              const delay = baseDelay * Math.pow(2, retries);
+              retries++;
+              await new Promise(res => setTimeout(res, delay));
+              continue; // Retry the request
+            }
+            throw new Error(`API error: ${response.statusText}`);
+          }
+
+          const result = await response.json();
+
+          // Check for empty candidates array or specific finish reasons
+          if (result.candidates && result.candidates.length > 0) {
+              const firstCandidate = result.candidates[0];
+              if (firstCandidate.finishReason === "SAFETY") {
+                  console.warn("Gemini API response blocked due to safety reasons:", result);
+                  return "I'm sorry, I cannot generate a response for that request due to safety concerns. Please try rephrasing.";
+              }
+              if (firstCandidate.content && firstCandidate.content.parts && firstCandidate.content.parts.length > 0) {
+                  return firstCandidate.content.parts[0].text;
+              }
+          }
+
+          // Fallback for unexpected structure or no content generated
+          console.error("Unexpected API response structure or no content generated:", result);
+          return "I'm sorry, I couldn't generate a response for that. Could you please try asking something else or rephrase your request?";
+
+        } catch (error) {
+          console.error("Error calling Gemini API:", error);
+          return "I'm having trouble connecting right now. Please try again later.";
+        }
+      }
+      return "I'm currently overloaded. Please try again in a few moments.";
+    }
+
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            appendMessage('Email copied to clipboard! ✅', 'bot');
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+            appendMessage('Failed to copy email to clipboard. Please copy manually.', 'bot');
+        }
+        document.body.removeChild(textarea);
+    }
+
+    async function sendMessage() {
+      const userMessage = chatInput.value.trim();
+      if (userMessage === '') return;
+
+      appendMessage(userMessage, 'user');
+      chatInput.value = ''; // Clear input immediately
+
+      // Add a loading indicator
+      const loadingMessage = document.createElement('div');
+      loadingMessage.classList.add('chat-message', 'bot', 'loading');
+      loadingMessage.innerHTML = 'Thinking... <i class="fas fa-spinner fa-spin"></i>';
+      chatMessages.appendChild(loadingMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      const selectedLanguage = languageSelect.value;
+      let botResponseText;
+
+      // --- Email Drafting Logic ---
+      if (emailDraftingState === 'none' && (userMessage.toLowerCase().includes('write an email') || userMessage.toLowerCase().includes('compose an email'))) {
+        emailDraftingState = 'awaiting_recipient';
+        botResponseText = "Certainly! I can help you draft a professional email. To whom should this email be addressed (e.g., 'our sales team', 'Mr. Smith', 'info@example.com')?";
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage); // Remove loading for the immediate next question
+        return;
+      } else if (emailDraftingState === 'awaiting_recipient') {
+        emailDetails.to = userMessage;
+        emailDraftingState = 'awaiting_subject';
+        botResponseText = `Got it. The recipient is "${emailDetails.to}". What would be the subject line of the email?`;
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_subject') {
+        emailDetails.subject = userMessage;
+        emailDraftingState = 'awaiting_body';
+        botResponseText = `Okay, the subject is "${emailDetails.subject}". Please tell me the main points or purpose you want to convey in the email body.`;
+        appendMessage(botResponseText, 'bot');
+        chatHistory.push({ sender: 'bot', text: botResponseText });
+        chatMessages.removeChild(loadingMessage);
+        return;
+      } else if (emailDraftingState === 'awaiting_body') {
+        emailDetails.body = userMessage;
+        emailDraftingState = 'draft_ready';
+
+        const emailPrompt = `Draft a professional email with the following details, using clear and concise language. Ensure the tone is appropriate for a business communication.
+        Recipient: ${emailDetails.to}
+        Subject: ${emailDetails.subject}
+        Main Content/Purpose: ${emailDetails.body}
+        `;
+        botResponseText = await callGeminiAPI([{ sender: 'user', text: emailPrompt }], selectedLanguage);
+
+        chatMessages.removeChild(loadingMessage); // Remove loading before showing final draft
+
+        const emailContentHtml = `
+            <p>Here's your drafted email:</p>
+            <div style="background:#f9f9f9; padding:15px; border-radius:8px; border:1px solid #eee; margin-bottom:10px;">
+                <p><strong>To:</strong> ${emailDetails.to}</p>
+                <p><strong>Subject:</strong> ${emailDetails.subject}</p>
+                <hr style="border:0; border-top:1px dashed #ddd;">
+                <pre style="white-space: pre-wrap; word-wrap: break-word; font-family: 'Manrope', 'Poppins', sans-serif; font-size: 0.95rem; color: #333;">${botResponseText}</pre>
+            </div>
+            <div class="email-action-buttons">
+                <button onclick="copyToClipboard('${botResponseText.replace(/'/g, "\\'")}')">Copy Email</button>
+                <a href="mailto:${encodeURIComponent(emailDetails.to)}?subject=${encodeURIComponent(emailDetails.subject)}&body=${encodeURIComponent(botResponseText)}" target="_blank" style="text-decoration: none;">
+                    <button>Send via Email Client</button>
+                </a>
+            </div>
+            <p style="font-size:0.85em; color:#666; margin-top:10px;">You can also choose to refine it further or start a new email.</p>
+        `;
+        appendMessage(emailContentHtml, 'bot', true);
+        chatHistory.push({ sender: 'bot', text: botResponseText }); // Store raw text in history
+
+        // Reset email drafting state for next interaction
+        emailDraftingState = 'none';
+        emailDetails = { to: '', subject: '', body: '' };
+        return;
+      }
+      // --- End Email Drafting Logic ---
+
+      // --- Regular Chatbot Logic (if not in email drafting state) ---
+      // Add user message to chat history only for regular interactions to maintain context for LLM
+      chatHistory.push({ sender: 'user', text: userMessage });
+      
+      botResponseText = await callGeminiAPI(chatHistory, selectedLanguage);
+      chatMessages.removeChild(loadingMessage);
+
+      appendMessage(botResponseText, 'bot');
+      chatHistory.push({ sender: 'bot', text: botResponseText });
+
+      // Basic navigation logic
+      const lowerCaseResponse = botResponseText.toLowerCase();
+      const lowerCaseUserMessage = userMessage.toLowerCase();
+
+      if (lowerCaseResponse.includes('home page') || lowerCaseUserMessage.includes('home')) {
+        setTimeout(() => window.location.href = 'home.html', 1500);
+      } else if (lowerCaseResponse.includes('about us page') || lowerCaseUserMessage.includes('about us')) {
+        setTimeout(() => window.location.href = 'about.html', 1500);
+      } else if (lowerCaseResponse.includes('updates page') || lowerCaseUserMessage.includes('updates')) {
+        setTimeout(() => window.location.href = 'updates.html', 1500);
+      } else if (lowerCaseResponse.includes('news page') || lowerCaseUserMessage.includes('news')) {
+        setTimeout(() => window.location.href = 'news.html', 1500);
+      } else if (lowerCaseResponse.includes('careers page') || lowerCaseUserMessage.includes('careers')) {
+        setTimeout(() => window.location.href = 'careers.html', 1500);
+      } else if (lowerCaseResponse.includes('portfolio page') || lowerCaseUserMessage.includes('portfolio')) {
+        setTimeout(() => window.location.href = 'portfolio.html', 1500);
+      } else if (lowerCaseResponse.includes('contact us') || lowerCaseUserMessage.includes('contact us') || lowerCaseResponse.includes('get a quote')) {
+        setTimeout(() => openServiceQuoteModal(), 1500);
+      }
+    }
+
+    // Event listeners
+    sendMessageBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { // Send on Enter, allow Shift+Enter for newline
+        e.preventDefault();
+        sendMessage();
       }
     });
 
-    // Toggle contact sub-buttons
+    // Attach event listeners for chatbot toggle buttons
+    chatbotToggleBtn.addEventListener('click', toggleChatbot);
+    closeChatbotBtn.addEventListener('click', toggleChatbot);
+
+
     document.addEventListener('DOMContentLoaded', function() {
-      const btn = document.getElementById('contactUsBtn');
-      const subBtns = document.getElementById('contactSubButtons');
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        subBtns.style.display = (subBtns.style.display === 'block') ? 'none' : 'block';
-      });
-      // Hide on click outside
-      document.addEventListener('click', function(e) {
-        if (subBtns.style.display === 'block' && !btn.contains(e.target) && !subBtns.contains(e.target)) {
-          subBtns.style.display = 'none';
+      // Original script logic
+      document.addEventListener('click', function(event) {
+        var instaDropdown = document.getElementById('instaDropdown');
+        if (instaDropdown && !instaDropdown.contains(event.target) && !event.target.closest('.fab.fa-instagram')) {
+          instaDropdown.style.display = 'none';
         }
       });
-    });
 
-    // Services Slide Logic
-    (function() {
+      document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            if (document.getElementById('serviceQuoteModal').style.display === 'flex') {
+                closeServiceQuoteModal();
+            }
+            if (document.getElementById('authModal').style.display === 'flex') {
+                closeAuthModal();
+            }
+            if (chatbotWindow.classList.contains('active')) { // Close chatbot on ESC
+                toggleChatbot();
+            }
+        }
+      });
+
+      document.querySelector('.search-bar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const val = document.querySelector('.search-bar input[type="text"]').value.trim().toLowerCase();
+        if (val.match(/^(about|about us|abou)$/)) {
+          window.location.href = 'about.html';
+        } else if (val.match(/^(updates?|update)$/)) {
+          window.location.href = 'updates.html';
+        } else if (val.match(/^(news)$/)) {
+          window.location.href = 'news.html';
+        } else if (val.match(/^(careers?|career)$/)) {
+          window.location.href = 'careers.html';
+        }
+      });
+
+      const btn = document.getElementById('contactUsBtn');
+      const subBtns = document.getElementById('contactSubButtons');
+      if (btn && subBtns) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          subBtns.style.display = (subBtns.style.display === 'block') ? 'none' : 'block';
+        });
+        document.addEventListener('click', function(e) {
+          if (subBtns.style.display === 'block' && !btn.contains(e.target) && !subBtns.contains(e.target)) {
+            subBtns.style.display = 'none';
+          }
+        });
+      }
+
       const slides = document.getElementById('servicesSlides');
       const slideCards = slides ? slides.querySelectorAll('.service-slide-card') : [];
       const prevBtn = document.getElementById('slidePrev');
@@ -1013,8 +1628,8 @@
         updateVisible();
         const cardWidth = slideCards[0]?.offsetWidth || 270;
         slides.style.transform = `translateX(-${current * (cardWidth + 24)}px)`;
-        prevBtn.style.display = current === 0 ? 'none' : '';
-        nextBtn.style.display = (current >= slideCards.length - visible) ? 'none' : '';
+        if (prevBtn) prevBtn.style.display = current === 0 ? 'none' : '';
+        if (nextBtn) nextBtn.style.display = (current >= slideCards.length - visible) ? 'none' : '';
       }
 
       if (slides && prevBtn && nextBtn) {
@@ -1029,67 +1644,142 @@
         window.addEventListener('resize', updateSlide);
         updateSlide();
       }
-    })();
 
-    // Add more services dynamically (example)
-    (function() {
-      const slides = document.getElementById('servicesSlides');
-      if (!slides) return;
-      // Example: Add two more services
-      const extraServices = [
-        {
-          icon: 'fa-solid fa-shield-halved',
-          color: '#007bff',
-          title: 'Cybersecurity',
-          desc: 'Protect your business with advanced security solutions and audits.'
-        },
-        {
-          icon: 'fa-solid fa-chart-line',
-          color: '#ffb300',
-          title: 'Business Analytics',
-          desc: 'Data-driven insights and analytics for smarter decisions.'
-        }
-      ];
-      extraServices.forEach(s => {
-        const div = document.createElement('div');
-        div.className = 'service-slide-card';
-        div.style = 'min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;';
-        div.innerHTML = `
-          <i class="${s.icon}" style="font-size:2.2rem;color:${s.color};margin-bottom:0.7rem;"></i>
-          <div style="font-weight:700;color:${s.color};font-size:1.13rem;margin-bottom:0.4rem;">${s.title}</div>
-          <div style="color:#374151;font-size:0.98rem;">${s.desc}</div>
-        `;
-        slides.appendChild(div);
-      });
-    })();
+      if (slides) {
+        const extraServices = [
+          {
+            icon: 'fa-solid fa-shield-halved',
+            color: '#007bff',
+            title: 'Cybersecurity',
+            desc: 'Protect your business with advanced security solutions and audits.'
+          },
+          {
+            icon: 'fa-solid fa-chart-line',
+            color: '#ffb300',
+            title: 'Business Analytics',
+            desc: 'Data-driven insights and analytics for smarter decisions.'
+          }
+        ];
+        extraServices.forEach(s => {
+          const div = document.createElement('div');
+          div.className = 'service-slide-card';
+          div.style = 'min-width:270px;max-width:270px;background:#fff;border-radius:16px;box-shadow:0 2px 12px #007bff11;padding:1.3rem 1.1rem;flex-shrink:0;text-align:center;';
+          div.innerHTML = `
+            <i class="${s.icon}" style="font-size:2.2rem;color:${s.color};margin-bottom:0.7rem;"></i>
+            <div style="font-weight:700;color:${s.color};font-size:1.13rem;margin-bottom:0.4rem;">${s.title}</div>
+            <div style="color:#374151;font-size:0.98rem;">${s.desc}</div>
+          `;
+          slides.appendChild(div);
+        });
+      }
 
-    // Service Quote Modal Logic
-    function openServiceQuoteModal() {
-      document.getElementById('serviceQuoteModal').style.display = 'flex';
-      document.getElementById('serviceQuoteForm').reset();
-      document.getElementById('quoteSuccessMsg').style.display = 'none';
-    }
-    function closeServiceQuoteModal() {
-      document.getElementById('serviceQuoteModal').style.display = 'none';
-    }
-    document.getElementById('getQuoteBtn').addEventListener('click', openServiceQuoteModal);
-
-    // Optionally, allow ESC to close modal
-    document.addEventListener('keydown', function(e) {
-      if (e.key === "Escape") closeServiceQuoteModal();
+      const getQuoteBtn = document.getElementById('getQuoteBtn');
+      if (getQuoteBtn) {
+        getQuoteBtn.addEventListener('click', openServiceQuoteModal);
+      }
     });
-
-    // Submit handler for quote form
-    document.getElementById('serviceQuoteForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // You can integrate with your backend/email API here.
-      document.getElementById('quoteSuccessMsg').textContent = "Thank you! Your request has been submitted. We'll contact you soon.";
-      document.getElementById('quoteSuccessMsg').style.display = 'block';
-      setTimeout(closeServiceQuoteModal, 2500);
-    });
-  
   </script>
 </body>
+<footer>
+  <div class="slogan-container" style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1.2rem 0 0.7rem 0;">
+    <img class="slogan-logo" src="logo.png" alt="Vyntyra Logo" style="height: 58px;width:auto;border-radius:15px;box-shadow:0 3px 8px #007bff22;">
+    <h1 class="sloag-heading" style="font-size:1.2rem;letter-spacing:2px;color: linear-gradient(90deg, #007bff 60%, #ffb300 100%);font-family:'Poppins',sans-serif;text-shadow:0 2px 8px #007bff22;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</h1>
+  </div>
+  <!-- Creative square box around the site map section -->
+  <div style="border:2.5px dashed #29A9E1; border-radius:22px; background:linear-gradient(120deg,#f7faff 60%,#e3f0ff 100%); box-shadow:0 4px 32px #007bff18; padding:2.5rem 1.5rem 2rem 1.5rem; margin:2.5rem auto 2rem auto; max-width:1200px; position:relative; overflow:hidden;">
+    <!-- Decorative floating shapes -->
+    <div style="position:absolute;top:-30px;left:-30px;width:70px;height:70px;background:radial-gradient(circle,#29A9E1 60%,transparent 100%);opacity:0.18;z-index:0;border-radius:50%;"></div>
+    <div style="position:absolute;bottom:-30px;right:-30px;width:90px;height:90px;background:radial-gradient(circle,#ffb300 60%,transparent 100%);opacity:0.13;z-index:0;border-radius:50%;"></div>
+    <div class="site-map-section" style="position:relative;z-index:1;">
+      <div class="site-map-left-side" style="min-width:230px;">
+        <p class="site-map-para" style="font-weight:700;color:#242525;font-size:1.1rem;letter-spacing:1px;">SITE MAP</p>
+        <h6 class="site-map-heading" style="font-size:1.1rem;color:#222;margin-bottom:0.7rem;">Find all our links here</h6>
+        <p class="site-coffee-para" style="color:#d49709;font-weight:600;">MEET FOR A COLLABORATION</p>
+        <p class="footer-adress" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+      </div>
+      <div class="site-map-right-side" style="display:flex;flex-wrap:wrap;gap:2.5rem;">
+        <ul>
+          <li class="link-heading" style="color:#000000;font-weight:700;">EXPLORE</li>
+          <li><a href="/" class="nav-foot-link">Home</a></li>
+          <li><a href="/#partnerNav" class="nav-foot-link">Partner</a></li>
+          <li><a href="/#contactNav" class="nav-foot-link">Contact Us</a></li>
+          <li><a href="/#communityNav" class="nav-foot-link">Community</a></li>
+        
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#000000;font-weight:700;">COMPANY</li>
+          <li><a class="nav-foot-link" href="/about">About Us</a></li>
+          <li><a href="/#blogNav" class="nav-foot-link">Blogs</a></li>
+          <li><a class="nav-foot-link" href="/careers.html">Career  <font style="animation: pulse 2s infinite;" ><span class="hiring-chip" style="background:#ffb300;color:#fff;padding:4px 8px;border-radius:8px;font-size:0.85em;">WE ARE HIRING INTERNS</span></font></a></li>
+        </ul>
+        <ul>
+          <li class="link-heading" style="color:#101011;font-weight:700;">USER</li>
+          <li><a class="footerSignIn" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Login</a></li>
+          <li><a class="footerSignUp" href="https://vyntyra-consultancy-services.in/login" target="_blank" style="text-decoration: none;">Sign Up</a></li>
+        </ul>
+        <p class="site-coffee-para-mobile" style="color:#ffb300;font-weight:600;">MEET FOR A COLLABORATION</p>
+        <p class="footer-adress-mobile" style="font-size:0.98rem;color:#444;line-height:1.6;">Vyntyra Consultancy Services Pvt. Ltd. Unit no 601, 5th Floor, Grand Palace, Plot no 238 & 239, Dwaraka Nagar, Visakhapatnam, Andhra Pradesh 530016</p>
+      </div>
+    </div>
+    <!-- Decorative line -->
+    <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#29A9E1,#ffb300);opacity:0.08;z-index:0;transform:translateX(-50%);"></div>
+  </div>
+  <div class="social-media-section" style="text-align:center;padding-bottom:1.2rem;">
+  <h5 class="social-media-heading" style="font-size:1.1rem;color:#5c5050;font-weight:700;letter-spacing:1px;margin-bottom:1.2rem;">
+    Find us on ❤️ social media
+  </h5>
+  <div style="display:flex;justify-content:center;">
+    <table style="margin:auto;border-collapse:separate;border-spacing:0 0.7rem;background:rgba(255,255,255,0.95);border-radius:18px;box-shadow:0 2px 16px #007bff11;">
+      <tr>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://www.linkedin.com/company/vyntyra-consultancy-services.in/" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+           LinkedIn
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="mailto:vyntyraindia@aol.com" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#141010;font-size:1.08rem;">
+            Mail
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://twitter.com/vyntyraindia" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#2e2d2d;font-size:1.08rem;">
+            Twitter
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://www.instagram.com/vyntyraindia/?hl=en" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+             Instagram
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <a href="https://www.facebook.com/vyntyra-consultancy-services/?_rdr" target="_blank" style="display:flex;align-items:center;gap:0.5em;text-decoration:none;font-weight:600;color:#000000;font-size:1.08rem;">
+             Facebook
+          </a>
+        </td>
+        <td style="padding:0.7rem 1.5rem;">
+          <span style="display:flex;align-items:center;gap:0.5em;color:#888;font-size:1.08rem;opacity:0.6;cursor:not-allowed;">
+            <p></p>With ❤️ from Vyntyra
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+  <div class="copyright-section" style="text-align:center;padding:0.7rem 0 0.2rem 0;">
+    <p class="copyright-para" style="color:#888;font-size:0.98rem;">©Vyntyra Consultancy Services 2025 · 2026</p>
+    <div class="copyright-nav-container" style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">User Agreement</a>
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/termsandconditions/">Terms and Condition</a>
+      <a href="https://data.vyntyra-consultancy-services.in/vyntyra_update/privacypolicy/">Privacy policy</a>
+    </div>
+  </div>
+  <div class="footer-brand-banner-section" style="text-align:center;padding:1.2rem 0 0.5rem 0;">
+    <p class="footer-slogan" style="font-size:1.1rem;color:#000000;font-weight:700;letter-spacing:2px;">INNOVATION. IMPLEMENTATION. GROWTH. SUCCESS.</p>
+    <img src="/images/rinex_footer_banner.png" alt="" style="max-width:220px;width:100%;margin-top:0.5rem;border-radius:12px;box-shadow:0 2px 12px #007bff11;">
+  </div>
+</footer>
 </html>
 <!-- Footer (Optional) -->
   <footer style="background:#cde4ff;color:#000000;padding:2rem 0;text-align:center;">
